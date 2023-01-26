@@ -20,42 +20,42 @@ public class PortraitPieceGrabber : MonoBehaviour
 
         ppd = GetComponent<PortraitPieceDatabase>();
 
+        var tasks = new List<Task>();
+
+        tasks.Add(GetSkinsForDisplay());
+        tasks.Add(GetHairstylesForDisplay());
+
+        // Wait for all portrait pieces to be added
+        await Task.WhenAll(tasks);
+
+        LogManager.Instance.SetFirstTimeSetupMessage(false);
+    }
+
+    async Task GetSkinsForDisplay()
+    {
         string filepath = Directory.GetCurrentDirectory() + "/Portrait Generator/Portrait_Generator - 16x16/Skins";
         DirectoryInfo d = new DirectoryInfo(filepath);
 
-        var task = new Task[d.GetFiles("*.png").Length];
         foreach (var file in d.GetFiles("*.png"))
         {
             Debug.Log(file.Name);
             // file.FullName is the full path to the file
-            //StartCoroutine(GetImage(file.FullName, file.Name, PortraitPieceType.Skin));
             await GetImage(file.FullName, file.Name, PortraitPieceType.Skin);
         }
-
-        LogManager.Instance.SetFirstTimeSetupMessage(false);
     }
-    //IEnumerator GetImage(string filepath, string fileName, PortraitPieceType type)
-    //{
-    //    using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(filepath))
-    //    {
-    //        yield return uwr.SendWebRequest();
 
-    //        if (uwr.result != UnityWebRequest.Result.Success)
-    //            Debug.Log(uwr.error);
-    //        else
-    //        {
-    //            // Get downloaded asset bundle
-    //            Texture2D texture = DownloadHandlerTexture.GetContent(uwr);
+    async Task GetHairstylesForDisplay()
+    {
+        string filepath = Directory.GetCurrentDirectory() + "/Portrait Generator/Portrait_Generator - 16x16/Hairstyles";
+        DirectoryInfo d = new DirectoryInfo(filepath);
 
-    //            Sprite sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 16f);
-
-    //            sprite.name = fileName;
-    //            sprite.texture.filterMode= FilterMode.Point;
-
-    //            AddPortraitPieceToDatabase(sprite, type);
-    //        }
-    //    }
-    //}
+        foreach (var file in d.GetFiles("*.png"))
+        {
+            Debug.Log(file.Name);
+            // file.FullName is the full path to the file
+            await GetImage(file.FullName, file.Name, PortraitPieceType.Hairstyle);
+        }
+    }
 
     async Task GetImage(string filepath, string fileName, PortraitPieceType type)
     {
