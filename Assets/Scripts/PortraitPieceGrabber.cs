@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -13,7 +14,7 @@ public class PortraitPieceGrabber : MonoBehaviour
     //[SerializeField] Image imageComponent;
 
     PortraitPieceDatabase ppd;
-    private void Awake()
+    private async void Awake()
     {
         LogManager.Instance.SetFirstTimeSetupMessage(true);
 
@@ -27,7 +28,8 @@ public class PortraitPieceGrabber : MonoBehaviour
         {
             Debug.Log(file.Name);
             // file.FullName is the full path to the file
-            StartCoroutine(GetImage(file.FullName, file.Name, PortraitPieceType.Skin));
+            //StartCoroutine(GetImage(file.FullName, file.Name, PortraitPieceType.Skin));
+            await GetImage(file.FullName, file.Name, PortraitPieceType.Skin);
         }
 
         LogManager.Instance.SetFirstTimeSetupMessage(false);
@@ -59,8 +61,7 @@ public class PortraitPieceGrabber : MonoBehaviour
     {
         using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(filepath))
         {
-            await Task.Yield();
-            //yield return uwr.SendWebRequest();
+            await uwr.SendWebRequest();
 
             if (uwr.result != UnityWebRequest.Result.Success)
                 Debug.Log(uwr.error);
