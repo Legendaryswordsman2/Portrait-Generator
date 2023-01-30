@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -33,7 +34,11 @@ public class PortraitPieceGrabber : MonoBehaviour
 
     async Task GetSkinsForDisplay()
     {
-        string filepath = Directory.GetCurrentDirectory() + "/Portrait Generator/Portrait_Generator - 16x16/Skins";
+
+        string filepath = Directory.GetCurrentDirectory() + "/Portrait Pieces/Portrait_Generator - 16x16/Skins";
+
+        if (!CheckDirectory(filepath)) return;
+
         DirectoryInfo d = new DirectoryInfo(filepath);
 
         foreach (var file in d.GetFiles("*.png"))
@@ -46,7 +51,10 @@ public class PortraitPieceGrabber : MonoBehaviour
 
     async Task GetHairstylesForDisplay()
     {
-        string filepath = Directory.GetCurrentDirectory() + "/Portrait Generator/Portrait_Generator - 16x16/Hairstyles";
+        string filepath = Directory.GetCurrentDirectory() + "/Portrait Pieces/Portrait_Generator - 16x16/Hairstyles";
+
+        if (!CheckDirectory(filepath)) return;
+
         DirectoryInfo d = new DirectoryInfo(filepath);
 
         foreach (var file in d.GetFiles("*.png"))
@@ -64,7 +72,10 @@ public class PortraitPieceGrabber : MonoBehaviour
             await uwr.SendWebRequest();
 
             if (uwr.result != UnityWebRequest.Result.Success)
+            {
+                LogManager.Instance.LogError(uwr.error);
                 Debug.Log(uwr.error);
+            }
             else
             {
                 // Get downloaded asset bundle
@@ -89,6 +100,19 @@ public class PortraitPieceGrabber : MonoBehaviour
         else
         {
             ppd.Hairstyles.Add(portraitPiece);
+        }
+    }
+
+    bool CheckDirectory(string path)
+    {
+        if (Directory.Exists(path))
+        {
+            return true;
+        }
+        else
+        {
+            LogManager.Instance.LogError("Error: file path does not exist");
+            return false;
         }
     }
 }
