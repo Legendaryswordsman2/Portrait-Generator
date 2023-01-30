@@ -1,0 +1,51 @@
+{
+    "name": "Player Input Actions",
+    "maps": [
+        {
+            "name": "General",
+            "id": "042f867d-a93d-498e-b0f4-5f778769f2cf",
+            "actions": [
+                {
+                    "name": "Open Log Menu",
+                    "type": "Button",
+                    "id": "d460b451-7dc0-4b1b-8c81-be5a847626a5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2649dd62-0759-4181-a688-c34898fd4d5c",
+                    "path": "<Keyboard>/f1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Open Log Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Keyboard & Mouse",
+            "bindingGroup": "Keyboard & Mouse",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
+}
