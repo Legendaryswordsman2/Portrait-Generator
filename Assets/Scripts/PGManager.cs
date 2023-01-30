@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,7 +10,15 @@ public class PGManager : MonoBehaviour
     public PortraitPiece skin;
     public PortraitPiece hair;
 
+    public event EventHandler OnSkinChanged;
+
+    public event EventHandler OnHairstyleChanged;
+
+    public event EventHandler OnDropdownChanged;
+
     PortraitPieceGrabber ppg;
+
+    public bool finishedSetup { get; private set; } = false;
 
     private async void Awake()
     {
@@ -21,11 +30,13 @@ public class PGManager : MonoBehaviour
 
         SetPortraitPartDropdown(hair);
 
-        OnSkinChanged(0);
+        OnSkinDropdownChanged(0);
         skin.dropdown.RefreshShownValue();
 
-        OnHairstyleChanged(0);
+        OnHairstyleDropdownChanged(0);
         hair.dropdown.RefreshShownValue();
+
+        finishedSetup = true;
     }
 
     public void AddPortraitPiece(Sprite portraitPiece, PortraitPieceType type)
@@ -53,16 +64,30 @@ public class PGManager : MonoBehaviour
         portraitPiece.dropdown.value = 0;
     }
 
-    public void OnSkinChanged(int index)
+    public void OnSkinDropdownChanged(int index)
     {
         skin.imageComponent.sprite = skin.sprites[index];
+        skin.activeSprite = skin.sprites[index];
         skin.activeSpriteIndex = index;
+
+        if (!finishedSetup) return;
+
+        OnSkinChanged?.Invoke(this, null);
+
+        OnDropdownChanged?.Invoke(this, null);
     }
 
-    public void OnHairstyleChanged(int index)
+    public void OnHairstyleDropdownChanged(int index)
     {
         hair.imageComponent.sprite = hair.sprites[index];
+        hair.activeSprite = hair.sprites[index];
         hair.activeSpriteIndex = index;
+
+        if (!finishedSetup) return;
+
+        OnHairstyleChanged?.Invoke(this, null);
+
+        OnDropdownChanged?.Invoke(this, null);
     }
 
     [System.Serializable]
@@ -70,6 +95,7 @@ public class PGManager : MonoBehaviour
     {
         public string name;
         public TMP_Dropdown dropdown;
+        [ReadOnlyInspector] public Sprite activeSprite;
         [ReadOnlyInspector] public int activeSpriteIndex;
         public List<Sprite> sprites;
         public Image imageComponent;
