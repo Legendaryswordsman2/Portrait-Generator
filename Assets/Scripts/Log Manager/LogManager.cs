@@ -10,6 +10,7 @@ public class LogManager : MonoBehaviour
     public static LogManager Instance;
 
     [SerializeField] GameObject firstTimeSetupMessageMenu;
+    [SerializeField] SetupMessage setupMessage;
 
     [Space]
 
@@ -22,7 +23,7 @@ public class LogManager : MonoBehaviour
 
     public void SetFirstTimeSetupMessage(bool isActive)
     {
-        firstTimeSetupMessageMenu.SetActive(isActive);
+        setupMessage.SetSetupMessage(isActive);
     }
 
     public void LogError(string errorMessage)
