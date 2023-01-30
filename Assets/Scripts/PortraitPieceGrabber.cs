@@ -9,28 +9,34 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
+using System.Threading;
 
-enum PortraitPieceType { Skin, Hairstyle}
+public enum PortraitPieceType { Skin, Hairstyle }
 public class PortraitPieceGrabber : MonoBehaviour
 {
-    //[SerializeField] Image imageComponent;
+    [SerializeField] PGManager pgManager;
 
-    PortraitPieceDatabase ppd;
+    //CancellationTokenSource _tokenSource = null;
+
+    public bool finishedSetup { get; private set; } = false;
+
+    List<Task> tasks;
     private async void Awake()
     {
         LogManager.Instance.SetFirstTimeSetupMessage(true);
 
-        ppd = GetComponent<PortraitPieceDatabase>();
-
-        var tasks = new List<Task>();
-
-        tasks.Add(GetSkinsForDisplay());
-        tasks.Add(GetHairstylesForDisplay());
+        tasks = new List<Task>
+        {
+            GetSkinsForDisplay(),
+            GetHairstylesForDisplay()
+        };
 
         // Wait for all portrait pieces to be added
         await Task.WhenAll(tasks);
 
         LogManager.Instance.SetFirstTimeSetupMessage(false);
+
+        finishedSetup = true;
     }
 
     async Task GetSkinsForDisplay()
@@ -42,16 +48,20 @@ public class PortraitPieceGrabber : MonoBehaviour
 
         DirectoryInfo d = new DirectoryInfo(filepath);
 
+        Path.GetFileNameWithoutExtension(d.FullName);
         foreach (var file in d.GetFiles("*.png"))
         {
-            Debug.Log(file.Name);
+            //Debug.Log(file);
             // file.FullName is the full path to the file
-            await GetImage(file.FullName, file.Name, PortraitPieceType.Skin);
+            await GetImage(file.FullName, Path.GetFileNameWithoutExtension(file.Name), PortraitPieceType.Skin);
         }
     }
 
     async Task GetHairstylesForDisplay()
     {
+        //_tokenSource= new CancellationTokenSource();
+        //var token = _tokenSource.Token;
+
         string filepath = Directory.GetCurrentDirectory() + "/Portrait Pieces/Portrait_Generator - 16x16/Hairstyles";
 
         if (!CheckDirectory(filepath)) return;
@@ -60,9 +70,9 @@ public class PortraitPieceGrabber : MonoBehaviour
 
         foreach (var file in d.GetFiles("*.png"))
         {
-            Debug.Log(file.Name);
+            //Debug.Log(file.Name);
             // file.FullName is the full path to the file
-            await GetImage(file.FullName, file.Name, PortraitPieceType.Hairstyle);
+            await GetImage(file.FullName, Path.GetFileNameWithoutExtension(file.Name), PortraitPieceType.Hairstyle);
         }
     }
 
@@ -87,20 +97,8 @@ public class PortraitPieceGrabber : MonoBehaviour
                 sprite.name = fileName;
                 sprite.texture.filterMode = FilterMode.Point;
 
-                AddPortraitPieceToDatabase(sprite, type);
+                pgManager.AddPortraitPiece(sprite, type);
             }
-        }
-    }
-
-    void AddPortraitPieceToDatabase(Sprite portraitPiece, PortraitPieceType type)
-    {
-        if(type == PortraitPieceType.Skin)
-        {
-            ppd.Skins.Add(portraitPiece);
-        }
-        else
-        {
-            ppd.Hairstyles.Add(portraitPiece);
         }
     }
 
@@ -115,5 +113,16 @@ public class PortraitPieceGrabber : MonoBehaviour
             LogManager.Instance.LogError("Error: file path does not exist");
             return false;
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        if (finishedSetup) return;
+
+        //_tokenSource.Cancel();
+        //for (int i = 0; i < tasks.Count; i++)
+        //{
+        //    tasks[i].can
+        //}
     }
 }
