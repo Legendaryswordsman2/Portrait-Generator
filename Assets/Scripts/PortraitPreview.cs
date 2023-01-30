@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class PortraitPreview : MonoBehaviour
 {
-    [SerializeField] Image imageComponent;
-
     [SerializeField] Sprite previewSpritesheet;
 
     PGManager pgm;
