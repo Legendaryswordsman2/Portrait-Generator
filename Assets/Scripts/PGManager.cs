@@ -70,8 +70,6 @@ public class PGManager : MonoBehaviour
         skin.activeSprite = skin.sprites[index];
         skin.activeSpriteIndex = index;
 
-        if (!finishedSetup) return;
-
         OnSkinChanged?.Invoke(this, null);
 
         OnDropdownChanged?.Invoke(this, null);
