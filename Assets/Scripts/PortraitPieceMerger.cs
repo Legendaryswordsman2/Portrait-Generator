@@ -45,7 +45,7 @@ public class PortraitPieceMerger : MonoBehaviour
         return ConvertTextureToSprite(combinedTexture);
     }
 
-    Texture2D CombineTextures(Texture2D _texture1, Texture2D texture2)
+    public Texture2D CombineTextures(Texture2D _texture1, Texture2D texture2)
     {
         Texture2D texture1 = Instantiate(_texture1);
 
@@ -72,6 +72,28 @@ public class PortraitPieceMerger : MonoBehaviour
         //Sprite combinedSprite = Sprite.Create(texture1, new Rect(0.0f, 0.0f, texture1.width, texture1.height), new Vector2(0.5f, 0.5f), 100.0f);
 
         //return combinedSprite;
+    }
+
+    public Sprite OverrideTexture(Sprite textureToOverride, Sprite TextureToOverrideWith)
+    {
+        int startX = 0;
+        int startY = 0;
+
+        for (int x = startX; x < textureToOverride.texture.width; x++)
+        {
+
+            for (int y = startY; y < textureToOverride.texture.height; y++)
+            {
+                Color s2Color = TextureToOverrideWith.texture.GetPixel(x - startX, y - startY);
+
+                textureToOverride.texture.SetPixel(x, y, s2Color);
+            }
+        }
+        textureToOverride.texture.Apply();
+
+        Sprite combinedSprite = Sprite.Create(textureToOverride.texture, new Rect(0.0f, 0.0f, textureToOverride.texture.width, textureToOverride.texture.height), new Vector2(0.5f, 0.5f), 100.0f);
+
+        return combinedSprite;
     }
 
     Sprite ConvertTextureToSprite(Texture2D texture)
