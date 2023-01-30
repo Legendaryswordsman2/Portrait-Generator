@@ -73,11 +73,10 @@ public class PortraitPieceGrabber : MonoBehaviour
             //Debug.Log(file.Name);
             // file.FullName is the full path to the file
             pgManager.AddPortraitPiece(await GetImage(file.FullName, Path.GetFileNameWithoutExtension(file.Name)), PortraitPieceType.Hairstyle);
-            //Sprite sprite = await GetImage(file.FullName, Path.GetFileNameWithoutExtension(file.Name), PortraitPieceType.Hairstyle);
         }
     }
 
-    async Task<Sprite> GetImage(string filepath, string fileName)
+    public async Task<Sprite> GetImage(string filepath, string fileName)
     {
         using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(filepath))
         {
@@ -100,7 +99,6 @@ public class PortraitPieceGrabber : MonoBehaviour
                 sprite.texture.filterMode = FilterMode.Point;
 
                 return sprite;
-                //pgManager.AddPortraitPiece(sprite, type);
             }
         }
     }
