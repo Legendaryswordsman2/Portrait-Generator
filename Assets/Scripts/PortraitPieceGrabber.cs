@@ -37,6 +37,8 @@ public class PortraitPieceGrabber : MonoBehaviour
         LogManager.Instance.SetFirstTimeSetupMessage(false);
 
         finishedSetup = true;
+
+        LogManager.Instance.LogMessage("Finished loading portrait pieces");
     }
 
     async Task GetSkinsForDisplay()
