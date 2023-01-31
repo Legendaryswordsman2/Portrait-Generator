@@ -5,7 +5,10 @@ using System;
 
 public class LogManager : MonoBehaviour
 {
-    [Header("Settings"), Tooltip("Clears all logs when the current scene changes")]
+    [Header("Settings")]
+    [SerializeField] float fontSize = 25;
+
+    [Tooltip("Clears all logs when the current scene changes")]
     [SerializeField] bool clearLogsOnSceneChange;
 
     [Space]
@@ -85,35 +88,35 @@ public class LogManager : MonoBehaviour
     {
         Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
 
-        log.SetupBaseInfoLog(message);
+        log.SetupBaseInfoLog(message, fontSize);
     }
 
     public void Log(string logMessage, string logDetails = "")
     {
         Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
 
-        log.SetupLog(logMessage, logDetails, LogType.Log, this);
+        log.SetupLog(logMessage, logDetails, LogType.Log, fontSize, this);
     }
 
     public void LogWarning(string warningMessage, string warningDetails = "")
     {
         Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
 
-        log.SetupLog(warningMessage, warningDetails, LogType.Warning, this);
+        log.SetupLog(warningMessage, warningDetails, LogType.Warning, fontSize, this);
     }
 
     public void LogError(string errorMessage, string errorDetails = "")
     {
         Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
 
-        log.SetupLog(errorMessage, errorDetails, LogType.Error, this);
+        log.SetupLog(errorMessage, errorDetails, LogType.Error, fontSize, this);
     }
 
     public void LogException(Exception exception, string errorDetails = "")
     {
         Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
 
-        log.SetupLog(exception.ToString(), errorDetails, LogType.Exception, this);
+        log.SetupLog(exception.ToString(), errorDetails, LogType.Exception, fontSize, this);
     }
 
     void ToggleLogMenu()

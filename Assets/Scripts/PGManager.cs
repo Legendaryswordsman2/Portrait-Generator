@@ -37,6 +37,15 @@ public class PGManager : MonoBehaviour
         hair.dropdown.RefreshShownValue();
 
         finishedSetup = true;
+
+    }
+
+    private void Update()
+    {
+        //Debug.LogWarning("Serious Warning");
+        //Debug.Log("Testing");
+        //Debug.LogWarning("This is a bad warning");
+        
     }
 
     public void AddPortraitPiece(Sprite portraitPiece, PortraitPieceType type)

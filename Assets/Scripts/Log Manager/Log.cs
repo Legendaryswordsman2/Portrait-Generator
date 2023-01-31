@@ -24,7 +24,7 @@ public class Log : MonoBehaviour, IPointerClickHandler
     bool isBaseInfo = false;
 
     bool isExpanded = false;
-    public void SetupLog(string _logMessage, string _logDetails, LogType type, LogManager lm)
+    public void SetupLog(string _logMessage, string _logDetails, LogType type, float fontSize, LogManager lm)
     {
         logMessage = _logMessage;
         logDetails = _logDetails;
@@ -34,6 +34,8 @@ public class Log : MonoBehaviour, IPointerClickHandler
         LogData = "[" + DateTime.Now + "] [" + type + "] ";
 
         text.text = LogData + logMessage;
+
+        text.fontSize = fontSize;
         switch (type)
         {
             case LogType.Error:
@@ -52,9 +54,11 @@ public class Log : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void SetupBaseInfoLog(string _logMessage)
+    public void SetupBaseInfoLog(string _logMessage, float fontSize)
     {
         text.text = _logMessage;
+
+        text.fontSize = fontSize;
 
         isBaseInfo = true;
     }
@@ -72,6 +76,9 @@ public class Log : MonoBehaviour, IPointerClickHandler
             text.text = LogData + logMessage;
             isExpanded = false;
         }
+
+        //text.ForceMeshUpdate();
+        //text.
 
         contentSizeFitter.SetLayoutVertical();
     }
