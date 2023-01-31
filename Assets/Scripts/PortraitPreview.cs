@@ -21,7 +21,7 @@ public class PortraitPreview : MonoBehaviour
     private async void Pgm_OnDropdownChanged(object sender, System.EventArgs e)
     {
         //previewSpritesheet = previewSpritesheetCanvas;
-        Debug.Log("Combining Sprites");
+        LogManager.Instance.Log("Combining sprites for preview");
         Sprite CombinedSprite = await ppm.CombinePortraitPieces();
 
         ppm.OverrideTexture(previewSpritesheet, CombinedSprite);

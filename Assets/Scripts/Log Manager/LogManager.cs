@@ -22,6 +22,8 @@ public class LogManager : MonoBehaviour
     {
         Instance = this;
 
+        Application.logMessageReceived += Application_logMessageReceived;
+
         LogBaseInfo("Unity version: " + Application.unityVersion);
 
         LogBaseInfo("OS: " + SystemInfo.operatingSystem + " (" + SystemInfo.operatingSystemFamily + ")");
@@ -33,6 +35,29 @@ public class LogManager : MonoBehaviour
         LogBaseInfo("RAM: " + SystemInfo.systemMemorySize + " MB");
 
         LogBaseInfo("Current Directory: " + Directory.GetCurrentDirectory());
+
+    }
+
+    private void Application_logMessageReceived(string condition, string stackTrace, LogType type)
+    {
+        //Debug.Log(type + "rfjhti");
+        //Debug.Log(condition + "ijoergijohr");
+        //Debug.Log(stackTrace + "errreh");
+        switch (type)
+        {
+            case LogType.Error:
+                LogError(condition);
+                break;
+            case LogType.Warning:
+                LogWarning(condition);
+                break;
+            case LogType.Log:
+                Log(condition);
+                break;
+            case LogType.Exception:
+                LogError(condition);
+                break;
+        }
     }
 
     private void Start()
@@ -57,7 +82,7 @@ public class LogManager : MonoBehaviour
         log.text = message;
     }
 
-    public void LogMessage(string logMessage)
+    public void Log(string logMessage)
     {
         TMP_Text log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<TMP_Text>();
 
