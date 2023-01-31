@@ -19,10 +19,6 @@ public class LogManager : MonoBehaviour
 
     [SerializeField] GameObject logPrefab;
 
-    [Space]
-
-    [SerializeField] GameObject detailsView;
-    [SerializeField] TMP_Text detailsViewText;
     private void Awake()
     {
         Instance = this;
@@ -126,11 +122,5 @@ public class LogManager : MonoBehaviour
     void ToggleLogMenu()
     {
         logMenu.SetActive(!logMenu.activeSelf);
-    }
-
-    public void SetDetailsView(string text)
-    {
-        detailsView.SetActive(true);
-        detailsViewText.text = text;
     }
 }
