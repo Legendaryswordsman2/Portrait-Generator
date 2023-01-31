@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,13 +12,18 @@ public class Log : MonoBehaviour, IPointerClickHandler
     [SerializeField, ReadOnlyInspector] string logMessage;
     [SerializeField, ReadOnlyInspector] string logDetails;
 
+    [SerializeField, ReadOnlyInspector] string LogData;
+
     LogManager logManager;
 
     [Space]
 
     [SerializeField] TMP_Text text;
+    [SerializeField] ContentSizeFitter contentSizeFitter; 
 
     bool isBaseInfo = false;
+
+    bool isExpanded = false;
     public void SetupLog(string _logMessage, string _logDetails, LogType type, LogManager lm)
     {
         logMessage = _logMessage;
@@ -25,7 +31,9 @@ public class Log : MonoBehaviour, IPointerClickHandler
 
         logManager = lm;
 
-        text.text = "[" + DateTime.Now + "] [" + type + "] " + logMessage;
+        LogData = "[" + DateTime.Now + "] [" + type + "] ";
+
+        text.text = LogData + logMessage;
         switch (type)
         {
             case LogType.Error:
@@ -54,11 +62,17 @@ public class Log : MonoBehaviour, IPointerClickHandler
     {
         if (isBaseInfo) return;
 
-        logManager.SetDetailsView(logDetails);
+        if (!isExpanded)
+        {
+            text.text = LogData + logMessage + "\n" + logDetails;
+            isExpanded = true;
+        }
+        else
+        {
+            text.text = LogData + logMessage;
+            isExpanded = false;
+        }
 
-        //ContentSizeFitter content;
-
-        //content.
-        //Debug.Log(logDetails);
+        contentSizeFitter.SetLayoutVertical();
     }
 }

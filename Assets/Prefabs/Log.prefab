@@ -152,6 +152,7 @@ MonoBehaviour:
   logMessage: 
   logDetails: 
   text: {fileID: 1592129620056846137}
+  contentSizeFitter: {fileID: 6806498005219104202}
 --- !u!114 &6806498005219104202
 MonoBehaviour:
   m_ObjectHideFlags: 0
