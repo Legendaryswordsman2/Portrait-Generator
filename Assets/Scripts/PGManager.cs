@@ -18,7 +18,7 @@ public class PGManager : MonoBehaviour
 
     PortraitPieceGrabber ppg;
 
-    public bool finishedSetup { get; private set; } = false;
+    public static bool finishedSetup { get; private set; } = false;
 
     private async void Awake()
     {
