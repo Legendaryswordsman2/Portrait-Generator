@@ -18,6 +18,11 @@ public class LogManager : MonoBehaviour
     [SerializeField] GameObject logMenuContents;
 
     [SerializeField] GameObject logPrefab;
+
+    [Space]
+
+    [SerializeField] GameObject detailsView;
+    [SerializeField] TMP_Text detailsViewText;
     private void Awake()
     {
         Instance = this;
@@ -86,14 +91,14 @@ public class LogManager : MonoBehaviour
     {
         Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
 
-        log.SetupLog(logMessage, logDetails, LogType.Log);
+        log.SetupLog(logMessage, logDetails, LogType.Log, this);
     }
 
     public void LogWarning(string warningMessage, string warningDetails = "")
     {
         Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
 
-        log.SetupLog(warningMessage, warningDetails, LogType.Warning);
+        log.SetupLog(warningMessage, warningDetails, LogType.Warning, this);
     }
 
     public void LogError(string errorMessage, string errorDetails = "")
@@ -104,7 +109,7 @@ public class LogManager : MonoBehaviour
 
         Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
 
-        log.SetupLog(errorMessage, errorDetails, LogType.Error);
+        log.SetupLog(errorMessage, errorDetails, LogType.Error, this);
 
         //log.text = "[" + DateTime.Now + "] [Error]:" + errorMessage;
 
@@ -115,11 +120,17 @@ public class LogManager : MonoBehaviour
     {
         Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
 
-        log.SetupLog(exception.ToString(), errorDetails, LogType.Exception);
+        log.SetupLog(exception.ToString(), errorDetails, LogType.Exception, this);
     }
 
     void ToggleLogMenu()
     {
         logMenu.SetActive(!logMenu.activeSelf);
+    }
+
+    public void SetDetailsView(string text)
+    {
+        detailsView.SetActive(true);
+        detailsViewText.text = text;
     }
 }
