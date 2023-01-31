@@ -93,7 +93,7 @@ public class LogManager : MonoBehaviour
     {
         TMP_Text log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<TMP_Text>();
 
-        log.text = "[Warning]:" + warningMessage;
+        log.text = "[" + DateTime.Now + "] [Warning]:" + warningMessage;
 
         log.color = Color.yellow;
     }
@@ -106,7 +106,7 @@ public class LogManager : MonoBehaviour
 
         TMP_Text log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<TMP_Text>();
 
-        log.text = "[Error]:" + errorMessage;
+        log.text = "[" + DateTime.Now + "] [Error]:" + errorMessage;
 
         log.color = Color.red;
     }

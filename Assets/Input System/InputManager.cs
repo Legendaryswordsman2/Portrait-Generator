@@ -17,9 +17,4 @@ public class InputManager : MonoBehaviour
         playerInputActions = new PlayerInputActions();
         playerInputActions.General.Enable();
     }
-
-    private void Start()
-    {
-        Debug.Log("Test");
-    }
 }
