@@ -4,21 +4,26 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Log : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField, ReadOnlyInspector] string logMessage;
     [SerializeField, ReadOnlyInspector] string logDetails;
 
+    LogManager logManager;
+
     [Space]
 
     [SerializeField] TMP_Text text;
 
     bool isBaseInfo = false;
-    public void SetupLog(string _logMessage, string _logDetails, LogType type)
+    public void SetupLog(string _logMessage, string _logDetails, LogType type, LogManager lm)
     {
         logMessage = _logMessage;
         logDetails = _logDetails;
+
+        logManager = lm;
 
         text.text = "[" + DateTime.Now + "] [" + type + "] " + logMessage;
         switch (type)
@@ -49,6 +54,11 @@ public class Log : MonoBehaviour, IPointerClickHandler
     {
         if (isBaseInfo) return;
 
-        Debug.Log(logDetails);
+        logManager.SetDetailsView(logDetails);
+
+        //ContentSizeFitter content;
+
+        //content.
+        //Debug.Log(logDetails);
     }
 }
