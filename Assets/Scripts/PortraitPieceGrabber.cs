@@ -38,7 +38,7 @@ public class PortraitPieceGrabber : MonoBehaviour
 
         finishedSetup = true;
 
-        LogManager.Instance.LogMessage("Finished loading portrait pieces");
+        LogManager.Instance.Log("Finished loading portrait pieces");
     }
 
     async Task GetSkinsForDisplay()
@@ -113,7 +113,7 @@ public class PortraitPieceGrabber : MonoBehaviour
         }
         else
         {
-            LogManager.Instance.LogError("Error: file path does not exist");
+            LogManager.Instance.LogError("File path does not exist");
             return false;
         }
     }
