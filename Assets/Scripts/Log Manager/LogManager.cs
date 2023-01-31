@@ -46,16 +46,16 @@ public class LogManager : MonoBehaviour
         switch (type)
         {
             case LogType.Error:
-                LogError(condition);
+                LogError(condition, stackTrace);
                 break;
             case LogType.Warning:
-                LogWarning(condition);
+                LogWarning(condition, stackTrace);
                 break;
             case LogType.Log:
-                Log(condition);
+                Log(condition, stackTrace);
                 break;
             case LogType.Exception:
-                LogException(new Exception(condition));
+                LogException(new Exception(condition), stackTrace);
                 break;
         }
     }
@@ -77,9 +77,9 @@ public class LogManager : MonoBehaviour
 
     void LogBaseInfo(string message)
     {
-        TMP_Text log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<TMP_Text>();
+        Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
 
-        log.text = message;
+        log.SetupBaseInfoLog(message);
     }
 
     public void Log(string logMessage, string logDetails = "")
