@@ -18,7 +18,7 @@ public class PortraitPieceMerger : MonoBehaviour
 
         ppg = GetComponent<PortraitPieceGrabber>();
 
-        await UniTask.WaitUntil(() => pgm.finishedSetup == true);
+        await UniTask.WaitUntil(() => PGManager.finishedSetup == true);
     }
     public async Task<Sprite> CombinePortraitPieces()
     {
