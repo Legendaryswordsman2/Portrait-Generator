@@ -55,7 +55,7 @@ public class LogManager : MonoBehaviour
                 Log(condition);
                 break;
             case LogType.Exception:
-                LogError(condition);
+                LogException(new Exception(condition));
                 break;
         }
     }
@@ -82,33 +82,40 @@ public class LogManager : MonoBehaviour
         log.text = message;
     }
 
-    public void Log(string logMessage)
+    public void Log(string logMessage, string logDetails = "")
     {
-        TMP_Text log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<TMP_Text>();
+        Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
 
-        log.text = "[" + DateTime.Now + "] [Log] " + logMessage;
+        log.SetupLog(logMessage, logDetails, LogType.Log);
     }
 
-    public void LogWarning(string warningMessage)
+    public void LogWarning(string warningMessage, string warningDetails = "")
     {
-        TMP_Text log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<TMP_Text>();
+        Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
 
-        log.text = "[" + DateTime.Now + "] [Warning]:" + warningMessage;
-
-        log.color = Color.yellow;
+        log.SetupLog(warningMessage, warningDetails, LogType.Warning);
     }
 
-    public void LogError(string errorMessage)
+    public void LogError(string errorMessage, string errorDetails = "")
     {
-        errorText.text = errorMessage;
+        //errorText.text = errorMessage;
 
-        errorMessageMenu.SetActive(true);
+        //errorMessageMenu.SetActive(true);
 
-        TMP_Text log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<TMP_Text>();
+        Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
 
-        log.text = "[" + DateTime.Now + "] [Error]:" + errorMessage;
+        log.SetupLog(errorMessage, errorDetails, LogType.Error);
 
-        log.color = Color.red;
+        //log.text = "[" + DateTime.Now + "] [Error]:" + errorMessage;
+
+        //log.color = Color.red;
+    }
+
+    public void LogException(Exception exception, string errorDetails = "")
+    {
+        Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
+
+        log.SetupLog(exception.ToString(), errorDetails, LogType.Exception);
     }
 
     void ToggleLogMenu()
