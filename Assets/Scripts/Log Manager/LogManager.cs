@@ -5,6 +5,11 @@ using System;
 
 public class LogManager : MonoBehaviour
 {
+    [Header("Settings"), Tooltip("Clears all logs when the current scene changes")]
+    [SerializeField] bool clearLogsOnSceneChange;
+
+    [Space]
+
     public static LogManager Instance;
 
     [SerializeField] SetupMessage setupMessage;
@@ -99,17 +104,9 @@ public class LogManager : MonoBehaviour
 
     public void LogError(string errorMessage, string errorDetails = "")
     {
-        //errorText.text = errorMessage;
-
-        //errorMessageMenu.SetActive(true);
-
         Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
 
         log.SetupLog(errorMessage, errorDetails, LogType.Error, this);
-
-        //log.text = "[" + DateTime.Now + "] [Error]:" + errorMessage;
-
-        //log.color = Color.red;
     }
 
     public void LogException(Exception exception, string errorDetails = "")
