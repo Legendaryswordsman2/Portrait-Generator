@@ -20,6 +20,8 @@ public class PGManager : MonoBehaviour
 
     public static bool finishedSetup { get; private set; } = false;
 
+    int index;
+
     private async void Awake()
     {
         ppg = GetComponent<PortraitPieceGrabber>();
@@ -40,12 +42,30 @@ public class PGManager : MonoBehaviour
 
     }
 
+    //private void Start()
+    //{
+    //    Timer();
+    //}
+
+    //async void Timer()
+    //{
+    //    await UniTask.Delay(1000);
+
+    //    Debug.Log("Testing: " + index);
+
+    //    index++;
+
+    //    Timer();
+    //}
+
     private void Update()
     {
         //Debug.LogWarning("Serious Warning");
-        //Debug.Log("Testing");
+        //Debug.Log("Testing: " + index);
+
+        //index++;
         //Debug.LogWarning("This is a bad warning");
-        
+
     }
 
     public void AddPortraitPiece(Sprite portraitPiece, PortraitPieceType type)

@@ -2,10 +2,14 @@ using UnityEngine;
 using TMPro;
 using System.IO;
 using System;
+using System.Collections.Generic;
 
 public class LogManager : MonoBehaviour
 {
+    public static LogManager Instance;
+
     [Header("Settings")]
+    [SerializeField] int logCap = 250;
     [SerializeField] float fontSize = 25;
 
     [Tooltip("Clears all logs when the current scene changes")]
@@ -13,25 +17,27 @@ public class LogManager : MonoBehaviour
 
     [Space]
 
-    public static LogManager Instance;
 
-    [SerializeField] SetupMessage setupMessage;
-
-    [Space]
-
-    [SerializeField] GameObject errorMessageMenu;
-    [SerializeField] TMP_Text errorText;
+    [SerializeField] List<Log> logs = new();
 
     [SerializeField] GameObject logMenu;
     [SerializeField] GameObject logMenuContents;
 
     [SerializeField] GameObject logPrefab;
 
+    [Space]
+
+    [SerializeField] SetupMessage setupMessage;
+    [SerializeField] GameObject errorMessageMenu;
+    [SerializeField] TMP_Text errorText;
+
+    int logIndex;
+
     private void Awake()
     {
         Instance = this;
 
-        Application.logMessageReceived += Application_logMessageReceived;
+        Application.logMessageReceivedThreaded += Application_logMessageReceived;
 
         LogBaseInfo("Unity version: " + Application.unityVersion);
 
@@ -45,13 +51,18 @@ public class LogManager : MonoBehaviour
 
         LogBaseInfo("Current Directory: " + Directory.GetCurrentDirectory());
 
+        for (int i = 0; i < logCap; i++)
+        {
+            Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
+
+            log.Init(fontSize);
+
+            logs.Add(log);
+        }
     }
 
     private void Application_logMessageReceived(string condition, string stackTrace, LogType type)
     {
-        //Debug.Log(type + "rfjhti");
-        //Debug.Log(condition + "ijoergijohr");
-        //Debug.Log(stackTrace + "errreh");
         switch (type)
         {
             case LogType.Error:
@@ -88,35 +99,66 @@ public class LogManager : MonoBehaviour
     {
         Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
 
-        log.SetupBaseInfoLog(message, fontSize);
+        log.SetupBaseInfoLog(message);
     }
 
     public void Log(string logMessage, string logDetails = "")
     {
-        Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
+        bool logsfull = CheckLogCap();
 
-        log.SetupLog(logMessage, logDetails, LogType.Log, fontSize, this);
+        if (logsfull)
+            logs[^1].SetupLog(logMessage, logDetails, LogType.Log);
+        else
+        {
+            logs[logIndex].SetupLog(logMessage, logDetails, LogType.Log);
+
+            logIndex++;
+        }
     }
 
     public void LogWarning(string warningMessage, string warningDetails = "")
     {
-        Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
+        //Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
 
-        log.SetupLog(warningMessage, warningDetails, LogType.Warning, fontSize, this);
+        //CheckLogCap();
+
+        //log.SetupLog(warningMessage, warningDetails, LogType.Warning, fontSize, this);
     }
 
     public void LogError(string errorMessage, string errorDetails = "")
     {
-        Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
+        //Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
 
-        log.SetupLog(errorMessage, errorDetails, LogType.Error, fontSize, this);
+        //CheckLogCap();
+
+        //log.SetupLog(errorMessage, errorDetails, LogType.Error, fontSize, this);
     }
 
     public void LogException(Exception exception, string errorDetails = "")
     {
-        Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
+        //Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
 
-        log.SetupLog(exception.ToString(), errorDetails, LogType.Exception, fontSize, this);
+        //CheckLogCap();
+
+        //log.SetupLog(exception.ToString(), errorDetails, LogType.Exception, fontSize, this);
+    }
+
+    bool CheckLogCap()
+    {
+        if (logIndex >= logCap)
+        {
+            logs[0].transform.SetSiblingIndex(logs.Count + 7);
+
+            Log log = logs[0];
+
+            logs.Remove(log);
+            logs.Add(log);
+
+            return true;
+        } 
+        else
+            return false;
+
     }
 
     void ToggleLogMenu()
