@@ -14,8 +14,6 @@ public class Log : MonoBehaviour, IPointerClickHandler
 
     [SerializeField, ReadOnlyInspector] string LogData;
 
-    LogManager logManager;
-
     [Space]
 
     [SerializeField] TMP_Text text;
@@ -24,18 +22,22 @@ public class Log : MonoBehaviour, IPointerClickHandler
     bool isBaseInfo = false;
 
     bool isExpanded = false;
-    public void SetupLog(string _logMessage, string _logDetails, LogType type, float fontSize, LogManager lm)
+
+    public void Init(float fontSize)
+    {
+        text.fontSize = fontSize;
+
+        //gameObject.SetActive(false);
+    }
+    public void SetupLog(string _logMessage, string _logDetails, LogType type)
     {
         logMessage = _logMessage;
         logDetails = _logDetails;
-
-        logManager = lm;
 
         LogData = "[" + DateTime.Now + "] [" + type + "] ";
 
         text.text = LogData + logMessage;
 
-        text.fontSize = fontSize;
         switch (type)
         {
             case LogType.Error:
@@ -52,15 +54,21 @@ public class Log : MonoBehaviour, IPointerClickHandler
             default:
                 break;
         }
+
+        //contentSizeFitter.SetLayoutVertical();
+
+        gameObject.SetActive(true);
     }
 
-    public void SetupBaseInfoLog(string _logMessage, float fontSize)
+    public void SetupBaseInfoLog(string _logMessage)
     {
         text.text = _logMessage;
 
-        text.fontSize = fontSize;
-
         isBaseInfo = true;
+
+        //contentSizeFitter.SetLayoutVertical();
+
+        gameObject.SetActive(true);
     }
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -76,10 +84,6 @@ public class Log : MonoBehaviour, IPointerClickHandler
             text.text = LogData + logMessage;
             isExpanded = false;
         }
-
-        //text.ForceMeshUpdate();
-        //text.
-
         contentSizeFitter.SetLayoutVertical();
     }
 }
