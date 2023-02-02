@@ -15,10 +15,10 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Test",
-                    "type": "Button",
-                    "id": "071a5369-9ec7-4353-8f74-c3a20a55b590",
-                    "expectedControlType": "Button",
+                    "name": "Mouse Down",
+                    "type": "PassThrough",
+                    "id": "4bbe0d13-9480-42b1-bb95-5629d26c2833",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -38,12 +38,12 @@
                 },
                 {
                     "name": "",
-                    "id": "c3e0d71a-cf39-4cb1-bce9-1a301f73249c",
-                    "path": "<Keyboard>/f",
+                    "id": "68a1337f-e99e-4022-bd5d-feb7bf6d61de",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
-                    "action": "Test",
+                    "action": "Mouse Down",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
