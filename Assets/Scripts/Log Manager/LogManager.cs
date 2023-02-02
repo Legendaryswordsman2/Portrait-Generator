@@ -171,10 +171,11 @@ public class LogManager : MonoBehaviour
         {
             logs[logIndex].SetupLog(logMessage, logDetails, LogType.Log, this, SliderBottomPOS.position.y);
             logIndex++;
+
+            if (isAtBottom)
+                GoToBottom();
         }
 
-        if(isAtBottom)
-        GoToBottom();
 
     }
     public void LogWarning(string warningMessage, string warningDetails = "")
@@ -206,8 +207,7 @@ public class LogManager : MonoBehaviour
     {
         LayoutRebuilder.ForceRebuildLayoutImmediate(logConsole.GetComponent<RectTransform>());
         await UniTask.WaitForEndOfFrame(this);
-        Debug.LogWarning("Resetting to bottom");
-            logMenuScrollRect.ScrollToBottom();
+        logMenuScrollRect.ScrollToBottom();
         //else
         //    Debug.Log("Mouse is currently down");
     }
@@ -215,7 +215,7 @@ public class LogManager : MonoBehaviour
     {
         if (logIndex >= logCap)
         {
-            logs[0].transform.SetSiblingIndex(logs.Count + 7);
+            logs[0].transform.SetSiblingIndex(logs.Count + 5);
 
             Log log = logs[0];
 
