@@ -35,6 +35,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Test"",
+                    ""type"": ""Button"",
+                    ""id"": ""071a5369-9ec7-4353-8f74-c3a20a55b590"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -46,6 +55,17 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
                     ""action"": ""Open Log Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c3e0d71a-cf39-4cb1-bce9-1a301f73249c"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Test"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -74,6 +94,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         // General
         m_General = asset.FindActionMap("General", throwIfNotFound: true);
         m_General_OpenLogMenu = m_General.FindAction("Open Log Menu", throwIfNotFound: true);
+        m_General_Test = m_General.FindAction("Test", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -134,11 +155,13 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_General;
     private IGeneralActions m_GeneralActionsCallbackInterface;
     private readonly InputAction m_General_OpenLogMenu;
+    private readonly InputAction m_General_Test;
     public struct GeneralActions
     {
         private @PlayerInputActions m_Wrapper;
         public GeneralActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @OpenLogMenu => m_Wrapper.m_General_OpenLogMenu;
+        public InputAction @Test => m_Wrapper.m_General_Test;
         public InputActionMap Get() { return m_Wrapper.m_General; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -151,6 +174,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @OpenLogMenu.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnOpenLogMenu;
                 @OpenLogMenu.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnOpenLogMenu;
                 @OpenLogMenu.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnOpenLogMenu;
+                @Test.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnTest;
+                @Test.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnTest;
+                @Test.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnTest;
             }
             m_Wrapper.m_GeneralActionsCallbackInterface = instance;
             if (instance != null)
@@ -158,6 +184,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @OpenLogMenu.started += instance.OnOpenLogMenu;
                 @OpenLogMenu.performed += instance.OnOpenLogMenu;
                 @OpenLogMenu.canceled += instance.OnOpenLogMenu;
+                @Test.started += instance.OnTest;
+                @Test.performed += instance.OnTest;
+                @Test.canceled += instance.OnTest;
             }
         }
     }
@@ -174,5 +203,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     public interface IGeneralActions
     {
         void OnOpenLogMenu(InputAction.CallbackContext context);
+        void OnTest(InputAction.CallbackContext context);
     }
 }

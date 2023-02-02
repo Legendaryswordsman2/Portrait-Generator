@@ -44,7 +44,8 @@ public class PGManager : MonoBehaviour
 
     //private void Start()
     //{
-    //    Timer();
+    //    Debug.Log("Testing");
+    //    //Timer();
     //}
 
     //async void Timer()
@@ -61,9 +62,9 @@ public class PGManager : MonoBehaviour
     private void Update()
     {
         //Debug.LogWarning("Serious Warning");
-        //Debug.Log("Testing: " + index);
+        Debug.Log("Testing: " + index);
 
-        //index++;
+        index++;
         //Debug.LogWarning("This is a bad warning");
 
     }

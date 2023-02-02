@@ -158,13 +158,16 @@ MonoBehaviour:
   logCap: 250
   fontSize: 25
   clearLogsOnSceneChange: 1
+  queuedLogs: []
   logs: []
-  logMenu: {fileID: 82054145}
+  logConsole: {fileID: 82054145}
   logMenuContents: {fileID: 273331734}
   logPrefab: {fileID: 1592129620056846139, guid: a05a0ac660923e743a38b398ae86dfe6, type: 3}
+  logMenuScrollRect: {fileID: 82054147}
   setupMessage: {fileID: 738114059}
   errorMessageMenu: {fileID: 1931560263}
   errorText: {fileID: 565537130}
+  isAtBottom: 0
 --- !u!114 &22748058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,8 +264,9 @@ GameObject:
   - component: {fileID: 82054149}
   - component: {fileID: 82054148}
   - component: {fileID: 82054147}
+  - component: {fileID: 82054150}
   m_Layer: 5
-  m_Name: Log Menu
+  m_Name: Log Console
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -307,7 +311,7 @@ MonoBehaviour:
   m_Vertical: 1
   m_MovementType: 2
   m_Elasticity: 0.1
-  m_Inertia: 1
+  m_Inertia: 0
   m_DecelerationRate: 0.01
   m_ScrollSensitivity: 5
   m_Viewport: {fileID: 713636586}
@@ -358,6 +362,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 82054145}
   m_CullTransparentMesh: 1
+--- !u!114 &82054150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 82054145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b55b9c215f8d3344c9d15c5ffa48fa47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &232831199
 GameObject:
   m_ObjectHideFlags: 0
@@ -2084,7 +2100,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}

@@ -29,7 +29,7 @@ public class Log : MonoBehaviour, IPointerClickHandler
 
         //gameObject.SetActive(false);
     }
-    public void SetupLog(string _logMessage, string _logDetails, LogType type)
+    public void SetupLog(string _logMessage, string _logDetails, LogType type, LogManager lm)
     {
         logMessage = _logMessage;
         logDetails = _logDetails;
@@ -55,9 +55,11 @@ public class Log : MonoBehaviour, IPointerClickHandler
                 break;
         }
 
-        //contentSizeFitter.SetLayoutVertical();
+        contentSizeFitter.SetLayoutVertical();
 
         gameObject.SetActive(true);
+
+        lm.GoToBottom();
     }
 
     public void SetupBaseInfoLog(string _logMessage)

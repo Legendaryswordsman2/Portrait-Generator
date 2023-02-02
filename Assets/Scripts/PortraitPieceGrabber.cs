@@ -10,6 +10,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using System.Runtime.CompilerServices;
 
 public enum PortraitPieceType { Skin, Hairstyle }
 public class PortraitPieceGrabber : MonoBehaviour
@@ -38,7 +39,8 @@ public class PortraitPieceGrabber : MonoBehaviour
 
         finishedSetup = true;
 
-        LogManager.Instance.Log("Finished loading portrait pieces");
+        //LogManager.Instance.Log("Finished loading portrait pieces");
+        Debug.Log("Finished loading portrait pieces");
     }
 
     async Task GetSkinsForDisplay()
