@@ -4,8 +4,6 @@ using System.IO;
 using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
-using Cysharp.Threading.Tasks.Triggers;
 using Cysharp.Threading.Tasks;
 
 public class LogManager : MonoBehaviour
@@ -13,6 +11,7 @@ public class LogManager : MonoBehaviour
     public static LogManager Instance;
 
     [Header("Settings")]
+    [Tooltip("The max amount of logs that can be displayed at a given time, once the limit has been reached logs will begin getting replaced, the higher the number of logs the laggier the game")]
     [SerializeField, Range(1, 1000)] int logCap = 250;
     [SerializeField] float fontSize = 25;
 
@@ -25,13 +24,15 @@ public class LogManager : MonoBehaviour
     [SerializeField, ReadOnlyInspector] List<LogData> queuedLogs;
     [SerializeField, ReadOnlyInspector] List<Log> logs = new();
 
+    [Space]
+
     [SerializeField] GameObject logConsole;
     LogConsole logConsoleComponent;
-    [SerializeField] GameObject logMenuContents;
+    [SerializeField] GameObject logConsoleContents;
     [SerializeField] GameObject logPrefab;
-    [SerializeField] ScrollRect logMenuScrollRect;
+    [SerializeField] ScrollRect logConsoleScrollRect;
     public Transform SliderBottomPOS;
-    [SerializeField] GameObject bottomPrefab;
+    [SerializeField] GameObject prefab;
 
     [Space]
 
@@ -40,13 +41,8 @@ public class LogManager : MonoBehaviour
     [SerializeField] TMP_Text errorText;
 
     int logIndex;
-    bool mouseDown = false;
 
-    [SerializeField] bool isAtBottom;
-
-    public Transform bottomListTransform;
-
-    [SerializeField] Image imageTest;
+    Transform bottomListTransform;
 
     private void Awake()
     {
@@ -70,16 +66,21 @@ public class LogManager : MonoBehaviour
 
         for (int i = 0; i < logCap; i++)
         {
-            Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
+            Log log = Instantiate(logPrefab, logConsoleContents.transform).GetComponent<Log>();
 
             log.Init(fontSize);
 
             logs.Add(log);
         }
 
-        bottomListTransform = Instantiate(bottomPrefab, logMenuContents.transform).transform;
+        bottomListTransform = Instantiate(prefab, logConsoleContents.transform).transform;
 
         Application.logMessageReceivedThreaded += OnLogMessageReceived;
+    }
+
+    private void Start()
+    {
+        InputManager.playerInputActions.General.OpenLogMenu.performed += OpenLogMenu_performed;
     }
 
     private void OnDisable()
@@ -115,11 +116,6 @@ public class LogManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        InputManager.playerInputActions.General.OpenLogMenu.performed += OpenLogMenu_performed;
-    }
-
     private void OpenLogMenu_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         ToggleLogMenu();
@@ -132,84 +128,104 @@ public class LogManager : MonoBehaviour
 
     private void LogBaseInfo(string message)
     {
-        Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
+        Log log = Instantiate(logPrefab, logConsoleContents.transform).GetComponent<Log>();
 
         log.SetupBaseInfoLog(message);
     }
-
-    private void Update()
-    {
-        //if(SliderBottomPOS.position.y <= bottomListTransform.position.y)
-        //{
-        //    isAtBottom = true;
-        //    imageTest.color = Color.green;
-        //}
-        //else
-        //{
-        //    isAtBottom = false;
-        //    imageTest.color = Color.red;
-        //}
-    }
     public void Log(string logMessage, string logDetails = "")
     {
+        bool isAtBottom;
+
         if (SliderBottomPOS.position.y <= bottomListTransform.position.y)
-        {
             isAtBottom = true;
-            imageTest.color = Color.green;
-        }
         else
-        {
             isAtBottom = false;
-            imageTest.color = Color.red;
-        }
 
         bool logsfull = CheckLogCap();
 
         if (logsfull)
-            logs[^1].SetupLog(logMessage, logDetails, LogType.Log, this, SliderBottomPOS.position.y);
+            logs[^1].SetupLog(logMessage, logDetails, LogType.Log);
         else
         {
-            logs[logIndex].SetupLog(logMessage, logDetails, LogType.Log, this, SliderBottomPOS.position.y);
+            logs[logIndex].SetupLog(logMessage, logDetails, LogType.Log);
             logIndex++;
 
             if (isAtBottom)
                 GoToBottom();
         }
-
-
     }
     public void LogWarning(string warningMessage, string warningDetails = "")
     {
-        //Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
+        bool isAtBottom;
 
-        //CheckLogCap();
+        if (SliderBottomPOS.position.y <= bottomListTransform.position.y)
+            isAtBottom = true;
+        else
+            isAtBottom = false;
 
-        //log.SetupLog(warningMessage, warningDetails, LogType.Warning, fontSize, this);
+        bool logsfull = CheckLogCap();
+
+        if (logsfull)
+            logs[^1].SetupLog(warningDetails, warningDetails, LogType.Warning);
+        else
+        {
+            logs[logIndex].SetupLog(warningDetails, warningDetails, LogType.Warning);
+            logIndex++;
+
+            if (isAtBottom)
+                GoToBottom();
+        }
     }
     public void LogError(string errorMessage, string errorDetails = "")
     {
-        //Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
+        bool isAtBottom;
 
-        //CheckLogCap();
+        if (SliderBottomPOS.position.y <= bottomListTransform.position.y)
+            isAtBottom = true;
+        else
+            isAtBottom = false;
 
-        //log.SetupLog(errorMessage, errorDetails, LogType.Error, fontSize, this);
+        bool logsfull = CheckLogCap();
+
+        if (logsfull)
+            logs[^1].SetupLog(errorMessage, errorDetails, LogType.Error);
+        else
+        {
+            logs[logIndex].SetupLog(errorMessage, errorDetails, LogType.Error);
+            logIndex++;
+
+            if (isAtBottom)
+                GoToBottom();
+        }
     }
-    public void LogException(Exception exception, string errorDetails = "")
+    public void LogException(Exception exception, string exceptionDetails = "")
     {
-        //Log log = Instantiate(logPrefab, logMenuContents.transform).GetComponent<Log>();
+        bool isAtBottom;
 
-        //CheckLogCap();
+        if (SliderBottomPOS.position.y <= bottomListTransform.position.y)
+            isAtBottom = true;
+        else
+            isAtBottom = false;
 
-        //log.SetupLog(exception.ToString(), errorDetails, LogType.Exception, fontSize, this);
+        bool logsfull = CheckLogCap();
+
+        if (logsfull)
+            logs[^1].SetupLog(exception.ToString(), exceptionDetails, LogType.Exception);
+        else
+        {
+            logs[logIndex].SetupLog(exception.ToString(), exceptionDetails, LogType.Exception);
+            logIndex++;
+
+            if (isAtBottom)
+                GoToBottom();
+        }
     }
 
     public async void GoToBottom()
     {
         LayoutRebuilder.ForceRebuildLayoutImmediate(logConsole.GetComponent<RectTransform>());
         await UniTask.WaitForEndOfFrame(this);
-        logMenuScrollRect.ScrollToBottom();
-        //else
-        //    Debug.Log("Mouse is currently down");
+        logConsoleScrollRect.ScrollToBottom();
     }
     bool CheckLogCap()
     {
@@ -225,19 +241,15 @@ public class LogManager : MonoBehaviour
             return true;
         }
         else
-        {
-            //if(logMenuScrollRect.verticalNormalizedPosition)
-            //Debug.Log(logMenuScrollRect.verticalNormalizedPosition);
             return false;
-        }
 
     }
 
     void ToggleLogMenu()
     {
-        if (!logConsole.activeSelf) logMenuScrollRect.ScrollToBottom();
         logConsole.SetActive(!logConsole.activeSelf);
     }
+
     private void OnLogConsoleEnabled(object sender, EventArgs e)
     {
         for (int i = 0; i < queuedLogs.Count; i++)
@@ -260,17 +272,9 @@ public class LogManager : MonoBehaviour
         }
 
         queuedLogs.Clear();
+
+        logConsoleScrollRect.ScrollToBottom();
     }
-
-    //public void OnPointerDown(PointerEventData eventData)
-    //{
-    //    mouseDown = true;
-    //}
-
-    //public void OnPointerUp(PointerEventData eventData)
-    //{
-    //    mouseDown = false;
-    //}
 
     [Serializable]
     public class LogData
