@@ -15,7 +15,7 @@ public class LogManager : MonoBehaviour
     [Tooltip("The max amount of logs that can be displayed at a given time, once the limit has been reached logs will begin getting replaced, the higher the number of logs the laggier the game")]
     [SerializeField, Range(1, 1000)] int logCap = 250;
     [SerializeField] float fontSize = 25;
-    [Tooltip("The max amount of log files that can be generated, once this limit has been reached older logs will start being overwritten")]
+    [Tooltip("The max amount of log files that can be generated, once this limit has been reached older logs will start being overwritten"), Min(1)]
     [SerializeField] int logFileCap = 5;
 
     [Tooltip("Clears all logs when the current scene changes")]
