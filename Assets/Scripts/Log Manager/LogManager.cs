@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
+using System.Diagnostics;
 
 public class LogManager : MonoBehaviour
 {
@@ -14,13 +15,15 @@ public class LogManager : MonoBehaviour
     [Tooltip("The max amount of logs that can be displayed at a given time, once the limit has been reached logs will begin getting replaced, the higher the number of logs the laggier the game")]
     [SerializeField, Range(1, 1000)] int logCap = 250;
     [SerializeField] float fontSize = 25;
+    [Tooltip("The max amount of log files that can be generated, once this limit has been reached older logs will start being overwritten")]
+    [SerializeField] int logFileCap = 5;
 
     [Tooltip("Clears all logs when the current scene changes")]
     [SerializeField] bool clearLogsOnSceneChange;
 
     [Space]
 
-
+    List<LogData> totalLogs = new();
     [SerializeField, ReadOnlyInspector] List<LogData> queuedLogs;
     [SerializeField, ReadOnlyInspector] List<Log> logs = new();
 
@@ -89,8 +92,14 @@ public class LogManager : MonoBehaviour
     }
 
 
-    private void OnLogMessageReceived(string condition, string stackTrace, LogType type)
+    private void OnLogMessageReceived(string _condition, string stackTrace, LogType type)
     {
+        string condition = "[" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "] [" + type + "] " + _condition;
+
+        if (totalLogs.Count >= logCap)
+            totalLogs.RemoveAt(0);
+        totalLogs.Add(new LogData(condition, stackTrace, type));
+
         if (!logConsole.activeSelf)
         {
             if (queuedLogs.Count >= logCap)
@@ -131,6 +140,8 @@ public class LogManager : MonoBehaviour
         Log log = Instantiate(logPrefab, logConsoleContents.transform).GetComponent<Log>();
 
         log.SetupBaseInfoLog(message);
+
+        totalLogs.Add(new LogData(message, "", LogType.Log));
     }
     public void Log(string logMessage, string logDetails = "")
     {
@@ -274,6 +285,40 @@ public class LogManager : MonoBehaviour
         queuedLogs.Clear();
 
         logConsoleScrollRect.ScrollToBottom();
+    }
+
+    private void OnApplicationQuit()
+    {
+        string logsFolder = Application.persistentDataPath + "/logs";
+
+        if(!Directory.Exists(logsFolder))
+            Directory.CreateDirectory(logsFolder);
+
+        DirectoryInfo d = new DirectoryInfo(logsFolder);
+
+        List<FileInfo> logFiles = new();
+        foreach (var logFile in d.GetFiles("*.txt"))
+        {
+                logFiles.Add(logFile);
+        }
+
+        
+        while (logFiles.Count >= logFileCap)
+        {
+            logFiles[0].Delete();
+            logFiles.RemoveAt(0);
+        }
+
+        TextWriter tw = new StreamWriter(Application.persistentDataPath + "/logs/log" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + ".txt");
+
+        tw.WriteLine(DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + " / " + DateTime.Now);
+
+        foreach (LogData log in totalLogs)
+        {
+            tw.WriteLine(log.condition + "\n" + log.stackTrace);
+        }
+
+        tw.Close();
     }
 
     [Serializable]

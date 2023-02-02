@@ -34,9 +34,7 @@ public class Log : MonoBehaviour, IPointerClickHandler
         logMessage = _logMessage;
         logDetails = _logDetails;
 
-        LogData = "[" + DateTime.Now + "] [" + type + "] ";
-
-        text.text = LogData + logMessage;
+        text.text = logMessage;
 
         switch (type)
         {
