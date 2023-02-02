@@ -42,29 +42,29 @@ public class PGManager : MonoBehaviour
 
     }
 
-    //private void Start()
-    //{
-    //    Debug.Log("Testing");
-    //    //Timer();
-    //}
+    private void Start()
+    {
+        Debug.Log("Testing");
+        Timer();
+    }
 
-    //async void Timer()
-    //{
-    //    await UniTask.Delay(1000);
+    async void Timer()
+    {
+        await UniTask.Delay(1000);
 
-    //    Debug.Log("Testing: " + index);
+        Debug.Log("Testing: " + index);
 
-    //    index++;
+        index++;
 
-    //    Timer();
-    //}
+        Timer();
+    }
 
     private void Update()
     {
         //Debug.LogWarning("Serious Warning");
-        Debug.Log("Testing: " + index);
+        //Debug.Log("Testing: " + index);
 
-        index++;
+        //index++;
         //Debug.LogWarning("This is a bad warning");
 
     }

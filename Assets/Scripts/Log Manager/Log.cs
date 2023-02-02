@@ -29,7 +29,7 @@ public class Log : MonoBehaviour, IPointerClickHandler
 
         //gameObject.SetActive(false);
     }
-    public void SetupLog(string _logMessage, string _logDetails, LogType type, LogManager lm)
+    public void SetupLog(string _logMessage, string _logDetails, LogType type, LogManager lm, float sliderBottomPositionY)
     {
         logMessage = _logMessage;
         logDetails = _logDetails;
@@ -59,7 +59,10 @@ public class Log : MonoBehaviour, IPointerClickHandler
 
         gameObject.SetActive(true);
 
-        lm.GoToBottom();
+        //lm.bottomListTransform = transform;
+
+        //if (transform.position.y >= sliderBottomPositionY)
+        //    lm.GoToBottom();
     }
 
     public void SetupBaseInfoLog(string _logMessage)

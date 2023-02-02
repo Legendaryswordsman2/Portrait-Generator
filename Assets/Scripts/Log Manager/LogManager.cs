@@ -4,8 +4,9 @@ using System.IO;
 using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using Cysharp.Threading.Tasks.Triggers;
 using Cysharp.Threading.Tasks;
-using System.Diagnostics;
 
 public class LogManager : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class LogManager : MonoBehaviour
     [SerializeField] GameObject logMenuContents;
     [SerializeField] GameObject logPrefab;
     [SerializeField] ScrollRect logMenuScrollRect;
+    public Transform SliderBottomPOS;
+    [SerializeField] GameObject bottomPrefab;
 
     [Space]
 
@@ -37,8 +40,13 @@ public class LogManager : MonoBehaviour
     [SerializeField] TMP_Text errorText;
 
     int logIndex;
+    bool mouseDown = false;
 
     [SerializeField] bool isAtBottom;
+
+    public Transform bottomListTransform;
+
+    [SerializeField] Image imageTest;
 
     private void Awake()
     {
@@ -68,6 +76,8 @@ public class LogManager : MonoBehaviour
 
             logs.Add(log);
         }
+
+        bottomListTransform = Instantiate(bottomPrefab, logMenuContents.transform).transform;
 
         Application.logMessageReceivedThreaded += OnLogMessageReceived;
     }
@@ -126,30 +136,45 @@ public class LogManager : MonoBehaviour
 
         log.SetupBaseInfoLog(message);
     }
+
+    private void Update()
+    {
+        //if(SliderBottomPOS.position.y <= bottomListTransform.position.y)
+        //{
+        //    isAtBottom = true;
+        //    imageTest.color = Color.green;
+        //}
+        //else
+        //{
+        //    isAtBottom = false;
+        //    imageTest.color = Color.red;
+        //}
+    }
     public void Log(string logMessage, string logDetails = "")
     {
-        bool logsfull = CheckLogCap();
-
-        //if (logMenuScrollRect.verticalNormalizedPosition <= 0.05)
-        //    isAtBottom = true;
-        //else
-        //    isAtBottom = false;
-
-        if (logsfull)
-            logs[^1].SetupLog(logMessage, logDetails, LogType.Log, this);
+        if (SliderBottomPOS.position.y <= bottomListTransform.position.y)
+        {
+            isAtBottom = true;
+            imageTest.color = Color.green;
+        }
         else
         {
-            logs[logIndex].SetupLog(logMessage, logDetails, LogType.Log, this);
+            isAtBottom = false;
+            imageTest.color = Color.red;
+        }
+
+        bool logsfull = CheckLogCap();
+
+        if (logsfull)
+            logs[^1].SetupLog(logMessage, logDetails, LogType.Log, this, SliderBottomPOS.position.y);
+        else
+        {
+            logs[logIndex].SetupLog(logMessage, logDetails, LogType.Log, this, SliderBottomPOS.position.y);
             logIndex++;
         }
 
-        //if (!isAtBottom) return; 
-
-        //LayoutRebuilder.ForceRebuildLayoutImmediate((RectTransform)logMenuScrollRect.transform);
-
-        //await UniTask.WaitForEndOfFrame(this);
-
-        //logMenuScrollRect.ScrollToBottom();
+        if(isAtBottom)
+        GoToBottom();
 
     }
     public void LogWarning(string warningMessage, string warningDetails = "")
@@ -177,9 +202,14 @@ public class LogManager : MonoBehaviour
         //log.SetupLog(exception.ToString(), errorDetails, LogType.Exception, fontSize, this);
     }
 
-    public void GoToBottom()
+    public async void GoToBottom()
     {
-        logMenuScrollRect.ScrollToBottom();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(logConsole.GetComponent<RectTransform>());
+        await UniTask.WaitForEndOfFrame(this);
+        Debug.LogWarning("Resetting to bottom");
+            logMenuScrollRect.ScrollToBottom();
+        //else
+        //    Debug.Log("Mouse is currently down");
     }
     bool CheckLogCap()
     {
@@ -231,6 +261,16 @@ public class LogManager : MonoBehaviour
 
         queuedLogs.Clear();
     }
+
+    //public void OnPointerDown(PointerEventData eventData)
+    //{
+    //    mouseDown = true;
+    //}
+
+    //public void OnPointerUp(PointerEventData eventData)
+    //{
+    //    mouseDown = false;
+    //}
 
     [Serializable]
     public class LogData

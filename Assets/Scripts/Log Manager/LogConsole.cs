@@ -7,6 +7,11 @@ public class LogConsole : MonoBehaviour
 {
     public event EventHandler OnEnabled;
 
+    private void Update()
+    {
+        
+    }
+
     private void OnEnable()
     {
         OnEnabled?.Invoke(this, EventArgs.Empty);
