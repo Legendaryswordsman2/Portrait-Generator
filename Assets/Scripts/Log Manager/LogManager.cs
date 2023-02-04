@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
 using System.Diagnostics;
+using UnityEngine.Rendering;
 
 public class LogManager : MonoBehaviour
 {
@@ -30,12 +31,13 @@ public class LogManager : MonoBehaviour
     [Space]
 
     [SerializeField] GameObject logConsole;
+    [SerializeField] Scrollbar logConsoleScrollbar;
     LogConsole logConsoleComponent;
     [SerializeField] GameObject logConsoleContents;
-    [SerializeField] GameObject logPrefab;
     [SerializeField] ScrollRect logConsoleScrollRect;
     public Transform SliderBottomPOS;
-    [SerializeField] GameObject prefab;
+    [SerializeField] GameObject logPrefab;
+    [SerializeField] GameObject bottomOfListprefab;
 
     [Space]
 
@@ -76,7 +78,7 @@ public class LogManager : MonoBehaviour
             logs.Add(log);
         }
 
-        bottomListTransform = Instantiate(prefab, logConsoleContents.transform).transform;
+        bottomListTransform = Instantiate(bottomOfListprefab, logConsoleContents.transform).transform;
 
         Application.logMessageReceivedThreaded += OnLogMessageReceived;
     }
