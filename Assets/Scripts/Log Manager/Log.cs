@@ -26,8 +26,6 @@ public class Log : MonoBehaviour, IPointerClickHandler
     public void Init(float fontSize)
     {
         text.fontSize = fontSize;
-
-        //gameObject.SetActive(false);
     }
     public void SetupLog(string _logMessage, string _logDetails, LogType type)
     {
