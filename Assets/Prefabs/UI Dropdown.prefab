@@ -1074,7 +1074,6 @@ GameObject:
   - component: {fileID: 7199625011393217996}
   - component: {fileID: 7199625011393217999}
   - component: {fileID: 7199625011393217998}
-  - component: {fileID: -4303813163207526468}
   - component: {fileID: 7199625011393217997}
   m_Layer: 5
   m_Name: UI Dropdown
@@ -1144,18 +1143,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &-4303813163207526468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7199625011393217995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b389d49f845c77444a6854fc1deec5f4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7199625011393217997
 MonoBehaviour:
   m_ObjectHideFlags: 0

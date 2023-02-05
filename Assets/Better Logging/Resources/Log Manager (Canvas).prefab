@@ -305,10 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3102efa327ec64fa35701e0775d0ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  logCap: 250
-  fontSize: 25
-  logFileCap: 5
-  clearConsoleOnSceneChange: 1
+  <Settings>k__BackingField: {fileID: 11400000, guid: eb71d909b4f3f9c4e82e9e80d19d7909, type: 2}
   queuedLogs: []
   logs: []
   logConsole: {fileID: 2076894955531785245}
