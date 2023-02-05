@@ -502,7 +502,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
       propertyPath: m_Options.m_Options.Array.data[0].m_Text
-      value: PG Skin 9
+      value: Eye 1
       objectReference: {fileID: 0}
     - target: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
       propertyPath: m_Options.m_Options.Array.data[1].m_Text
@@ -1225,6 +1225,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
+      propertyPath: m_Options.m_Options.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
+      propertyPath: m_Options.m_Options.Array.data[0].m_Text
+      value: Hairstyle 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
+      propertyPath: m_Options.m_Options.Array.data[8].m_Text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -1252,7 +1264,8 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -4303813163207526468, guid: abbe1566cc2d2f840886f13648066887, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: abbe1566cc2d2f840886f13648066887, type: 3}
 --- !u!224 &470038085 stripped
 RectTransform:
@@ -2825,7 +2838,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
       propertyPath: m_Options.m_Options.Array.data[0].m_Text
-      value: PG Skin 9
+      value: Accessoriy 1
       objectReference: {fileID: 0}
     - target: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
       propertyPath: m_Options.m_Options.Array.data[1].m_Text
@@ -3669,7 +3682,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
       propertyPath: m_Options.m_Options.Array.data[0].m_Text
-      value: PG Skin 9
+      value: Skin 1
       objectReference: {fileID: 0}
     - target: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
       propertyPath: m_Options.m_Options.Array.data[1].m_Text
