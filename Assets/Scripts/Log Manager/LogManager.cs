@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
 using System.Diagnostics;
 using UnityEngine.Rendering;
+using System.Runtime.CompilerServices;
 
 public class LogManager : MonoBehaviour
 {
@@ -122,7 +123,7 @@ public class LogManager : MonoBehaviour
                 Log(condition, stackTrace);
                 break;
             case LogType.Exception:
-                LogException(new Exception(condition), stackTrace);
+                LogException(condition, stackTrace);
                 break;
         }
     }
@@ -145,7 +146,7 @@ public class LogManager : MonoBehaviour
 
         totalLogs.Add(new LogData(message, "", LogType.Log));
     }
-    public void Log(string logMessage, string logDetails = "")
+    private void Log(string logMessage, string logDetails = "")
     {
         bool isAtBottom;
 
@@ -167,7 +168,7 @@ public class LogManager : MonoBehaviour
                 GoToBottom();
         }
     }
-    public void LogWarning(string warningMessage, string warningDetails = "")
+    private void LogWarning(string warningMessage, string warningDetails = "")
     {
         bool isAtBottom;
 
@@ -179,17 +180,17 @@ public class LogManager : MonoBehaviour
         bool logsfull = CheckLogCap();
 
         if (logsfull)
-            logs[^1].SetupLog(warningDetails, warningDetails, LogType.Warning);
+            logs[^1].SetupLog(warningMessage, warningDetails, LogType.Warning);
         else
         {
-            logs[logIndex].SetupLog(warningDetails, warningDetails, LogType.Warning);
+            logs[logIndex].SetupLog(warningMessage, warningDetails, LogType.Warning);
             logIndex++;
 
             if (isAtBottom)
                 GoToBottom();
         }
     }
-    public void LogError(string errorMessage, string errorDetails = "")
+    private void LogError(string errorMessage, string errorDetails = "")
     {
         bool isAtBottom;
 
@@ -211,7 +212,7 @@ public class LogManager : MonoBehaviour
                 GoToBottom();
         }
     }
-    public void LogException(Exception exception, string exceptionDetails = "")
+    private void LogException(string exception, string exceptionDetails = "")
     {
         bool isAtBottom;
 
@@ -223,10 +224,10 @@ public class LogManager : MonoBehaviour
         bool logsfull = CheckLogCap();
 
         if (logsfull)
-            logs[^1].SetupLog(exception.ToString(), exceptionDetails, LogType.Exception);
+            logs[^1].SetupLog(exception, exceptionDetails, LogType.Exception);
         else
         {
-            logs[logIndex].SetupLog(exception.ToString(), exceptionDetails, LogType.Exception);
+            logs[logIndex].SetupLog(exception, exceptionDetails, LogType.Exception);
             logIndex++;
 
             if (isAtBottom)
@@ -279,7 +280,7 @@ public class LogManager : MonoBehaviour
                     Log(queuedLogs[i].condition, queuedLogs[i].stackTrace);
                     break;
                 case LogType.Exception:
-                    LogException(new Exception(queuedLogs[i].condition), queuedLogs[i].stackTrace);
+                    LogException(queuedLogs[i].condition, queuedLogs[i].stackTrace);
                     break;
             }
         }

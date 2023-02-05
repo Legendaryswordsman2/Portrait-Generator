@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,20 +45,23 @@ public class PGManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("Testing");
-        Timer();
+        //Debug.Log("Testing");
+        //Debug.LogWarning("Warnign Test");
+        //Debug.LogError("Error Tust");
+        //Debug.LogException(new Exception("Excetion"));
+        //Timer();
     }
 
-    async void Timer()
-    {
-        await UniTask.Delay(1000);
+    //async void Timer()
+    //{
+    //    await UniTask.Delay(1000);
 
-        Debug.Log("Testing: " + index);
+    //    Debug.LogError("Testing: " + index);
 
-        index++;
+    //    index++;
 
-        Timer();
-    }
+    //    Timer();
+    //}
 
     private void Update()
     {
