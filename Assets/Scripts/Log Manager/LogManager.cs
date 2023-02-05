@@ -51,8 +51,6 @@ public class LogManager : MonoBehaviour
 
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-
         Instance = this;
 
         logConsoleComponent = logConsole.GetComponent<LogConsole>();

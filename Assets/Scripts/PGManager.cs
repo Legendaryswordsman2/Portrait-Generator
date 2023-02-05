@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class PGManager : MonoBehaviour
 {
@@ -44,28 +43,25 @@ public class PGManager : MonoBehaviour
 
     }
 
-    private void Start()
-    {
-        //Debug.Log("Testing");
-        //Debug.LogWarning("Warnign Test");
-        //Debug.LogError("Error Tust");
-        //Debug.LogException(new Exception("Excetion"));
-        Timer();
-    }
+    //private void Start()
+    //{
+    //    //Debug.Log("Testing");
+    //    //Debug.LogWarning("Warnign Test");
+    //    //Debug.LogError("Error Tust");
+    //    //Debug.LogException(new Exception("Excetion"));
+    //    Timer();
+    //}
 
-    async void Timer()
-    {
-        await UniTask.Delay(3000);
+    //async void Timer()
+    //{
+    //    //await UniTask.Delay(1000);
 
-        SceneManager.LoadScene(1);
-        //await UniTask.Delay(1000);
+    //    //Debug.LogError("Testing: " + index);
 
-        //Debug.LogError("Testing: " + index);
+    //    //index++;
 
-        //index++;
-
-        //Timer();
-    }
+    //    //Timer();
+    //}
 
     private void Update()
     {
