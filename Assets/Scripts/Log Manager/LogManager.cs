@@ -103,31 +103,35 @@ public class LogManager : MonoBehaviour
             totalLogs.RemoveAt(0);
         totalLogs.Add(new LogData(condition, stackTrace, type));
 
-        if (!logConsole.activeSelf)
+        UnityMainThread.wkr.AddJob(() =>
         {
-            if (queuedLogs.Count >= logCap)
-                queuedLogs.RemoveAt(0);
-            queuedLogs.Add(new LogData(condition, stackTrace, type));
-            return;
-        }
+            // Will run on main thread
+            if (!logConsole.activeSelf)
+            {
+                if (queuedLogs.Count >= logCap)
+                    queuedLogs.RemoveAt(0);
+                queuedLogs.Add(new LogData(condition, stackTrace, type));
+                return;
+            }
 
-        switch (type)
-        {
-            case LogType.Error:
-                LogError(condition, stackTrace);
-                break;
-            case LogType.Warning:
-                LogWarning(condition, stackTrace);
-                break;
-            case LogType.Log:
-                Log(condition, stackTrace);
-                break;
-            case LogType.Exception:
-                LogException(condition, stackTrace);
-                break;
-        }
+            switch (type)
+            {
+                case LogType.Error:
+                    LogError(condition, stackTrace);
+                    break;
+                case LogType.Warning:
+                    LogWarning(condition, stackTrace);
+                    break;
+                case LogType.Log:
+                    Log(condition, stackTrace);
+                    break;
+                case LogType.Exception:
+                    LogException(condition, stackTrace);
+                    break;
+            }
+        });
+
     }
-
     private void OpenLogMenu_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         ToggleLogMenu();
