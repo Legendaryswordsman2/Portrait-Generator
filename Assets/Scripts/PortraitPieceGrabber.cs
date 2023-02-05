@@ -46,7 +46,7 @@ public class PortraitPieceGrabber : MonoBehaviour
     async Task GetSkinsForDisplay()
     {
         
-        string filepath = Directory.GetCurrentDirectory() + "/Portrait Pieces/Portrait_Generator - 16x16/Skins";
+        string filepath = Directory.GetCurrentDirectory() + "/pPortrait Pieces/Portrait_Generator - 16x16/Skins";
 
         if (!CheckDirectory(filepath)) return;
 
@@ -88,8 +88,7 @@ public class PortraitPieceGrabber : MonoBehaviour
 
             if (uwr.result != UnityWebRequest.Result.Success)
             {
-                LogManager.Instance.LogError(uwr.error);
-                Debug.Log(uwr.error);
+                Debug.LogError(uwr.error);
                 return null;
             }
             else
@@ -115,7 +114,7 @@ public class PortraitPieceGrabber : MonoBehaviour
         }
         else
         {
-            LogManager.Instance.LogError("File path does not exist");
+            //LogManager.Instance.LogError("File path does not exist");
             return false;
         }
     }
