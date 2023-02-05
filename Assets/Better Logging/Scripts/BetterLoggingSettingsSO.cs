@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Better Logging Settings")]
 public class BetterLoggingSettingsSO : ScriptableObject
 {
     [Header("Settings")]
