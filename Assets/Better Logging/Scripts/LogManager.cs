@@ -11,16 +11,7 @@ public class LogManager : MonoBehaviour
 {
     public static LogManager Instance;
 
-    [Header("Settings")]
-    [Tooltip("The max amount of logs that can be displayed at a given time, once the limit has been reached logs will begin getting replaced, the higher the number of logs the laggier the game")]
-    [SerializeField, Range(1, 1000)] int logCap = 250;
-    [Tooltip("The font size of each log in the console")]
-    [SerializeField, Min(1)] float fontSize = 25;
-    [Tooltip("The max amount of log files that can be generated, once this limit has been reached older logs will start being overwritten"), Min(0)]
-    [SerializeField] int logFileCap = 5;
-
-    [Tooltip("Clears all logs when the current scene changes")]
-    [SerializeField] bool clearConsoleOnSceneChange = true;
+    [field: SerializeField] public BetterLoggingSettingsSO Settings { get; private set; }
 
     [Space]
 
@@ -35,7 +26,7 @@ public class LogManager : MonoBehaviour
     LogConsole logConsoleComponent;
     [SerializeField] GameObject logConsoleContents;
     [SerializeField] ScrollRect logConsoleScrollRect;
-    public Transform SliderBottomPOS;
+    [SerializeField] Transform SliderBottomPOS;
     [SerializeField] GameObject logPrefab;
     [SerializeField] GameObject bottomOfListprefab;
 
@@ -69,11 +60,11 @@ public class LogManager : MonoBehaviour
 
         LogBaseInfo("Current Directory: " + Directory.GetCurrentDirectory());
 
-        for (int i = 0; i < logCap; i++)
+        for (int i = 0; i < Settings.logCap; i++)
         {
             Log log = Instantiate(logPrefab, logConsoleContents.transform).GetComponent<Log>();
 
-            log.Init(fontSize);
+            log.Init(Settings.fontSize);
 
             logs.Add(log);
         }
@@ -98,7 +89,7 @@ public class LogManager : MonoBehaviour
     {
         string condition = "[" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "] [" + type + "] " + _condition;
 
-        if (totalLogs.Count >= logCap)
+        if (totalLogs.Count >= Settings.logCap)
             totalLogs.RemoveAt(0);
         totalLogs.Add(new LogData(condition, stackTrace, type));
 
@@ -107,7 +98,7 @@ public class LogManager : MonoBehaviour
             // Will run on main thread
             if (!logConsole.activeSelf)
             {
-                if (queuedLogs.Count >= logCap)
+                if (queuedLogs.Count >= Settings.logCap)
                     queuedLogs.RemoveAt(0);
                 queuedLogs.Add(new LogData(condition, stackTrace, type));
                 return;
@@ -247,7 +238,7 @@ public class LogManager : MonoBehaviour
     }
     bool CheckLogCap()
     {
-        if (logIndex >= logCap)
+        if (logIndex >= Settings.logCap)
         {
             logs[0].transform.SetSiblingIndex(logs.Count + 5);
 
@@ -296,7 +287,7 @@ public class LogManager : MonoBehaviour
 
     void OnNewSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
-        if (clearConsoleOnSceneChange)
+        if (Settings.clearConsoleOnSceneChange)
             ClearConsole();
     }
 
@@ -312,7 +303,7 @@ public class LogManager : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        if (logCap <= 0) return;
+        if (Settings.logCap <= 0) return;
 
         string logsFolder = Application.persistentDataPath + "/logs";
 
@@ -328,7 +319,7 @@ public class LogManager : MonoBehaviour
         }
 
         
-        while (logFiles.Count >= logFileCap)
+        while (logFiles.Count >= Settings.logFileCap)
         {
             logFiles[0].Delete();
             logFiles.RemoveAt(0);
