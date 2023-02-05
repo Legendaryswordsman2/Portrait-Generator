@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum ActiveInputSystem { None, OldInputSystem, NewInputSystem}
 public class BetterLoggingSettingsSO : ScriptableObject
 {
     [Header("Settings")]
@@ -11,7 +12,11 @@ public class BetterLoggingSettingsSO : ScriptableObject
     [Min(1)] public float fontSize = 25;
     [Tooltip("The max amount of log files that can be generated, once this limit has been reached older logs will start being overwritten"), Min(0)]
     public int logFileCap = 5;
-
     [Tooltip("Clears all logs when the current scene changes")]
     public bool clearConsoleOnSceneChange = true;
+
+    [Space]
+
+    [Tooltip("The input system used to open and close the console, set it to whatever is currently active in this project")]
+    public ActiveInputSystem activeInputSystem = ActiveInputSystem.OldInputSystem;
 }

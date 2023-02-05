@@ -16,3 +16,4 @@ MonoBehaviour:
   fontSize: 25
   logFileCap: 5
   clearConsoleOnSceneChange: 1
+  activeInputSystem: 0
