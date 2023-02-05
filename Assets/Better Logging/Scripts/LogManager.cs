@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class LogManager : MonoBehaviour
 {
@@ -76,13 +77,27 @@ public class LogManager : MonoBehaviour
 
     void Start()
     {
-        InputManager.playerInputActions.General.OpenLogMenu.performed += OpenLogMenu_performed;
         SceneManager.sceneLoaded += OnNewSceneLoaded;
     }
 
     void OnDisable()
     {
         Application.logMessageReceivedThreaded -= OnLogMessageReceived;
+    }
+
+    void Update()
+    {
+        switch (Settings.activeInputSystem)
+        {
+            case ActiveInputSystem.OldInputSystem:
+                if(Input.GetKeyDown(KeyCode.F1))
+                    ToggleLogMenu();
+                break;
+            case ActiveInputSystem.NewInputSystem:
+                if(Keyboard.current.f1Key.wasPressedThisFrame)
+                    ToggleLogMenu();
+                break;
+        }
     }
 
     void OnLogMessageReceived(string _condition, string stackTrace, LogType type)
@@ -121,11 +136,6 @@ public class LogManager : MonoBehaviour
             }
         });
 
-    }
-
-    void OpenLogMenu_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
-    {
-        ToggleLogMenu();
     }
 
     public void SetFirstTimeSetupMessage(bool isActive)
@@ -254,10 +264,6 @@ public class LogManager : MonoBehaviour
 
     }
 
-    void ToggleLogMenu()
-    {
-        logConsole.SetActive(!logConsole.activeSelf);
-    }
 
     void OnLogConsoleEnabled(object sender, EventArgs e)
     {
@@ -289,6 +295,11 @@ public class LogManager : MonoBehaviour
     {
         if (Settings.clearConsoleOnSceneChange)
             ClearConsole();
+    }
+
+    public void ToggleLogMenu()
+    {
+        logConsole.SetActive(!logConsole.activeSelf);
     }
 
     public void ClearConsole()
