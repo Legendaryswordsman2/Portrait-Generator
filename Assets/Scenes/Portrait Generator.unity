@@ -159,7 +159,7 @@ MonoBehaviour:
   logCap: 250
   fontSize: 25
   logFileCap: 5
-  clearLogsOnSceneChange: 1
+  clearConsoleOnSceneChange: 1
   queuedLogs: []
   logs: []
   logConsole: {fileID: 82054145}

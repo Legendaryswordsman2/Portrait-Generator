@@ -46,7 +46,7 @@ public class PortraitPieceGrabber : MonoBehaviour
     async Task GetSkinsForDisplay()
     {
         
-        string filepath = Directory.GetCurrentDirectory() + "/pPortrait Pieces/Portrait_Generator - 16x16/Skins";
+        string filepath = Directory.GetCurrentDirectory() + "/Portrait Pieces/Portrait_Generator - 16x16/Skins";
 
         if (!CheckDirectory(filepath)) return;
 

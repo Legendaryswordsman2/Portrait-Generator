@@ -5,9 +5,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
-using System.Diagnostics;
-using UnityEngine.Rendering;
-using System.Runtime.CompilerServices;
+using UnityEngine.SceneManagement;
 
 public class LogManager : MonoBehaviour
 {
@@ -16,12 +14,13 @@ public class LogManager : MonoBehaviour
     [Header("Settings")]
     [Tooltip("The max amount of logs that can be displayed at a given time, once the limit has been reached logs will begin getting replaced, the higher the number of logs the laggier the game")]
     [SerializeField, Range(1, 1000)] int logCap = 250;
-    [SerializeField] float fontSize = 25;
-    [Tooltip("The max amount of log files that can be generated, once this limit has been reached older logs will start being overwritten"), Min(1)]
+    [Tooltip("The font size of each log in the console")]
+    [SerializeField, Min(1)] float fontSize = 25;
+    [Tooltip("The max amount of log files that can be generated, once this limit has been reached older logs will start being overwritten"), Min(0)]
     [SerializeField] int logFileCap = 5;
 
     [Tooltip("Clears all logs when the current scene changes")]
-    [SerializeField] bool clearLogsOnSceneChange;
+    [SerializeField] bool clearConsoleOnSceneChange = true;
 
     [Space]
 
@@ -50,8 +49,10 @@ public class LogManager : MonoBehaviour
 
     Transform bottomListTransform;
 
-    private void Awake()
+    void Awake()
     {
+        DontDestroyOnLoad(gameObject);
+
         Instance = this;
 
         logConsoleComponent = logConsole.GetComponent<LogConsole>();
@@ -84,18 +85,18 @@ public class LogManager : MonoBehaviour
         Application.logMessageReceivedThreaded += OnLogMessageReceived;
     }
 
-    private void Start()
+    void Start()
     {
         InputManager.playerInputActions.General.OpenLogMenu.performed += OpenLogMenu_performed;
+        SceneManager.sceneLoaded += OnNewSceneLoaded;
     }
 
-    private void OnDisable()
+    void OnDisable()
     {
         Application.logMessageReceivedThreaded -= OnLogMessageReceived;
     }
 
-
-    private void OnLogMessageReceived(string _condition, string stackTrace, LogType type)
+    void OnLogMessageReceived(string _condition, string stackTrace, LogType type)
     {
         string condition = "[" + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + "] [" + type + "] " + _condition;
 
@@ -132,7 +133,8 @@ public class LogManager : MonoBehaviour
         });
 
     }
-    private void OpenLogMenu_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+
+    void OpenLogMenu_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         ToggleLogMenu();
     }
@@ -142,7 +144,7 @@ public class LogManager : MonoBehaviour
         setupMessage.SetSetupMessage(isActive);
     }
 
-    private void LogBaseInfo(string message)
+    void LogBaseInfo(string message)
     {
         Log log = Instantiate(logPrefab, logConsoleContents.transform).GetComponent<Log>();
 
@@ -150,7 +152,7 @@ public class LogManager : MonoBehaviour
 
         totalLogs.Add(new LogData(message, "", LogType.Log));
     }
-    private void Log(string logMessage, string logDetails = "")
+    void Log(string logMessage, string logDetails = "")
     {
         bool isAtBottom;
 
@@ -172,7 +174,7 @@ public class LogManager : MonoBehaviour
                 GoToBottom();
         }
     }
-    private void LogWarning(string warningMessage, string warningDetails = "")
+    void LogWarning(string warningMessage, string warningDetails = "")
     {
         bool isAtBottom;
 
@@ -194,7 +196,7 @@ public class LogManager : MonoBehaviour
                 GoToBottom();
         }
     }
-    private void LogError(string errorMessage, string errorDetails = "")
+    void LogError(string errorMessage, string errorDetails = "")
     {
         bool isAtBottom;
 
@@ -216,7 +218,7 @@ public class LogManager : MonoBehaviour
                 GoToBottom();
         }
     }
-    private void LogException(string exception, string exceptionDetails = "")
+    void LogException(string exception, string exceptionDetails = "")
     {
         bool isAtBottom;
 
@@ -239,7 +241,7 @@ public class LogManager : MonoBehaviour
         }
     }
 
-    public async void GoToBottom()
+    async void GoToBottom()
     {
         LayoutRebuilder.ForceRebuildLayoutImmediate(logConsole.GetComponent<RectTransform>());
         await UniTask.WaitForEndOfFrame(this);
@@ -268,7 +270,7 @@ public class LogManager : MonoBehaviour
         logConsole.SetActive(!logConsole.activeSelf);
     }
 
-    private void OnLogConsoleEnabled(object sender, EventArgs e)
+    void OnLogConsoleEnabled(object sender, EventArgs e)
     {
         for (int i = 0; i < queuedLogs.Count; i++)
         {
@@ -294,8 +296,26 @@ public class LogManager : MonoBehaviour
         logConsoleScrollRect.ScrollToBottom();
     }
 
-    private void OnApplicationQuit()
+    void OnNewSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
+        if (clearConsoleOnSceneChange)
+            ClearConsole();
+    }
+
+    public void ClearConsole()
+    {
+        queuedLogs.Clear();
+
+        foreach (var log in logs)
+        {
+            log.gameObject.SetActive(false);
+        }
+    }
+
+    void OnApplicationQuit()
+    {
+        if (logCap <= 0) return;
+
         string logsFolder = Application.persistentDataPath + "/logs";
 
         if(!Directory.Exists(logsFolder))
@@ -329,7 +349,7 @@ public class LogManager : MonoBehaviour
     }
 
     [Serializable]
-    public class LogData
+    class LogData
     {
         public string condition;
         public string stackTrace;
