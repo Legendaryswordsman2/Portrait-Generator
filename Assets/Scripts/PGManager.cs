@@ -17,6 +17,10 @@ public class PGManager : MonoBehaviour
 
     public event EventHandler OnDropdownChanged;
 
+    [Space]
+
+    [SerializeField] SetupMessage setupMessage;
+
     PortraitPieceGrabber ppg;
 
     public static bool finishedSetup { get; private set; } = false;
@@ -71,6 +75,11 @@ public class PGManager : MonoBehaviour
         //index++;
         //Debug.LogWarning("This is a bad warning");
 
+    }
+
+    public void SetFirstTimeSetupMessage(bool isActive)
+    {
+        setupMessage.SetSetupMessage(isActive);
     }
 
     public void AddPortraitPiece(Sprite portraitPiece, PortraitPieceType type)

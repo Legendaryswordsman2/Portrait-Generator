@@ -24,7 +24,7 @@ public class PortraitPieceGrabber : MonoBehaviour
     List<Task> tasks;
     private async void Awake()
     {
-        LogManager.Instance.SetFirstTimeSetupMessage(true);
+        pgManager.SetFirstTimeSetupMessage(true);
 
         tasks = new List<Task>
         {
@@ -35,7 +35,7 @@ public class PortraitPieceGrabber : MonoBehaviour
         // Wait for all portrait pieces to be added
         await Task.WhenAll(tasks);
 
-        LogManager.Instance.SetFirstTimeSetupMessage(false);
+        pgManager.SetFirstTimeSetupMessage(false);
 
         finishedSetup = true;
 
