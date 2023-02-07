@@ -5,6 +5,7 @@ using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
 
+public enum PortraitSize { Sixteen, Thirtytwo, Fortyeight }
 public class PortraitPieceMerger : MonoBehaviour
 {
     [SerializeField, ReadOnlyInspector] List<Texture2D> portraitPieces;
@@ -20,11 +21,27 @@ public class PortraitPieceMerger : MonoBehaviour
 
         await UniTask.WaitUntil(() => PGManager.finishedSetup == true);
     }
-    public async Task<Sprite> CombinePortraitPieces()
+    public async Task<Sprite> CombinePortraitPieces(PortraitSize size)
     {
         portraitPieces.Clear();
 
-        string filepath = Directory.GetCurrentDirectory() + "/Portrait Pieces/Portrait_Generator - 16x16/";
+        string filepath;
+
+        switch (size)
+        {
+            case PortraitSize.Sixteen:
+                filepath = Directory.GetCurrentDirectory() + "/Portrait Pieces/Portrait_Generator - 16x16/";
+                break;
+            case PortraitSize.Thirtytwo:
+                filepath = Directory.GetCurrentDirectory() + "/Portrait Pieces/Portrait_Generator - 32x32/";
+                break;
+            case PortraitSize.Fortyeight:
+                filepath = Directory.GetCurrentDirectory() + "/Portrait Pieces/Portrait_Generator - 48x48/";
+                break;
+            default:
+                Debug.LogError("File size provided is not a known size");
+                return null;
+        }
 
         //Debug.Log(filepath + pgm.skin.activeSprite.name + ".png");
 
@@ -45,7 +62,7 @@ public class PortraitPieceMerger : MonoBehaviour
         return ConvertTextureToSprite(combinedTexture);
     }
 
-    public Texture2D CombineTextures(Texture2D _texture1, Texture2D texture2)
+    Texture2D CombineTextures(Texture2D _texture1, Texture2D texture2)
     {
         Texture2D texture1 = Instantiate(_texture1);
 

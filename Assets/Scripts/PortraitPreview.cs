@@ -23,7 +23,7 @@ public class PortraitPreview : MonoBehaviour
         //previewSpritesheet = previewSpritesheetCanvas;
         //LogManager.Instance.Log("Combining sprites for preview");
         Debug.Log("Combing sprites for preview");
-        Sprite CombinedSprite = await ppm.CombinePortraitPieces();
+        Sprite CombinedSprite = await ppm.CombinePortraitPieces(PortraitSize.Sixteen);
 
         ppm.OverrideTexture(previewSpritesheet, CombinedSprite);
 
