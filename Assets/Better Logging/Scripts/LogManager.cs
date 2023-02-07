@@ -33,7 +33,6 @@ public class LogManager : MonoBehaviour
 
     [Space]
 
-    [SerializeField] SetupMessage setupMessage;
     [SerializeField] GameObject errorMessageMenu;
     [SerializeField] TMP_Text errorText;
 
@@ -136,11 +135,6 @@ public class LogManager : MonoBehaviour
             }
         });
 
-    }
-
-    public void SetFirstTimeSetupMessage(bool isActive)
-    {
-        setupMessage.SetSetupMessage(isActive);
     }
 
     void LogBaseInfo(string message)
