@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,18 +21,11 @@ public class PortraitPreview : MonoBehaviour
 
     private async void Pgm_OnDropdownChanged(object sender, System.EventArgs e)
     {
-        //previewSpritesheet = previewSpritesheetCanvas;
-        //LogManager.Instance.Log("Combining sprites for preview");
+        await UniTask.WaitForEndOfFrame(this);
+
         Debug.Log("Combing sprites for preview");
         Sprite CombinedSprite = await ppm.CombinePortraitPieces(PortraitSize.Sixteen);
 
         ppm.OverrideTexture(previewSpritesheet, CombinedSprite);
-
-        //previewSpritesheet.texture = newTexture.texture;
-
-        //ppm.CombineTextures(previewSpritesheet, await ppm.CombinePortraitPieces());
-        
-
-        //imageComponent.sprite = previewSpritesheet;
     }
 }
