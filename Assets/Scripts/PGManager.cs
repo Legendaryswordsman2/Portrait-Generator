@@ -10,6 +10,8 @@ public class PGManager : MonoBehaviour
 {
     public PortraitPiece skin;
     public PortraitPiece hair;
+    public PortraitPiece eyes;
+    public PortraitPiece accessory;
 
     public event EventHandler OnSkinChanged;
 
@@ -92,6 +94,12 @@ public class PGManager : MonoBehaviour
             case PortraitPieceType.Hairstyle:
                 hair.sprites.Add(portraitPiece);
                 break;
+            case PortraitPieceType.Eyes:
+                eyes.sprites.Add(portraitPiece);
+                break;
+            case PortraitPieceType.Accessory:
+                accessory.sprites.Add(portraitPiece);
+                break;
         }
     }
 
@@ -134,7 +142,6 @@ public class PGManager : MonoBehaviour
     [System.Serializable]
   public class PortraitPiece
     {
-        public string name;
         public TMP_Dropdown dropdown;
         [ReadOnlyInspector] public Sprite activeSprite;
         [ReadOnlyInspector] public int activeSpriteIndex;

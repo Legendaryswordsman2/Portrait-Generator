@@ -12,7 +12,7 @@ using Cysharp.Threading.Tasks;
 using System.Threading;
 using System.Runtime.CompilerServices;
 
-public enum PortraitPieceType { Skin, Hairstyle }
+public enum PortraitPieceType { Skin, Hairstyle, Eyes, Accessory}
 public class PortraitPieceGrabber : MonoBehaviour
 {
     [SerializeField] PGManager pgManager;
@@ -28,8 +28,10 @@ public class PortraitPieceGrabber : MonoBehaviour
 
         tasks = new List<Task>
         {
-            GetSkinsForDisplay(),
-            GetHairstylesForDisplay()
+            GetPortraitPiecesForDisplay(PortraitPieceType.Skin),
+            GetPortraitPiecesForDisplay(PortraitPieceType.Hairstyle),
+            GetPortraitPiecesForDisplay(PortraitPieceType.Eyes),
+            GetPortraitPiecesForDisplay(PortraitPieceType.Accessory)
         };
 
         // Wait for all portrait pieces to be added
@@ -43,30 +45,24 @@ public class PortraitPieceGrabber : MonoBehaviour
         Debug.Log("Finished loading portrait pieces");
     }
 
-    async Task GetSkinsForDisplay()
+    async Task GetPortraitPiecesForDisplay(PortraitPieceType type)
     {
-        
-        string filepath = Directory.GetCurrentDirectory() + "/Portrait Pieces/Portrait_Generator - 16x16/Skins";
-
-        if (!CheckDirectory(filepath)) return;
-
-        DirectoryInfo d = new DirectoryInfo(filepath);
-
-        Path.GetFileNameWithoutExtension(d.FullName);
-        foreach (var file in d.GetFiles("*.png"))
+        string filepath = "";
+        switch (type)
         {
-            //Debug.Log(file);
-            // file.FullName is the full path to the file
-            pgManager.AddPortraitPiece(await GetImage(file.FullName, Path.GetFileNameWithoutExtension(file.Name)), PortraitPieceType.Skin);
+            case PortraitPieceType.Skin:
+                filepath = Directory.GetCurrentDirectory() + "/Portrait Pieces/Portrait_Generator - 16x16/Skins";
+                break;
+            case PortraitPieceType.Hairstyle:
+                filepath = Directory.GetCurrentDirectory() + "/Portrait Pieces/Portrait_Generator - 16x16/Hairstyles";
+                break;
+            case PortraitPieceType.Eyes:
+                filepath = Directory.GetCurrentDirectory() + "/Portrait Pieces/Portrait_Generator - 16x16/Eyes";
+                break;
+            case PortraitPieceType.Accessory:
+                filepath = Directory.GetCurrentDirectory() + "/Portrait Pieces/Portrait_Generator - 16x16/Accessories";
+                break;
         }
-    }
-
-    async Task GetHairstylesForDisplay()
-    {
-        //_tokenSource= new CancellationTokenSource();
-        //var token = _tokenSource.Token;
-
-        string filepath = Directory.GetCurrentDirectory() + "/Portrait Pieces/Portrait_Generator - 16x16/Hairstyles";
 
         if (!CheckDirectory(filepath)) return;
 
@@ -74,9 +70,8 @@ public class PortraitPieceGrabber : MonoBehaviour
 
         foreach (var file in d.GetFiles("*.png"))
         {
-            //Debug.Log(file.Name);
             // file.FullName is the full path to the file
-            pgManager.AddPortraitPiece(await GetImage(file.FullName, Path.GetFileNameWithoutExtension(file.Name)), PortraitPieceType.Hairstyle);
+            pgManager.AddPortraitPiece(await GetImage(file.FullName, Path.GetFileNameWithoutExtension(file.Name)), type);
         }
     }
 
