@@ -8,14 +8,12 @@ using UnityEngine;
 using UnityEngine.UI;
 public class PGManager : MonoBehaviour
 {
-    public PortraitPiece skin;
-    public PortraitPiece hair;
-    public PortraitPiece eyes;
-    public PortraitPiece accessory;
+    public PortraitPiece[] portraitPieces;
 
-    public event EventHandler OnSkinChanged;
-
-    public event EventHandler OnHairstyleChanged;
+    //public PortraitPiece skin;
+    //public PortraitPiece hair;
+    //public PortraitPiece eyes;
+    //public PortraitPiece accessory;
 
     public event EventHandler OnDropdownChanged;
 
@@ -35,15 +33,26 @@ public class PGManager : MonoBehaviour
 
         await UniTask.WaitUntil(() => ppg.finishedSetup == true);
 
-        SetPortraitPartDropdown(skin);
+        foreach (PortraitPiece portraitPiece in portraitPieces)
+        {
+            SetPortraitPartDropdown(portraitPiece);
+        }
 
-        SetPortraitPartDropdown(hair);
+        //SetPortraitPartDropdown(portraitPieces[0]);
+
+        //SetPortraitPartDropdown(hair);
 
         OnSkinDropdownChanged(0);
-        skin.dropdown.RefreshShownValue();
+        portraitPieces[0].dropdown.RefreshShownValue();
 
         OnHairstyleDropdownChanged(0);
-        hair.dropdown.RefreshShownValue();
+        portraitPieces[1].dropdown.RefreshShownValue();
+
+        OnEyesDropdownChanged(0);
+        portraitPieces[2].dropdown.RefreshShownValue();
+
+        OnAccessoriesDropdownChanged(0);
+        portraitPieces[3].dropdown.RefreshShownValue();
 
         finishedSetup = true;
 
@@ -89,16 +98,16 @@ public class PGManager : MonoBehaviour
         switch (type)
         {
             case PortraitPieceType.Skin:
-                skin.sprites.Add(portraitPiece);
+                portraitPieces[0].sprites.Add(portraitPiece);
                 break;
             case PortraitPieceType.Hairstyle:
-                hair.sprites.Add(portraitPiece);
+                portraitPieces[1].sprites.Add(portraitPiece);
                 break;
             case PortraitPieceType.Eyes:
-                eyes.sprites.Add(portraitPiece);
+                portraitPieces[2].sprites.Add(portraitPiece);
                 break;
             case PortraitPieceType.Accessory:
-                accessory.sprites.Add(portraitPiece);
+                portraitPieces[3].sprites.Add(portraitPiece);
                 break;
         }
     }
@@ -117,35 +126,63 @@ public class PGManager : MonoBehaviour
 
     public void OnSkinDropdownChanged(int index)
     {
-        skin.imageComponent.sprite = skin.sprites[index];
-        skin.activeSprite = skin.sprites[index];
-        skin.activeSpriteIndex = index;
+        portraitPieces[0].imageComponent.sprite = portraitPieces[0].sprites[index];
+        portraitPieces[0].activeSprite = portraitPieces[0].sprites[index];
+        portraitPieces[0].activeSpriteIndex = index;
 
-        OnSkinChanged?.Invoke(this, null);
+        portraitPieces[0].InvokeOnActivePortraitPieceChanged();
 
         OnDropdownChanged?.Invoke(this, null);
     }
 
     public void OnHairstyleDropdownChanged(int index)
     {
-        hair.imageComponent.sprite = hair.sprites[index];
-        hair.activeSprite = hair.sprites[index];
-        hair.activeSpriteIndex = index;
+        portraitPieces[1].imageComponent.sprite = portraitPieces[1].sprites[index];
+        portraitPieces[1].activeSprite = portraitPieces[1].sprites[index];
+        portraitPieces[1].activeSpriteIndex = index;
 
-        if (!finishedSetup) return;
-
-        OnHairstyleChanged?.Invoke(this, null);
+        portraitPieces[1].InvokeOnActivePortraitPieceChanged();
 
         OnDropdownChanged?.Invoke(this, null);
     }
 
-    [System.Serializable]
-  public class PortraitPiece
+    public void OnEyesDropdownChanged(int index)
     {
+        portraitPieces[2].imageComponent.sprite = portraitPieces[2].sprites[index];
+        portraitPieces[2].activeSprite = portraitPieces[2].sprites[index];
+        portraitPieces[2].activeSpriteIndex = index;
+
+        portraitPieces[2].InvokeOnActivePortraitPieceChanged();
+
+        OnDropdownChanged?.Invoke(this, null);
+    }
+
+    public void OnAccessoriesDropdownChanged(int index)
+    {
+        portraitPieces[3].imageComponent.sprite = portraitPieces[3].sprites[index];
+        portraitPieces[3].activeSprite = portraitPieces[3].sprites[index];
+        portraitPieces[3].activeSpriteIndex = index;
+
+        portraitPieces[3].InvokeOnActivePortraitPieceChanged();
+
+        OnDropdownChanged?.Invoke(this, null);
+    }
+
+    [Serializable]
+    public class PortraitPiece
+    {
+        public string name;
         public TMP_Dropdown dropdown;
         [ReadOnlyInspector] public Sprite activeSprite;
         [ReadOnlyInspector] public int activeSpriteIndex;
         public List<Sprite> sprites;
         public Image imageComponent;
+
+        public event EventHandler OnActivePortraitPieceChanged;
+
+        public void InvokeOnActivePortraitPieceChanged()
+        {
+            OnActivePortraitPieceChanged?.Invoke(this, null);
+        }
     }
 }

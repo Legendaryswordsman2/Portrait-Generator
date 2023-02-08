@@ -2,13 +2,15 @@ using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum PortraitSize { Sixteen, Thirtytwo, Fortyeight }
 public class PortraitPieceMerger : MonoBehaviour
 {
-    [SerializeField, ReadOnlyInspector] List<Texture2D> portraitPieces;
+    [SerializeField, ReadOnlyInspector] List<Texture2D> portraitPiecesToBeCombined;
 
     PGManager pgm;
     PortraitPieceGrabber ppg;
@@ -23,7 +25,7 @@ public class PortraitPieceMerger : MonoBehaviour
     }
     public async Task<Sprite> CombinePortraitPieces(PortraitSize size)
     {
-        portraitPieces.Clear();
+        portraitPiecesToBeCombined.Clear();
 
         string filepath;
 
@@ -45,21 +47,37 @@ public class PortraitPieceMerger : MonoBehaviour
 
         //Debug.Log(filepath + pgm.skin.activeSprite.name + ".png");
 
-        Sprite skinSprite = await ppg.GetImage(filepath + "Skins/" + pgm.skin.activeSprite.name + ".png", pgm.skin.activeSprite.name);
+        if(size == PortraitSize.Sixteen)
+        {
+            for (int i = 0; i < pgm.portraitPieces.Length; i++)
+            {
+                portraitPiecesToBeCombined.Add(pgm.portraitPieces[i].activeSprite.texture);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < pgm.portraitPieces.Length; i++)
+            {
+                portraitPiecesToBeCombined.Add(await ppg.GetImageAsTexture2D(filepath + pgm.portraitPieces[i].name, pgm.portraitPieces[i].activeSprite.name));
+            }
+        }
 
-        skinSprite.texture.name = skinSprite.name;
+        if (portraitPiecesToBeCombined.Count == 0)
+        {
+            Debug.LogError("No portrait pieces to be combined");
+            return null;
+        }
+        else if (portraitPiecesToBeCombined.Count == 1)
+            return ConvertTextureToSprite(portraitPiecesToBeCombined[0]);
 
-        Sprite hairSprite = await ppg.GetImage(filepath + "Hairstyles/" + pgm.hair.activeSprite.name + ".png", pgm.hair.activeSprite.name);
+        Texture2D finalTexture = portraitPiecesToBeCombined[0];
 
-        hairSprite.texture.name = hairSprite.name;
+        for (int i = 1; i < portraitPiecesToBeCombined.Count; i++)
+        {
+            finalTexture = CombineTextures(finalTexture, portraitPiecesToBeCombined[i]);
+        }
 
-        portraitPieces.Add(skinSprite.texture);
-
-        portraitPieces.Add(hairSprite.texture);
-
-        Texture2D combinedTexture = CombineTextures(portraitPieces[0], portraitPieces[1]);
-
-        return ConvertTextureToSprite(combinedTexture);
+        return ConvertTextureToSprite(finalTexture);
     }
 
     Texture2D CombineTextures(Texture2D _texture1, Texture2D texture2)

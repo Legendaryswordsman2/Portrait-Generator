@@ -334,7 +334,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnSkinDropdownChanged
+      value: OnEyesDropdownChanged
       objectReference: {fileID: 0}
     - target: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -1028,6 +1028,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 488528062}
   m_CullTransparentMesh: 1
+--- !u!114 &504791445 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
+  m_PrefabInstance: {fileID: 226820683}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1971,6 +1982,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1050068538}
   m_CullTransparentMesh: 1
+--- !u!114 &1164094721 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
+  m_PrefabInstance: {fileID: 1479007640}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1204724241
 GameObject:
   m_ObjectHideFlags: 0
@@ -2032,30 +2054,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9bcdb596383ef84aa998b2fe5041784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skin:
+  portraitPieces:
+  - name: Skins
     dropdown: {fileID: 2577156212073861110}
     activeSprite: {fileID: 0}
     activeSpriteIndex: 0
     sprites: []
     imageComponent: {fileID: 488528064}
-  hair:
+  - name: Hairstyles
     dropdown: {fileID: 470038086}
     activeSprite: {fileID: 0}
     activeSpriteIndex: 0
     sprites: []
     imageComponent: {fileID: 1523117765}
-  eyes:
-    dropdown: {fileID: 0}
+  - name: Eyes
+    dropdown: {fileID: 504791445}
     activeSprite: {fileID: 0}
     activeSpriteIndex: 0
     sprites: []
-    imageComponent: {fileID: 0}
-  accessory:
-    dropdown: {fileID: 0}
+    imageComponent: {fileID: 1647390405}
+  - name: Accessories
+    dropdown: {fileID: 1164094721}
     activeSprite: {fileID: 0}
     activeSpriteIndex: 0
     sprites: []
-    imageComponent: {fileID: 0}
+    imageComponent: {fileID: 1050068540}
   setupMessage: {fileID: 881601830}
 --- !u!114 &1204724246
 MonoBehaviour:
@@ -2069,7 +2092,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b65be9bb6e275774b8d3d7456a2e38d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  portraitPieces: []
+  portraitPiecesToBeCombined: []
 --- !u!114 &1204724247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2790,7 +2813,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnSkinDropdownChanged
+      value: OnAccessoriesDropdownChanged
       objectReference: {fileID: 0}
     - target: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName

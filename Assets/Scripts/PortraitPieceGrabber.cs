@@ -94,9 +94,36 @@ public class PortraitPieceGrabber : MonoBehaviour
                 Sprite sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 16f);
 
                 sprite.name = fileName;
+                sprite.texture.name = fileName;
                 sprite.texture.filterMode = FilterMode.Point;
 
                 return sprite;
+            }
+        }
+    }
+
+    public async Task<Texture2D> GetImageAsTexture2D(string filepath, string fileName)
+    {
+        using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(filepath))
+        {
+            await uwr.SendWebRequest();
+
+            if (uwr.result != UnityWebRequest.Result.Success)
+            {
+                Debug.LogError(uwr.error);
+                return null;
+            }
+            else
+            {
+                // Get downloaded asset bundle
+                Texture2D texture = DownloadHandlerTexture.GetContent(uwr);
+
+                texture.name = fileName;
+                texture.filterMode = FilterMode.Point;
+
+                Debug.Log(texture.name);
+
+                return texture;
             }
         }
     }
