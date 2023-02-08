@@ -1545,7 +1545,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 927925514}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1377693544}
+        m_TargetAssemblyTypeName: SavePortraitManager, Assembly-CSharp
+        m_MethodName: SavePortrait
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &927925514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2439,6 +2451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fileNameInputField: {fileID: 1918310965}
   sizeDropdown: {fileID: 7199625010471888219}
+  ppMerger: {fileID: 1204724246}
 --- !u!1 &1379792193
 GameObject:
   m_ObjectHideFlags: 0
