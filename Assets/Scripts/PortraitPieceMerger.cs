@@ -58,7 +58,24 @@ public class PortraitPieceMerger : MonoBehaviour
         {
             for (int i = 0; i < pgm.portraitPieces.Length; i++)
             {
-                portraitPiecesToBeCombined.Add(await ppg.GetImageAsTexture2D(filepath + pgm.portraitPieces[i].name, pgm.portraitPieces[i].activeSprite.name));
+                string _filepath = filepath;
+                switch (i)
+                {
+                    case 0:
+                        _filepath += "Skins/";
+                    break;
+                    case 1:
+                        _filepath += "Hairstyles/";
+                        break;
+                    case 2:
+                        _filepath += "Eyes/";
+                        break;
+                    case 3:
+                        _filepath += "Accessories/";
+                        break;
+                }
+
+                portraitPiecesToBeCombined.Add(await ppg.GetImageAsTexture2D(_filepath + pgm.portraitPieces[i].activeSprite.name + ".png", pgm.portraitPieces[i].activeSprite.name));
             }
         }
 
