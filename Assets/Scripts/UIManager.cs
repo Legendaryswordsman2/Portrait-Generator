@@ -6,6 +6,17 @@ public static class UIManager
 {
   public static GameObject ActiveMenu { get; private set; }
 
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+    static void Awake() => InputManager.playerInputActions.General.Back.performed += Back_performed;
+
+    private static void Back_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        if (ActiveMenu == null)
+            Application.Quit();
+        else
+            ForceCloseOverlay();
+    }
+
     public static bool OpenMenu(GameObject menuToOpen)
     {
         if (ActiveMenu != null) return false;

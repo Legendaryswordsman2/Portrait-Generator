@@ -8,7 +8,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Portrait Generator.unity
     guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
-    path: Assets/Scenes/Test.unity
-    guid: 93b13c29931aa504a8aaa2703806fed9
   m_configObjects: {}
