@@ -37,10 +37,10 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Mouse Down"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""4bbe0d13-9480-42b1-bb95-5629d26c2833"",
-                    ""expectedControlType"": """",
+                    ""name"": ""Back"",
+                    ""type"": ""Button"",
+                    ""id"": ""7d4ca10e-6937-4f72-bc24-b8b56568660e"",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -60,12 +60,12 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""68a1337f-e99e-4022-bd5d-feb7bf6d61de"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""id"": ""b9ea832f-4d2a-415d-9e9b-5f94b8331542"",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""Mouse Down"",
+                    ""action"": ""Back"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -94,7 +94,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         // General
         m_General = asset.FindActionMap("General", throwIfNotFound: true);
         m_General_OpenLogMenu = m_General.FindAction("Open Log Menu", throwIfNotFound: true);
-        m_General_MouseDown = m_General.FindAction("Mouse Down", throwIfNotFound: true);
+        m_General_Back = m_General.FindAction("Back", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -155,13 +155,13 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_General;
     private IGeneralActions m_GeneralActionsCallbackInterface;
     private readonly InputAction m_General_OpenLogMenu;
-    private readonly InputAction m_General_MouseDown;
+    private readonly InputAction m_General_Back;
     public struct GeneralActions
     {
         private @PlayerInputActions m_Wrapper;
         public GeneralActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @OpenLogMenu => m_Wrapper.m_General_OpenLogMenu;
-        public InputAction @MouseDown => m_Wrapper.m_General_MouseDown;
+        public InputAction @Back => m_Wrapper.m_General_Back;
         public InputActionMap Get() { return m_Wrapper.m_General; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -174,9 +174,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @OpenLogMenu.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnOpenLogMenu;
                 @OpenLogMenu.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnOpenLogMenu;
                 @OpenLogMenu.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnOpenLogMenu;
-                @MouseDown.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnMouseDown;
-                @MouseDown.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnMouseDown;
-                @MouseDown.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnMouseDown;
+                @Back.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnBack;
+                @Back.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnBack;
+                @Back.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnBack;
             }
             m_Wrapper.m_GeneralActionsCallbackInterface = instance;
             if (instance != null)
@@ -184,9 +184,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @OpenLogMenu.started += instance.OnOpenLogMenu;
                 @OpenLogMenu.performed += instance.OnOpenLogMenu;
                 @OpenLogMenu.canceled += instance.OnOpenLogMenu;
-                @MouseDown.started += instance.OnMouseDown;
-                @MouseDown.performed += instance.OnMouseDown;
-                @MouseDown.canceled += instance.OnMouseDown;
+                @Back.started += instance.OnBack;
+                @Back.performed += instance.OnBack;
+                @Back.canceled += instance.OnBack;
             }
         }
     }
@@ -203,6 +203,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     public interface IGeneralActions
     {
         void OnOpenLogMenu(InputAction.CallbackContext context);
-        void OnMouseDown(InputAction.CallbackContext context);
+        void OnBack(InputAction.CallbackContext context);
     }
 }
