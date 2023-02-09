@@ -48,6 +48,23 @@ public static class UIManager
         return true;
     }
 
+    public static bool SwitchActiveMenu(GameObject oldMenu, GameObject newMenu)
+    {
+        if(ActiveMenu != oldMenu)
+        {
+            Debug.Log("Cannot switch active menu, supplied active menu is inccorect");
+            return false;
+        }
+
+        ActiveMenu.SetActive(false);
+
+        ActiveMenu = newMenu;
+
+        ActiveMenu.SetActive(true);
+
+        return true;
+    }
+
     public static bool ForceCloseOverlay()
     {
         if(ActiveMenu == null)

@@ -16,6 +16,7 @@ public class SavePortraitManager : MonoBehaviour
     [SerializeField] PortraitPieceMerger ppMerger;
     [SerializeField] GameObject savePortraitMenus;
     [SerializeField] GameObject creatingPortraitOverlay;
+    [SerializeField] GameObject finishedSavingPortraitMenu;
 
     Sprite finalSprite;
 
@@ -26,10 +27,22 @@ public class SavePortraitManager : MonoBehaviour
         fileNameInputField.interactable = true;
         sizeDropdown.interactable = true;
         saveButton.interactable = true;
+        creatingPortraitOverlay.SetActive(false);
 
         UIManager.OpenMenu(savePortraitMenus);
 
         gameObject.SetActive(true);
+    }
+
+    public void OpenSavedPortraitsFileLocation()
+    {
+        if (Directory.Exists(Directory.GetCurrentDirectory() + "/Saved Portraits"))
+        {
+            Debug.Log("Opened file explorer to 'saved portraits' folder");
+            Application.OpenURL(Directory.GetCurrentDirectory() + "/Saved Portraits");
+        }
+        else
+            Debug.LogWarning("Cannot open file explorer to 'saved portraits' folder because that folder does not exist");
     }
 
     public async void SavePortrait()
@@ -68,5 +81,10 @@ public class SavePortraitManager : MonoBehaviour
             fileNameInputField.text = "Unnamed Portrait";
 
         File.WriteAllBytes(Directory.GetCurrentDirectory() + "/Saved Portraits/" + fileNameInputField.text + ".png", bytes);
+
+        //UIManager.SwitchActiveMenu(gameObject, finishedSavingPortraitMenu);
+
+        finishedSavingPortraitMenu.SetActive(true);
+        gameObject.SetActive(false);
     }
 }
