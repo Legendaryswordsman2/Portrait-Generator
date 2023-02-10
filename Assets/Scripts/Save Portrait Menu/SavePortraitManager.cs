@@ -1,6 +1,10 @@
+using Cysharp.Threading.Tasks;
+using LootLocker.Requests;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,11 +20,20 @@ public class SavePortraitManager : MonoBehaviour
     [SerializeField] PortraitPieceMerger ppMerger;
     [SerializeField] GameObject savePortraitMenus;
     [SerializeField] GameObject creatingPortraitOverlay;
+
+    [Space]
+
     [SerializeField] GameObject finishedSavingPortraitMenu;
+    [SerializeField] TMP_Text personalStatsText;
+    [SerializeField] TMP_Text globalStatsText;
 
     Sprite finalSprite;
 
     PortraitSize size;
+
+    int portraitsGeneratedPersonal;
+    int portraitsGeneratedGlobal;
+    bool doneContactingServer = false;
 
     public void OpenSavePortraitMenu()
     {
@@ -47,11 +60,15 @@ public class SavePortraitManager : MonoBehaviour
 
     public async void SavePortrait()
     {
+        doneContactingServer = false;
+
         fileNameInputField.interactable = false;
         sizeDropdown.interactable = false;
         saveButton.interactable = false;
 
         creatingPortraitOverlay.SetActive(true);
+
+        UpdateScores();
 
         switch (sizeDropdown.value)
         {
@@ -70,7 +87,7 @@ public class SavePortraitManager : MonoBehaviour
         SavePortraitToFile();
     }
 
-    void SavePortraitToFile()
+    async void SavePortraitToFile()
     {
         byte[] bytes = finalSprite.texture.EncodeToPNG();
 
@@ -82,9 +99,128 @@ public class SavePortraitManager : MonoBehaviour
 
         File.WriteAllBytes(Directory.GetCurrentDirectory() + "/Saved Portraits/" + fileNameInputField.text + ".png", bytes);
 
-        //UIManager.SwitchActiveMenu(gameObject, finishedSavingPortraitMenu);
+        if (PlayerAuthentication.LoggedIn)
+        {
+            await UniTask.WaitUntil(() => doneContactingServer == true);
 
-        finishedSavingPortraitMenu.SetActive(true);
-        gameObject.SetActive(false);
+            personalStatsText.text = "You've saved " + portraitsGeneratedPersonal + " portarits total.";
+            globalStatsText.text = portraitsGeneratedGlobal + " portraits have been saved globally.";
+
+            finishedSavingPortraitMenu.SetActive(true);
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            personalStatsText.text = "";
+            globalStatsText.text = "";
+
+            finishedSavingPortraitMenu.SetActive(true);
+            gameObject.SetActive(false);
+        }
+    }
+
+    async void UpdateScores()
+    {
+        if (PlayerAuthentication.LoggedIn)
+        {
+            List<Task> tasks = new()
+            {
+               UpdateGlobalScore(),
+               UpdatePersonalScore()
+            };
+
+            await Task.WhenAll(tasks);
+
+            doneContactingServer = true;
+        }
+    }
+
+    async Task UpdateGlobalScore()
+    {
+        int score = 0;
+
+        bool finished = false;
+
+        bool succesful = true;
+        LootLockerSDKManager.GetScoreList("11560", 1, 0, (response) =>
+        {
+            if (response.success)
+            {
+                score = response.items[0].score;
+            }
+            else
+            {
+                Debug.LogWarning("Failed to fetch leaderbaord data: " + response.Error);
+                succesful = false;
+            }
+
+            finished = true;
+        });
+
+        await UniTask.WaitUntil(() => finished);
+
+        if (!succesful) return;
+
+        bool done = false;
+
+        // Add to global score
+        LootLockerSDKManager.SubmitScore("155", score + 1, "11560", (response) =>
+        {
+            if (response.success)
+            {
+                portraitsGeneratedGlobal = score + 1;
+                //Debug.Log(score + " Global");
+            }
+            else
+            {
+                Debug.Log("Failed" + response.Error);
+            }
+
+            done = true;
+        });
+
+        await UniTask.WaitUntil(() => done);
+    }
+
+    async Task UpdatePersonalScore()
+    {
+        int score = 0;
+
+        bool finished = false;
+
+        bool succesful = true;
+        LootLockerSDKManager.GetMemberRank("11561", PlayerPrefs.GetString("PlayerID"), (response) =>
+        {
+            if (response.success)
+                score = response.score;
+            else
+            {
+                Debug.LogWarning("Failed to fetch leaderbaord data: " + response.Error);
+                succesful = false;
+            }
+
+            finished = true;
+        });
+
+        await UniTask.WaitUntil(() => finished);
+
+        if (!succesful) return;
+
+        bool done = false;
+
+        LootLockerSDKManager.SubmitScore(PlayerPrefs.GetString("PlayerID"), score + 1, "11561", (response) =>
+        {
+            if (response.success)
+            {
+                portraitsGeneratedPersonal = score + 1;
+                //Debug.Log(score + " Pesonal");
+            }
+            else
+                Debug.LogWarning("Unable to upload personal score: " + response.Error);
+
+            done = true;
+        });
+
+        await UniTask.WaitUntil(() => done);
     }
 }
