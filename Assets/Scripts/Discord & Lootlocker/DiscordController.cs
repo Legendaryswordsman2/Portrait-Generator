@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Discord;
 using UnityEngine.SceneManagement;
 
 public class DiscordController : MonoBehaviour
@@ -11,13 +10,13 @@ public class DiscordController : MonoBehaviour
     public static bool RetreivedUsername { get; private set; } = false;
 
     Discord.Discord discord;
-    UserManager userManager;
+    Discord.UserManager userManager;
 
     private void Awake()
     {
         try
         {
-            discord = new Discord.Discord(1073376927840215132, (System.UInt64)CreateFlags.NoRequireDiscord);
+            discord = new Discord.Discord(1073376927840215132, (ulong)Discord.CreateFlags.NoRequireDiscord);
             userManager = discord.GetUserManager();
             userManager.OnCurrentUserUpdate += UserManager_OnCurrentUserUpdate;
 
@@ -55,7 +54,7 @@ public class DiscordController : MonoBehaviour
 
         activityManager.UpdateActivity(activity, (res) =>
         {
-            if (res == Result.Ok)
+            if (res == Discord.Result.Ok)
             {
                 //Debug.Log("Discord status set to: " + detailsDescription);
                 //Debug.Log("Updated State: " + updateState);
