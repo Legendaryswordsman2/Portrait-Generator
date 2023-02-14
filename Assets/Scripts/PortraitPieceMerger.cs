@@ -74,8 +74,9 @@ public class PortraitPieceMerger : MonoBehaviour
                         _filepath += "Accessories/";
                         break;
                 }
-
-                portraitPiecesToBeCombined.Add(await ppg.GetImageAsTexture2D(_filepath + pgm.portraitPieces[i].activeSprite.name + ".png", pgm.portraitPieces[i].activeSprite.name));
+                Texture2D texture2D = await ppg.GetImageAsTexture2D(_filepath + pgm.portraitPieces[i].activeSprite.name + ".png", pgm.portraitPieces[i].activeSprite.name, size);
+                if (texture2D == null) return null;
+                portraitPiecesToBeCombined.Add(texture2D);
             }
         }
 
