@@ -84,7 +84,7 @@ public class SavePortraitManager : MonoBehaviour
                 break;
         }
         finalSprite = await ppMerger.CombinePortraitPieces(size);
-        Debug.Log(finalSprite + "||");
+        //Debug.Log(finalSprite + "||");
         SavePortraitToFile();
     }
 
@@ -104,7 +104,7 @@ public class SavePortraitManager : MonoBehaviour
         {
             await UniTask.WaitUntil(() => doneContactingServer == true);
 
-            personalStatsText.text = "You've saved " + portraitsGeneratedPersonal + " portarits total.";
+            personalStatsText.text = "You've saved " + portraitsGeneratedPersonal + " portraits total.";
             globalStatsText.text = portraitsGeneratedGlobal + " portraits have been saved globally.";
 
             finishedSavingPortraitMenu.SetActive(true);
