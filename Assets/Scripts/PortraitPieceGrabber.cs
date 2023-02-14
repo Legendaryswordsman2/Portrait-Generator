@@ -156,30 +156,32 @@ public class PortraitPieceGrabber : MonoBehaviour
                 switch (size)
                 {
                     case PortraitSize.Sixteen:
-                        if(texture.width != sixteenXSixsteenImageSize.width || texture.height != sixteenXSixsteenImageSize.height)
+                        if (texture.width != sixteenXSixsteenImageSize.width || texture.height != sixteenXSixsteenImageSize.height)
                         {
-                            Debug.LogWarning("IncorrectSizeException: Tried to get image of size 16x16 (Image name: " + fileName + ") but it's size is incorrect");
+                            Debug.LogWarning("IncorrectSizeException: Tried to get image of size 16x16 (Image name: " + fileName + ") but it's size is incorrect (" + texture.width + " | " + texture.height + ")");
+                            return null;
                         }
-                        return null;
+                        break;
                     case PortraitSize.Thirtytwo:
                         if (texture.width != thirtyTwoXThirtyTwoImageSize.width || texture.height != thirtyTwoXThirtyTwoImageSize.height)
                         {
                             Debug.LogWarning("IncorrectSizeException: Tried to get image of size 32x32 (Image name: " + fileName + ") but it's size is incorrect");
+                            return null;
                         }
-                        return null;
+                        break;
                     case PortraitSize.Fortyeight:
                         if (texture.width != fortyEightXFortyEightImageSize.width || texture.height != fortyEightXFortyEightImageSize.height)
                         {
                             Debug.LogWarning("IncorrectSizeException: Tried to get image of size 48x48 (Image name: " + fileName + ") but it's size is incorrect");
+                            return null;
                         }
-                        return null;
+                        break;
                 }
 
                 texture.name = fileName;
                 texture.filterMode = FilterMode.Point;
 
-                Debug.Log(texture.name);
-                Debug.Log("Testinhg");
+                //Debug.Log(texture.name);
 
                 return texture;
             }
