@@ -11,11 +11,18 @@ using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using System.Runtime.CompilerServices;
+using System.Drawing;
 
 public enum PortraitPieceType { Skin, Hairstyle, Eyes, Accessory}
 public class PortraitPieceGrabber : MonoBehaviour
 {
     [SerializeField] PGManager pgManager;
+
+    [Space]
+
+    [SerializeField] ImageSize sixteenXSixsteenImageSize;
+    [SerializeField] ImageSize thirtyTwoXThirtyTwoImageSize;
+    [SerializeField] ImageSize fortyEightXFortyEightImageSize;
 
     //CancellationTokenSource _tokenSource = null;
 
@@ -71,11 +78,14 @@ public class PortraitPieceGrabber : MonoBehaviour
         foreach (var file in d.GetFiles("*.png"))
         {
             // file.FullName is the full path to the file
-            pgManager.AddPortraitPiece(await GetImage(file.FullName, Path.GetFileNameWithoutExtension(file.Name)), type);
+
+            Sprite sprite = await GetImage(file.FullName, Path.GetFileNameWithoutExtension(file.Name), PortraitSize.Sixteen);
+            if (sprite == null) continue;
+            pgManager.AddPortraitPiece(sprite, type);
         }
     }
 
-    public async Task<Sprite> GetImage(string filepath, string fileName)
+    public async Task<Sprite> GetImage(string filepath, string fileName, PortraitSize size)
     {
         using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(filepath))
         {
@@ -90,6 +100,31 @@ public class PortraitPieceGrabber : MonoBehaviour
             {
                 // Get downloaded asset bundle
                 Texture2D texture = DownloadHandlerTexture.GetContent(uwr);
+
+                switch (size)
+                {
+                    case PortraitSize.Sixteen:
+                        if (texture.width != sixteenXSixsteenImageSize.width || texture.height != sixteenXSixsteenImageSize.height)
+                        {
+                            Debug.LogWarning("IncorrectSizeException: Tried to get image of size 16x16 (Image name: " + fileName + ") but it's size is incorrect (" + texture.width + " | " + texture.height + ")");
+                            return null;
+                        }
+                        break;
+                    case PortraitSize.Thirtytwo:
+                        if (texture.width != thirtyTwoXThirtyTwoImageSize.width || texture.height != thirtyTwoXThirtyTwoImageSize.height)
+                        {
+                            Debug.LogWarning("IncorrectSizeException: Tried to get image of size 32x32 (Image name: " + fileName + ") but it's size is incorrect");
+                            return null;
+                        }
+                        break;
+                    case PortraitSize.Fortyeight:
+                        if (texture.width != fortyEightXFortyEightImageSize.width || texture.height != fortyEightXFortyEightImageSize.height)
+                        {
+                            Debug.LogWarning("IncorrectSizeException: Tried to get image of size 48x48 (Image name: " + fileName + ") but it's size is incorrect");
+                            return null;
+                        }
+                        break;
+                }
 
                 Sprite sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 16f);
 
@@ -102,7 +137,7 @@ public class PortraitPieceGrabber : MonoBehaviour
         }
     }
 
-    public async Task<Texture2D> GetImageAsTexture2D(string filepath, string fileName)
+    public async Task<Texture2D> GetImageAsTexture2D(string filepath, string fileName, PortraitSize size)
     {
         using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(filepath))
         {
@@ -118,10 +153,33 @@ public class PortraitPieceGrabber : MonoBehaviour
                 // Get downloaded asset bundle
                 Texture2D texture = DownloadHandlerTexture.GetContent(uwr);
 
+                switch (size)
+                {
+                    case PortraitSize.Sixteen:
+                        if(texture.width != sixteenXSixsteenImageSize.width || texture.height != sixteenXSixsteenImageSize.height)
+                        {
+                            Debug.LogWarning("IncorrectSizeException: Tried to get image of size 16x16 (Image name: " + fileName + ") but it's size is incorrect");
+                        }
+                        return null;
+                    case PortraitSize.Thirtytwo:
+                        if (texture.width != thirtyTwoXThirtyTwoImageSize.width || texture.height != thirtyTwoXThirtyTwoImageSize.height)
+                        {
+                            Debug.LogWarning("IncorrectSizeException: Tried to get image of size 32x32 (Image name: " + fileName + ") but it's size is incorrect");
+                        }
+                        return null;
+                    case PortraitSize.Fortyeight:
+                        if (texture.width != fortyEightXFortyEightImageSize.width || texture.height != fortyEightXFortyEightImageSize.height)
+                        {
+                            Debug.LogWarning("IncorrectSizeException: Tried to get image of size 48x48 (Image name: " + fileName + ") but it's size is incorrect");
+                        }
+                        return null;
+                }
+
                 texture.name = fileName;
                 texture.filterMode = FilterMode.Point;
 
                 Debug.Log(texture.name);
+                Debug.Log("Testinhg");
 
                 return texture;
             }
@@ -150,5 +208,11 @@ public class PortraitPieceGrabber : MonoBehaviour
         //{
         //    tasks[i].can
         //}
+    }
+
+    [Serializable]
+    class ImageSize
+    {
+        public int width, height;
     }
 }

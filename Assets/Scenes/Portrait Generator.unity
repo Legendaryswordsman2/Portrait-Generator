@@ -2509,6 +2509,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pgManager: {fileID: 1204724245}
+  sixteenXSixsteenImageSize:
+    width: 320
+    height: 96
+  thirtyTwoXThirtyTwoImageSize:
+    width: 640
+    height: 192
+  fortyEightXFortyEightImageSize:
+    width: 960
+    height: 288
 --- !u!4 &1204724243
 Transform:
   m_ObjectHideFlags: 0

@@ -41,6 +41,7 @@ public class SavePortraitManager : MonoBehaviour
         sizeDropdown.interactable = true;
         saveButton.interactable = true;
         creatingPortraitOverlay.SetActive(false);
+        finishedSavingPortraitMenu.SetActive(false);
 
         UIManager.OpenMenu(savePortraitMenus);
 
@@ -83,7 +84,7 @@ public class SavePortraitManager : MonoBehaviour
                 break;
         }
         finalSprite = await ppMerger.CombinePortraitPieces(size);
-
+        Debug.Log(finalSprite + "||");
         SavePortraitToFile();
     }
 
