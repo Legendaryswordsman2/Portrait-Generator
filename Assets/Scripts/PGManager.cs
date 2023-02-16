@@ -31,12 +31,6 @@ public class PGManager : MonoBehaviour
             SetPortraitPartDropdown(portraitPiece);
         }
 
-        //SetPortraitPartDropdown(portraitPieces[0]);
-
-        //SetPortraitPartDropdown(hair);
-
-        //OnSkinDropdownChanged(0);
-
         List<Action<int>> dropdownChangedMethods = new()
         {
             OnSkinDropdownChanged,
@@ -47,29 +41,15 @@ public class PGManager : MonoBehaviour
 
         for (int i = 0; i < portraitPieces.Length; i++)
         {
-            if (portraitPieces[i].defaultDropdownIndex > portraitPieces[i].sprites.Count - 1)
-            {
-                Debug.Log("(" + portraitPieces[i].name + ") Default dropdown index was outside of range of sprites, setting index to sprite count");
-                portraitPieces[i].defaultDropdownIndex = portraitPieces[i].sprites.Count - 1;
-            }
+            if (portraitPieces[i].includeNAOption && !portraitPieces[i].NAOptionSelectedDefault)
+                portraitPieces[i].dropdown.value = 1;
 
-            portraitPieces[i].dropdown.value = portraitPieces[i].defaultDropdownIndex;
-            dropdownChangedMethods[i](portraitPieces[i].defaultDropdownIndex);
+            dropdownChangedMethods[i](portraitPieces[i].dropdown.value);
             portraitPieces[i].dropdown.RefreshShownValue();
 
         }
 
-        //OnHairstyleDropdownChanged(0);
-        //portraitPieces[1].dropdown.RefreshShownValue();
-
-        //OnEyesDropdownChanged(0);
-        //portraitPieces[2].dropdown.RefreshShownValue();
-
-        //OnAccessoriesDropdownChanged(0);
-        //portraitPieces[3].dropdown.RefreshShownValue();
-
         finishedSetup = true;
-
     }
 
     public void SetFirstTimeSetupMessage(bool isActive)
@@ -169,9 +149,8 @@ public class PGManager : MonoBehaviour
         public string name;
         public TMP_Dropdown dropdown;
         [Min(0)]
-        public int defaultDropdownIndex;
         public bool includeNAOption = false;
-        public bool NaOptionSelectedDefault = true;
+        public bool NAOptionSelectedDefault = true;
         [ReadOnlyInspector] public Sprite activeSprite;
         [ReadOnlyInspector] public int activeSpriteIndex;
         public List<Sprite> sprites;
