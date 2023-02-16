@@ -51,7 +51,8 @@ public class PortraitPieceMerger : MonoBehaviour
         {
             for (int i = 0; i < pgm.portraitPieces.Length; i++)
             {
-                portraitPiecesToBeCombined.Add(pgm.portraitPieces[i].activeSprite.texture);
+                if (pgm.portraitPieces[i].activeSprite != null)
+                    portraitPiecesToBeCombined.Add(pgm.portraitPieces[i].activeSprite.texture);
             }
         }
         else
@@ -59,12 +60,13 @@ public class PortraitPieceMerger : MonoBehaviour
             //Debug.Log("Getting sprites needed: "  + pgm.portraitPieces.Length);
             for (int i = 0; i < pgm.portraitPieces.Length; i++)
             {
+                if (pgm.portraitPieces[i].activeSprite == null) continue;
                 string _filepath = filepath;
                 switch (i)
                 {
                     case 0:
                         _filepath += "Skins/";
-                    break;
+                        break;
                     case 1:
                         _filepath += "Hairstyles/";
                         break;

@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,8 +24,6 @@ public class PGManager : MonoBehaviour
     PortraitPieceGrabber ppg;
 
     public static bool finishedSetup { get; private set; } = false;
-
-    int index;
 
     private async void Awake()
     {
@@ -58,36 +56,6 @@ public class PGManager : MonoBehaviour
 
     }
 
-    //private void Start()
-    //{
-    //    //Debug.Log("Testing");
-    //    //Debug.LogWarning("Warnign Test");
-    //    //Debug.LogError("Error Tust");
-    //    //Debug.LogException(new Exception("Excetion"));
-    //    Timer();
-    //}
-
-    //async void Timer()
-    //{
-    //    //await UniTask.Delay(1000);
-
-    //    //Debug.LogError("Testing: " + index);
-
-    //    //index++;
-
-    //    //Timer();
-    //}
-
-    private void Update()
-    {
-        //Debug.LogWarning("Serious Warning");
-        //Debug.Log("Testing: " + index);
-
-        //index++;
-        //Debug.LogWarning("This is a bad warning");
-
-    }
-
     public void SetFirstTimeSetupMessage(bool isActive)
     {
         setupMessage.SetSetupMessage(isActive);
@@ -116,6 +84,11 @@ public class PGManager : MonoBehaviour
     {
         portraitPiece.dropdown.ClearOptions();
 
+        if (portraitPiece.includeNAOption)
+        {
+            portraitPiece.dropdown.options.Add(new TMP_Dropdown.OptionData() { text = portraitPiece.name + " N/A" });
+        }
+
         for (int i = 0; i < portraitPiece.sprites.Count; i++)
         {
             portraitPiece.dropdown.options.Add(new TMP_Dropdown.OptionData() { text = portraitPiece.sprites[i].name });
@@ -126,45 +99,51 @@ public class PGManager : MonoBehaviour
 
     public void OnSkinDropdownChanged(int index)
     {
-        portraitPieces[0].imageComponent.sprite = portraitPieces[0].sprites[index];
-        portraitPieces[0].activeSprite = portraitPieces[0].sprites[index];
-        portraitPieces[0].activeSpriteIndex = index;
-
-        portraitPieces[0].InvokeOnActivePortraitPieceChanged();
-
-        OnDropdownChanged?.Invoke(this, null);
+        DropdownChanged(0, index);
     }
 
     public void OnHairstyleDropdownChanged(int index)
     {
-        portraitPieces[1].imageComponent.sprite = portraitPieces[1].sprites[index];
-        portraitPieces[1].activeSprite = portraitPieces[1].sprites[index];
-        portraitPieces[1].activeSpriteIndex = index;
-
-        portraitPieces[1].InvokeOnActivePortraitPieceChanged();
-
-        OnDropdownChanged?.Invoke(this, null);
+        DropdownChanged(1, index);
     }
 
     public void OnEyesDropdownChanged(int index)
     {
-        portraitPieces[2].imageComponent.sprite = portraitPieces[2].sprites[index];
-        portraitPieces[2].activeSprite = portraitPieces[2].sprites[index];
-        portraitPieces[2].activeSpriteIndex = index;
-
-        portraitPieces[2].InvokeOnActivePortraitPieceChanged();
-
-        OnDropdownChanged?.Invoke(this, null);
+        DropdownChanged(2, index);
     }
 
     public void OnAccessoriesDropdownChanged(int index)
     {
-        portraitPieces[3].imageComponent.sprite = portraitPieces[3].sprites[index];
-        portraitPieces[3].activeSprite = portraitPieces[3].sprites[index];
-        portraitPieces[3].activeSpriteIndex = index;
+        DropdownChanged(3, index);
+    }
+
+    void DropdownChanged(int portraitPieceIndex, int dropdownIndex)
+    {
+        if (portraitPieces[portraitPieceIndex].includeNAOption)
+        {
+            if (dropdownIndex == 0)
+            {
+                portraitPieces[portraitPieceIndex].imageComponent.enabled = false;
+                portraitPieces[portraitPieceIndex].activeSprite = null;
+                portraitPieces[portraitPieceIndex].activeSpriteIndex = -1;
+            }
+            else
+            {
+                portraitPieces[portraitPieceIndex].imageComponent.enabled = true;
+                portraitPieces[portraitPieceIndex].imageComponent.sprite = portraitPieces[portraitPieceIndex].sprites[dropdownIndex - 1];
+                portraitPieces[portraitPieceIndex].activeSprite = portraitPieces[portraitPieceIndex].sprites[dropdownIndex - 1];
+                portraitPieces[portraitPieceIndex].activeSpriteIndex = dropdownIndex - 1;
+            }
+        }
+        else
+        {
+            portraitPieces[portraitPieceIndex].imageComponent.enabled = true;
+            portraitPieces[portraitPieceIndex].imageComponent.sprite = portraitPieces[portraitPieceIndex].sprites[dropdownIndex];
+            portraitPieces[portraitPieceIndex].activeSprite = portraitPieces[portraitPieceIndex].sprites[dropdownIndex];
+            portraitPieces[portraitPieceIndex].activeSpriteIndex = dropdownIndex;
+        }
 
         portraitPieces[3].InvokeOnActivePortraitPieceChanged();
-
         OnDropdownChanged?.Invoke(this, null);
     }
 
@@ -173,6 +152,7 @@ public class PGManager : MonoBehaviour
     {
         public string name;
         public TMP_Dropdown dropdown;
+        public bool includeNAOption = false;
         [ReadOnlyInspector] public Sprite activeSprite;
         [ReadOnlyInspector] public int activeSpriteIndex;
         public List<Sprite> sprites;

@@ -2548,24 +2548,28 @@ MonoBehaviour:
   portraitPieces:
   - name: Skins
     dropdown: {fileID: 2577156212073861110}
+    includeNAOption: 0
     activeSprite: {fileID: 0}
     activeSpriteIndex: 0
     sprites: []
     imageComponent: {fileID: 488528064}
   - name: Hairstyles
     dropdown: {fileID: 470038086}
+    includeNAOption: 1
     activeSprite: {fileID: 0}
     activeSpriteIndex: 0
     sprites: []
     imageComponent: {fileID: 1523117765}
   - name: Eyes
     dropdown: {fileID: 504791445}
+    includeNAOption: 0
     activeSprite: {fileID: 0}
     activeSpriteIndex: 0
     sprites: []
     imageComponent: {fileID: 1647390405}
   - name: Accessories
     dropdown: {fileID: 1164094721}
+    includeNAOption: 1
     activeSprite: {fileID: 0}
     activeSpriteIndex: 0
     sprites: []
@@ -5264,18 +5268,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1204724245}
     - target: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1204724241}
+    - target: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
@@ -5284,6 +5300,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PGManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: PGManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7199625011393217997, guid: abbe1566cc2d2f840886f13648066887, type: 3}
