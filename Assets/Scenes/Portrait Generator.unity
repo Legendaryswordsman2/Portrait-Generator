@@ -2548,6 +2548,7 @@ MonoBehaviour:
   portraitPieces:
   - name: Skins
     dropdown: {fileID: 2577156212073861110}
+    defaultDropdownIndex: 6
     includeNAOption: 0
     activeSprite: {fileID: 0}
     activeSpriteIndex: 0
@@ -2555,6 +2556,7 @@ MonoBehaviour:
     imageComponent: {fileID: 488528064}
   - name: Hairstyles
     dropdown: {fileID: 470038086}
+    defaultDropdownIndex: 0
     includeNAOption: 1
     activeSprite: {fileID: 0}
     activeSpriteIndex: 0
@@ -2562,6 +2564,7 @@ MonoBehaviour:
     imageComponent: {fileID: 1523117765}
   - name: Eyes
     dropdown: {fileID: 504791445}
+    defaultDropdownIndex: 0
     includeNAOption: 0
     activeSprite: {fileID: 0}
     activeSpriteIndex: 0
@@ -2569,6 +2572,7 @@ MonoBehaviour:
     imageComponent: {fileID: 1647390405}
   - name: Accessories
     dropdown: {fileID: 1164094721}
+    defaultDropdownIndex: 0
     includeNAOption: 1
     activeSprite: {fileID: 0}
     activeSpriteIndex: 0

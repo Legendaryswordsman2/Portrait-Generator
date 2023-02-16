@@ -10,11 +10,6 @@ public class PGManager : MonoBehaviour
 {
     public PortraitPiece[] portraitPieces;
 
-    //public PortraitPiece skin;
-    //public PortraitPiece hair;
-    //public PortraitPiece eyes;
-    //public PortraitPiece accessory;
-
     public event EventHandler OnDropdownChanged;
 
     [Space]
@@ -40,17 +35,38 @@ public class PGManager : MonoBehaviour
 
         //SetPortraitPartDropdown(hair);
 
-        OnSkinDropdownChanged(0);
-        portraitPieces[0].dropdown.RefreshShownValue();
+        //OnSkinDropdownChanged(0);
 
-        OnHairstyleDropdownChanged(0);
-        portraitPieces[1].dropdown.RefreshShownValue();
+        List<Action<int>> dropdownChangedMethods = new()
+        {
+            OnSkinDropdownChanged,
+            OnHairstyleDropdownChanged,
+            OnEyesDropdownChanged,
+            OnAccessoriesDropdownChanged
+        };
 
-        OnEyesDropdownChanged(0);
-        portraitPieces[2].dropdown.RefreshShownValue();
+        for (int i = 0; i < portraitPieces.Length; i++)
+        {
+            if (portraitPieces[i].defaultDropdownIndex > portraitPieces[i].sprites.Count - 1)
+            {
+                Debug.Log("(" + portraitPieces[i].name + ") Default dropdown index was outside of range of sprites, setting index to sprite count");
+                portraitPieces[i].defaultDropdownIndex = portraitPieces[i].sprites.Count - 1;
+            }
 
-        OnAccessoriesDropdownChanged(0);
-        portraitPieces[3].dropdown.RefreshShownValue();
+            portraitPieces[i].dropdown.value = portraitPieces[i].defaultDropdownIndex;
+            dropdownChangedMethods[i](portraitPieces[i].defaultDropdownIndex);
+            portraitPieces[i].dropdown.RefreshShownValue();
+
+        }
+
+        //OnHairstyleDropdownChanged(0);
+        //portraitPieces[1].dropdown.RefreshShownValue();
+
+        //OnEyesDropdownChanged(0);
+        //portraitPieces[2].dropdown.RefreshShownValue();
+
+        //OnAccessoriesDropdownChanged(0);
+        //portraitPieces[3].dropdown.RefreshShownValue();
 
         finishedSetup = true;
 
@@ -152,7 +168,10 @@ public class PGManager : MonoBehaviour
     {
         public string name;
         public TMP_Dropdown dropdown;
+        [Min(0)]
+        public int defaultDropdownIndex;
         public bool includeNAOption = false;
+        public bool NaOptionSelectedDefault = true;
         [ReadOnlyInspector] public Sprite activeSprite;
         [ReadOnlyInspector] public int activeSpriteIndex;
         public List<Sprite> sprites;
