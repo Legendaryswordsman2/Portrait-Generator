@@ -10,11 +10,15 @@ public class PortraitPreview : MonoBehaviour
 
     PGManager pgm;
     PortraitPieceMerger ppm;
-    private void Awake()
+    private async void Awake()
     {
         pgm = GetComponent<PGManager>();
 
         ppm = GetComponent<PortraitPieceMerger>();
+
+        await UniTask.WaitUntil(() => PGManager.finishedSetup == true);
+
+        Pgm_OnDropdownChanged(this, null);
 
         pgm.OnDropdownChanged += Pgm_OnDropdownChanged;
     }
