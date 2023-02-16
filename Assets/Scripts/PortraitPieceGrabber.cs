@@ -2,16 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
-using System.Threading;
-using System.Runtime.CompilerServices;
-using System.Drawing;
 
 public enum PortraitPieceType { Skin, Hairstyle, Eyes, Accessory}
 public class PortraitPieceGrabber : MonoBehaviour
@@ -31,6 +25,8 @@ public class PortraitPieceGrabber : MonoBehaviour
     List<Task> tasks;
     private async void Awake()
     {
+        if (!PerformErrorChecks()) return;
+
         pgManager.SetFirstTimeSetupMessage(true);
 
         tasks = new List<Task>
@@ -50,6 +46,17 @@ public class PortraitPieceGrabber : MonoBehaviour
 
         //LogManager.Instance.Log("Finished loading portrait pieces");
         Debug.Log("Finished loading portrait pieces");
+    }
+
+    bool PerformErrorChecks()
+    {
+        if (!Directory.Exists(Directory.GetCurrentDirectory() + "/Portrait Pieces"))
+        {
+            Debug.Log("Directory does not exist");
+            SetupManager.Instance.DisplayError(ErrorType.MissingPortraitPiecesFolder);
+            return false;
+        }
+        return true;
     }
 
     async Task GetPortraitPiecesForDisplay(PortraitPieceType type)
@@ -199,17 +206,6 @@ public class PortraitPieceGrabber : MonoBehaviour
             //LogManager.Instance.LogError("File path does not exist");
             return false;
         }
-    }
-
-    private void OnApplicationQuit()
-    {
-        if (finishedSetup) return;
-
-        //_tokenSource.Cancel();
-        //for (int i = 0; i < tasks.Count; i++)
-        //{
-        //    tasks[i].can
-        //}
     }
 
     [Serializable]
