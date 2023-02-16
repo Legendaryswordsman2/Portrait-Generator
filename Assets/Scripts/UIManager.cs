@@ -11,6 +11,8 @@ public static class UIManager
 
     private static void Back_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
+        if (SavePortraitManager.SavingPortrait == true) return;
+
         if (ActiveMenu == null)
             Application.Quit();
         else

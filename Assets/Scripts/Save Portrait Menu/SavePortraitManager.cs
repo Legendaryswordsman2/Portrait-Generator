@@ -34,6 +34,7 @@ public class SavePortraitManager : MonoBehaviour
     int portraitsGeneratedPersonal;
     int portraitsGeneratedGlobal;
     bool doneContactingServer = false;
+    public static bool SavingPortrait = false;
 
     public void OpenSavePortraitMenu()
     {
@@ -62,6 +63,7 @@ public class SavePortraitManager : MonoBehaviour
     public async void SavePortrait()
     {
         doneContactingServer = false;
+        SavingPortrait = true;
 
         fileNameInputField.interactable = false;
         sizeDropdown.interactable = false;
@@ -118,6 +120,8 @@ public class SavePortraitManager : MonoBehaviour
             finishedSavingPortraitMenu.SetActive(true);
             gameObject.SetActive(false);
         }
+
+        SavingPortrait = false;
     }
 
     async void UpdateScores()
