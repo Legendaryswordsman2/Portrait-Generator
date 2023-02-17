@@ -5,6 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public enum PortraitSize { Sixteen, Thirtytwo, Fortyeight }
@@ -86,7 +87,8 @@ public class PortraitPieceMerger : MonoBehaviour
 
         if (portraitPiecesToBeCombined.Count == 0)
         {
-            Debug.LogError("No portrait pieces to be combined");
+            Debug.LogWarning("No portrait pieces to be combined");
+            //SetupManager.Instance.DisplayError(ErrorType.MissingPortraitPiecesFolder);
             return null;
         }
         else if (portraitPiecesToBeCombined.Count == 1)

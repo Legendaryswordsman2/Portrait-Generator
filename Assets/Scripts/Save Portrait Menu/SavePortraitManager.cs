@@ -86,8 +86,10 @@ public class SavePortraitManager : MonoBehaviour
                 break;
         }
         finalSprite = await ppMerger.CombinePortraitPieces(size);
-        //Debug.Log(finalSprite + "||");
+        if(finalSprite != null)
         SavePortraitToFile();
+        else
+            UIManager.ForceCloseOverlay();
     }
 
     async void SavePortraitToFile()

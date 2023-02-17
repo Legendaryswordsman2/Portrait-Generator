@@ -30,6 +30,7 @@ public class PortraitPreview : MonoBehaviour
         Debug.Log("Combining sprites for preview");
         Sprite CombinedSprite = await ppm.CombinePortraitPieces(PortraitSize.Sixteen);
 
+        if(CombinedSprite != null)
         ppm.OverrideTexture(previewSpritesheet, CombinedSprite);
     }
 }

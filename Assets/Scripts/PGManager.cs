@@ -41,6 +41,13 @@ public class PGManager : MonoBehaviour
 
         for (int i = 0; i < portraitPieces.Length; i++)
         {
+            if (portraitPieces[i].sprites.Count == 0)
+            {
+                portraitPieces[i].dropdown.interactable = false;
+                portraitPieces[i].imageComponent.enabled = false;
+                continue;
+            }
+
             if (portraitPieces[i].includeNAOption && !portraitPieces[i].NAOptionSelectedDefault)
                 portraitPieces[i].dropdown.value = 1;
 
