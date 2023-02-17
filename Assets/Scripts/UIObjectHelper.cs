@@ -1,10 +1,7 @@
 using Cysharp.Threading.Tasks;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using UnityEditor.iOS.Extensions.Common;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UIObjectHelper : MonoBehaviour

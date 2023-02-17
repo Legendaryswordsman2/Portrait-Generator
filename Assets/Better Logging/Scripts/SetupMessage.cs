@@ -12,6 +12,10 @@ public class SetupMessage : MonoBehaviour
 
     int index;
 
+    bool isActive = false;
+
+    Animator anim;
+
     private void Awake()
     {
         textFrames[0] = text.text;
@@ -21,17 +25,23 @@ public class SetupMessage : MonoBehaviour
         textFrames[2] = text.text + "..";
 
         textFrames[3] = text.text + "...";
+
+        anim = GetComponent<Animator>();
     }
     public void SetSetupMessage(bool setActive)
     {
         if(setActive)
         {
             gameObject.SetActive(true);
+            isActive = true;
             CycleText();
         }
         else
         {
-            gameObject.SetActive(false);
+            isActive = false;
+            text.text = "";
+            anim.SetTrigger("Trigger");
+            //gameObject.SetActive(false);
         }
     }
 
@@ -46,8 +56,13 @@ public class SetupMessage : MonoBehaviour
 
         await UniTask.Delay(500);
 
-        if (!isActiveAndEnabled) return;
+        if (!isActive) return;
 
         CycleText();
+    }
+
+    public void OnSetupBackgroundAnimationFinished()
+    {
+        gameObject.SetActive(false);
     }
 }
