@@ -2,7 +2,6 @@ using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,6 +40,8 @@ public class PGManager : MonoBehaviour
 
         for (int i = 0; i < portraitPieces.Length; i++)
         {
+            portraitPieces[i].OnDropdownChangedMethod = DropdownChanged;
+            portraitPieces[i].index = i;
             if (portraitPieces[i].sprites.Count == 0)
             {
                 portraitPieces[i].dropdown.interactable = false;
@@ -62,6 +63,14 @@ public class PGManager : MonoBehaviour
     public void SetFirstTimeSetupMessage(bool isActive)
     {
         setupMessage.SetSetupMessage(isActive);
+    }
+
+    public void RandomizePortrait()
+    {
+        for (int i = 0; i < portraitPieces.Length; i++)
+        {
+            portraitPieces[i].Randomize();
+        }
     }
 
     public void AddPortraitPiece(Sprite portraitPiece, PortraitPieceType type)
@@ -120,7 +129,7 @@ public class PGManager : MonoBehaviour
         DropdownChanged(3, index);
     }
 
-    void DropdownChanged(int portraitPieceIndex, int dropdownIndex)
+    void DropdownChanged(int portraitPieceIndex, int dropdownIndex, bool triggerEvent = true)
     {
         if (portraitPieces[portraitPieceIndex].includeNAOption)
         {
@@ -146,8 +155,11 @@ public class PGManager : MonoBehaviour
             portraitPieces[portraitPieceIndex].activeSpriteIndex = dropdownIndex;
         }
 
-        portraitPieces[3].InvokeOnActivePortraitPieceChanged();
-        OnDropdownChanged?.Invoke(this, null);
+        if (triggerEvent)
+        {
+            portraitPieces[3].InvokeOnActivePortraitPieceChanged();
+            OnDropdownChanged?.Invoke(this, null);
+        }
     }
 
     [Serializable]
@@ -164,6 +176,20 @@ public class PGManager : MonoBehaviour
         public Image imageComponent;
 
         public event EventHandler OnActivePortraitPieceChanged;
+
+        public Action<int, int, bool> OnDropdownChangedMethod;
+        public int index;
+
+        public void Randomize()
+        {
+            if (sprites.Count == 0) return;
+
+            int numb = UnityEngine.Random.Range(0, sprites.Count);
+
+            dropdown.value = numb;
+            //dropdown.RefreshShownValue();
+            //OnDropdownChangedMethod(index, numb, false);
+        }
 
         public void InvokeOnActivePortraitPieceChanged()
         {
