@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,7 @@ public class PGManager : MonoBehaviour
     public PortraitPiece[] portraitPieces;
 
     public event EventHandler OnDropdownChanged;
+    bool eventTriggeredThisFrame = false;
 
     [Space]
 
@@ -129,7 +131,7 @@ public class PGManager : MonoBehaviour
         DropdownChanged(3, index);
     }
 
-    void DropdownChanged(int portraitPieceIndex, int dropdownIndex, bool triggerEvent = true)
+    async void DropdownChanged(int portraitPieceIndex, int dropdownIndex, bool triggerEvent = true)
     {
         if (portraitPieces[portraitPieceIndex].includeNAOption)
         {
@@ -155,10 +157,15 @@ public class PGManager : MonoBehaviour
             portraitPieces[portraitPieceIndex].activeSpriteIndex = dropdownIndex;
         }
 
-        if (triggerEvent)
+        if (!eventTriggeredThisFrame)
         {
             portraitPieces[3].InvokeOnActivePortraitPieceChanged();
             OnDropdownChanged?.Invoke(this, null);
+
+            // Make sure this event is only triggered once per frame
+            eventTriggeredThisFrame = true;
+            await Task.Yield();
+            eventTriggeredThisFrame = false;
         }
     }
 
