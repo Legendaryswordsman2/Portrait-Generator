@@ -50,42 +50,26 @@ public static class UIManager
 
         if(ActiveMenu == null) return false;
 
-        Debug.Log(ActiveSubMenus.Count);
         if (ActiveSubMenus.Count == 0)
         {
-            Debug.Log("No active sub menus, closing menu");
             ActiveMenu.SetActive(false);
             ActiveMenu = null;
             return true;
         }
         else
         {
-            Debug.Log("Closing sub menu");
             ActiveSubMenus[^1].SetActive(false);
             ActiveSubMenus.RemoveAt(ActiveSubMenus.Count - 1);
 
             if (ActiveSubMenus.Count > 0)
                 ActiveSubMenus[^1].SetActive(true);
-            //else
-            //    ActiveMenu.SetActive(true);
-
+            else
+            {
+                ActiveMenu.SetActive(false);
+                ActiveMenu = null;
+            }
             return true;
         }
-
-        //if(ActiveSubMenu != null && ActiveSubMenu.activeSelf)
-        //{
-        //    ActiveSubMenu.SetActive(false);
-        //    ActiveSubMenu = null;
-        //    ActiveMenu.SetActive(true);
-        //    return true;
-        //}
-        //else
-        //{
-        //    ActiveMenu.SetActive(false);
-        //    ActiveMenu = null;
-        //    return true;
-        //}
-
     }
 
     public static bool OpenSubMenu(GameObject submenuToOpen)
