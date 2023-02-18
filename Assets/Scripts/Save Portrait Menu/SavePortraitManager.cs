@@ -89,7 +89,7 @@ public class SavePortraitManager : MonoBehaviour
         if(finalSprite != null)
         SavePortraitToFile();
         else
-            UIManager.ForceCloseOverlay();
+            UIManager.ForceCloseMenu();
     }
 
     async void SavePortraitToFile()
