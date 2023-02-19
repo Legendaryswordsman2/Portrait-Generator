@@ -108,8 +108,8 @@ public class SavePortraitManager : MonoBehaviour
         {
             await UniTask.WaitUntil(() => doneContactingServer == true);
 
-            personalStatsText.text = "You've saved " + portraitsGeneratedPersonal + " portraits total.";
-            globalStatsText.text = portraitsGeneratedGlobal + " portraits have been saved globally.";
+            personalStatsText.text = "You've saved " + portraitsGeneratedPersonal.ToString("N0") + " portraits total.";
+            globalStatsText.text = portraitsGeneratedGlobal.ToString("N0") + " portraits have been saved globally.";
 
             finishedSavingPortraitMenu.SetActive(true);
             gameObject.SetActive(false);

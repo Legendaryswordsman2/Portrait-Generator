@@ -41,7 +41,7 @@ public class StatsSubmenuManager : MonoBehaviour
         LootLockerSDKManager.GetMemberRank("11561", PlayerPrefs.GetString("PlayerID"), (response) =>
         {
             if (response.success)
-                personalStats.text = personalStatsText + response.score;
+                personalStats.text = personalStatsText + response.score.ToString("N0");
             else
             {
                 Debug.LogWarning("Failed to fetch leaderbaord data: " + response.Error);
@@ -53,7 +53,7 @@ public class StatsSubmenuManager : MonoBehaviour
         {
             if (response.success)
             {
-                globalStats.text = globalStatsText + response.items[0].score;
+                globalStats.text = globalStatsText + response.items[0].score.ToString("N0");
             }
             else
             {
