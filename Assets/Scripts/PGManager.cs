@@ -25,6 +25,11 @@ public class PGManager : MonoBehaviour
     {
         ppg = GetComponent<PortraitPieceGrabber>();
 
+        for (int i = 0; i < portraitPieces.Length; i++)
+        {
+            if (PlayerPrefs.GetInt("Randomize " + portraitPieces[i].name, 1) == 0) portraitPieces[i].canRandomizeToggle.isOn = false;
+        }
+
         await UniTask.WaitUntil(() => ppg.finishedSetup == true);
 
         foreach (PortraitPiece portraitPiece in portraitPieces)
@@ -169,6 +174,17 @@ public class PGManager : MonoBehaviour
         }
     }
 
+    private void OnApplicationQuit()
+    {
+        for (int i = 0; i < portraitPieces.Length; i++)
+        {
+            if (portraitPieces[i].canRandomizeToggle.isOn)
+                PlayerPrefs.SetInt("Randomize " + portraitPieces[i].name, 1);
+            else
+                PlayerPrefs.SetInt("Randomize " + portraitPieces[i].name, 0);
+        }
+    }
+
     [Serializable]
     public class PortraitPiece
     {
@@ -181,6 +197,7 @@ public class PGManager : MonoBehaviour
         [ReadOnlyInspector] public int activeSpriteIndex;
         public List<Sprite> sprites;
         public Image imageComponent;
+        public Toggle canRandomizeToggle;
 
         public event EventHandler OnActivePortraitPieceChanged;
 
@@ -189,13 +206,11 @@ public class PGManager : MonoBehaviour
 
         public void Randomize()
         {
-            if (sprites.Count == 0) return;
+            if (!canRandomizeToggle.isOn || sprites.Count == 0) return;
 
             int numb = UnityEngine.Random.Range(0, sprites.Count);
 
             dropdown.value = numb;
-            //dropdown.RefreshShownValue();
-            //OnDropdownChangedMethod(index, numb, false);
         }
 
         public void InvokeOnActivePortraitPieceChanged()
