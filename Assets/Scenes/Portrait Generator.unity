@@ -1071,7 +1071,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0017, y: -3.1266937}
+  m_AnchoredPosition: {x: 0, y: -3.1266937}
   m_SizeDelta: {x: 62.5066, y: 56.2567}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &285512681
@@ -5112,7 +5112,6 @@ MonoBehaviour:
     imageComponent: {fileID: 488528064}
     canRandomizeToggle: {fileID: 2133172672}
     index: 0
-    canRandomize: 1
   - name: Hairstyles
     dropdown: {fileID: 470038086}
     includeNAOption: 1
@@ -5123,7 +5122,6 @@ MonoBehaviour:
     imageComponent: {fileID: 1523117765}
     canRandomizeToggle: {fileID: 1878797317}
     index: 0
-    canRandomize: 1
   - name: Eyes
     dropdown: {fileID: 504791445}
     includeNAOption: 0
@@ -5134,7 +5132,6 @@ MonoBehaviour:
     imageComponent: {fileID: 1647390405}
     canRandomizeToggle: {fileID: 701067205}
     index: 0
-    canRandomize: 1
   - name: Accessories
     dropdown: {fileID: 1164094721}
     includeNAOption: 1
@@ -5145,7 +5142,6 @@ MonoBehaviour:
     imageComponent: {fileID: 1050068540}
     canRandomizeToggle: {fileID: 1358910427}
     index: 0
-    canRandomize: 1
   setupMessage: {fileID: 476827234}
 --- !u!114 &1204724246
 MonoBehaviour:
