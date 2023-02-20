@@ -10,6 +10,6 @@ public class InputManager : MonoBehaviour
         playerInputActions?.Dispose();
 
         playerInputActions = new PlayerInputActions();
-        playerInputActions.General.Enable();
+        playerInputActions.Enable();
     }
 }

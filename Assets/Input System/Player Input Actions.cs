@@ -70,6 +70,76 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Help Menu"",
+            ""id"": ""5cfa3653-b0f9-4360-ae3b-ff709e98a443"",
+            ""actions"": [
+                {
+                    ""name"": ""Next Page"",
+                    ""type"": ""Button"",
+                    ""id"": ""0e91cecd-0a9b-40a3-acde-8709130ce98b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Previous Page"",
+                    ""type"": ""Button"",
+                    ""id"": ""e8978d05-ef6b-446e-b8bd-126c3abb709a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""8b9657a3-267a-4f5b-b189-d8b1377339c2"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Next Page"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ac09ef50-7c7a-46aa-aebc-7e7b6cd8904b"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Next Page"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0cfdd600-55af-4d4a-85ce-3f6d5c27db66"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Previous Page"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9a5ebbd0-fc0d-48aa-a4b1-7da44dbf4741"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Previous Page"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -95,6 +165,10 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_General = asset.FindActionMap("General", throwIfNotFound: true);
         m_General_OpenLogMenu = m_General.FindAction("Open Log Menu", throwIfNotFound: true);
         m_General_Back = m_General.FindAction("Back", throwIfNotFound: true);
+        // Help Menu
+        m_HelpMenu = asset.FindActionMap("Help Menu", throwIfNotFound: true);
+        m_HelpMenu_NextPage = m_HelpMenu.FindAction("Next Page", throwIfNotFound: true);
+        m_HelpMenu_PreviousPage = m_HelpMenu.FindAction("Previous Page", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -191,6 +265,47 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         }
     }
     public GeneralActions @General => new GeneralActions(this);
+
+    // Help Menu
+    private readonly InputActionMap m_HelpMenu;
+    private IHelpMenuActions m_HelpMenuActionsCallbackInterface;
+    private readonly InputAction m_HelpMenu_NextPage;
+    private readonly InputAction m_HelpMenu_PreviousPage;
+    public struct HelpMenuActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public HelpMenuActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @NextPage => m_Wrapper.m_HelpMenu_NextPage;
+        public InputAction @PreviousPage => m_Wrapper.m_HelpMenu_PreviousPage;
+        public InputActionMap Get() { return m_Wrapper.m_HelpMenu; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(HelpMenuActions set) { return set.Get(); }
+        public void SetCallbacks(IHelpMenuActions instance)
+        {
+            if (m_Wrapper.m_HelpMenuActionsCallbackInterface != null)
+            {
+                @NextPage.started -= m_Wrapper.m_HelpMenuActionsCallbackInterface.OnNextPage;
+                @NextPage.performed -= m_Wrapper.m_HelpMenuActionsCallbackInterface.OnNextPage;
+                @NextPage.canceled -= m_Wrapper.m_HelpMenuActionsCallbackInterface.OnNextPage;
+                @PreviousPage.started -= m_Wrapper.m_HelpMenuActionsCallbackInterface.OnPreviousPage;
+                @PreviousPage.performed -= m_Wrapper.m_HelpMenuActionsCallbackInterface.OnPreviousPage;
+                @PreviousPage.canceled -= m_Wrapper.m_HelpMenuActionsCallbackInterface.OnPreviousPage;
+            }
+            m_Wrapper.m_HelpMenuActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @NextPage.started += instance.OnNextPage;
+                @NextPage.performed += instance.OnNextPage;
+                @NextPage.canceled += instance.OnNextPage;
+                @PreviousPage.started += instance.OnPreviousPage;
+                @PreviousPage.performed += instance.OnPreviousPage;
+                @PreviousPage.canceled += instance.OnPreviousPage;
+            }
+        }
+    }
+    public HelpMenuActions @HelpMenu => new HelpMenuActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -204,5 +319,10 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     {
         void OnOpenLogMenu(InputAction.CallbackContext context);
         void OnBack(InputAction.CallbackContext context);
+    }
+    public interface IHelpMenuActions
+    {
+        void OnNextPage(InputAction.CallbackContext context);
+        void OnPreviousPage(InputAction.CallbackContext context);
     }
 }

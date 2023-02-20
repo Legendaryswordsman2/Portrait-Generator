@@ -48,6 +48,76 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Help Menu",
+            "id": "5cfa3653-b0f9-4360-ae3b-ff709e98a443",
+            "actions": [
+                {
+                    "name": "Next Page",
+                    "type": "Button",
+                    "id": "0e91cecd-0a9b-40a3-acde-8709130ce98b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Previous Page",
+                    "type": "Button",
+                    "id": "e8978d05-ef6b-446e-b8bd-126c3abb709a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "8b9657a3-267a-4f5b-b189-d8b1377339c2",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Next Page",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ac09ef50-7c7a-46aa-aebc-7e7b6cd8904b",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Next Page",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0cfdd600-55af-4d4a-85ce-3f6d5c27db66",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Previous Page",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9a5ebbd0-fc0d-48aa-a4b1-7da44dbf4741",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Previous Page",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
