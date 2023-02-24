@@ -1,5 +1,5 @@
 # Portrait-Generator
-## The Portrait Generator was designed to make creating portraits from the Modern User Interface pack easier and fast, ordinarily you’d have to manually copy the different pieces (Skin, Hair, Accessories, Etc) together in some kind of art software which can be very time consuming, as well as that it’s often hard to tell if the portrait will even look good since without seeing it in action it can be hard to tell. The Portrait Generator is here to fix all these issues by providing a simple tool to make creating and previewing portraits as easy as possible.
+## The Portrait Generator was designed to make creating portraits from the Modern User Interface pack easier and faster, ordinarily you’d have to manually copy the different pieces (Skin, Hair, Accessories, Etc) together in some kind of art software which can be very time consuming, as well as that it’s often hard to tell if the portrait will even look good since without seeing it in action it can be hard to tell. The Portrait Generator is here to fix all these issues by providing a simple tool to make creating and previewing portraits as easy as possible.
 
 ## Guide
 
