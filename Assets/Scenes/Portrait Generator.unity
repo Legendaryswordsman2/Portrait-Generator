@@ -1568,6 +1568,7 @@ GameObject:
   - component: {fileID: 285512683}
   - component: {fileID: 285512682}
   - component: {fileID: 285512681}
+  - component: {fileID: 285512684}
   m_Layer: 5
   m_Name: Randomize Button
   m_TagString: Untagged
@@ -1639,8 +1640,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1204724245}
-        m_TargetAssemblyTypeName: PGManager, Assembly-CSharp
+      - m_Target: {fileID: 285512684}
+        m_TargetAssemblyTypeName: RandomizeButtonManager, Assembly-CSharp
         m_MethodName: RandomizePortrait
         m_Mode: 1
         m_Arguments:
@@ -1689,6 +1690,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 285512679}
   m_CullTransparentMesh: 1
+--- !u!114 &285512684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285512679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39ee40ff0a7a4a34eafadb9a1cef988e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pgManager: {fileID: 1204724245}
 --- !u!1 &288698845
 GameObject:
   m_ObjectHideFlags: 0
