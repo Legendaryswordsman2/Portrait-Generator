@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c7ae7b3a9c0b6a444aefa243c796f285
+guid: 36ebbb1f77351a94da4798e0508d8f3f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -128,7 +128,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Next Button
+      name: Previous Button
       rect:
         serializedVersion: 2
         x: 0
@@ -149,10 +149,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Next Button Highlighted
+      name: Previous Button Highlighted
       rect:
         serializedVersion: 2
-        x: 17
+        x: 18
         y: 0
         width: 16
         height: 17
@@ -170,10 +170,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Next Button Pressed
+      name: Previous Button Pressed
       rect:
         serializedVersion: 2
-        x: 34
+        x: 36
         y: 0
         width: 16
         height: 17
@@ -201,9 +201,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Next Button Highlighted: 448291661
-      Next Button: -1650274449
-      Next Button Pressed: 1752636318
+      Previous Button Pressed: 1752636318
+      Previous Button: -1650274449
+      Previous Button Highlighted: 448291661
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

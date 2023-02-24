@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HelpSubmenuManager : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class HelpSubmenuManager : MonoBehaviour
 
     public void OpenHelpSubmenu()
     {
+        pages[index].SetActive(false);
+        pages[0].SetActive(true);
+
         UIManager.OpenSubMenu(gameObject);
     }
 

@@ -22,6 +22,7 @@ public class UIObjectHelper : MonoBehaviour, ISelectHandler, IDeselectHandler
     {
         uiObject = GetComponent<Selectable>();
 
+        if(text != null)
         defaultTextColor = text.color;
 
         if(uiObject.interactable)
@@ -53,6 +54,8 @@ public class UIObjectHelper : MonoBehaviour, ISelectHandler, IDeselectHandler
     {
         await UniTask.WaitUntil(() => uiObject.interactable == true);
 
+        if (text == null) return;
+
         text.color = defaultTextColor;
 
         WaitUntilDropdownDisabled();
@@ -61,6 +64,8 @@ public class UIObjectHelper : MonoBehaviour, ISelectHandler, IDeselectHandler
     async void WaitUntilDropdownDisabled()
     {
         await UniTask.WaitUntil(() => uiObject.interactable == false);
+
+        if (text == null) return;
 
         Color disabledColor = defaultTextColor;
         disabledColor.a = uiObject.colors.disabledColor.a;
