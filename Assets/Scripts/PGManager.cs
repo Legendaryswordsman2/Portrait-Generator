@@ -23,6 +23,9 @@ public class PGManager : MonoBehaviour
 
     private async void Awake()
     {
+        var display = Display.displays[Camera.main.targetDisplay];
+        Screen.SetResolution(display.systemWidth, display.systemHeight, true);
+
         ppg = GetComponent<PortraitPieceGrabber>();
 
         for (int i = 0; i < portraitPieces.Length; i++)
