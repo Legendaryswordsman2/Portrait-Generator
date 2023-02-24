@@ -18,7 +18,7 @@ public class PlayerAuthentication : MonoBehaviour
         {
             if (response.success)
             {
-                Debug.Log("Successfuly Logged in");
+                Debug.Log("Successfuly connected to server");
                 PlayerPrefs.SetString("PlayerID", response.player_id.ToString());
                 LoggedIn = true;
                 gotResponse = true;

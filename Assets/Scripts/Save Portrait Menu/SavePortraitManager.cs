@@ -18,6 +18,7 @@ public class SavePortraitManager : MonoBehaviour
     [Space]
 
     [SerializeField] PortraitPieceMerger ppMerger;
+    [SerializeField] PortraitPieceGrabber ppGrabber;
     [SerializeField] GameObject savePortraitMenus;
     [SerializeField] GameObject creatingPortraitOverlay;
 
@@ -26,6 +27,11 @@ public class SavePortraitManager : MonoBehaviour
     [SerializeField] GameObject finishedSavingPortraitMenu;
     [SerializeField] TMP_Text personalStatsText;
     [SerializeField] TMP_Text globalStatsText;
+
+    [Space]
+
+    [SerializeField] GameObject spriteMissingError;
+    [SerializeField] TMP_Text spriteMissingErrorText;
 
     Sprite finalSprite;
 
@@ -43,6 +49,7 @@ public class SavePortraitManager : MonoBehaviour
         saveButton.interactable = true;
         creatingPortraitOverlay.SetActive(false);
         finishedSavingPortraitMenu.SetActive(false);
+        spriteMissingError.SetActive(false);
 
         UIManager.OpenMenu(savePortraitMenus);
 
@@ -71,8 +78,6 @@ public class SavePortraitManager : MonoBehaviour
 
         creatingPortraitOverlay.SetActive(true);
 
-        UpdateScores();
-
         switch (sizeDropdown.value)
         {
             case 0:
@@ -87,9 +92,16 @@ public class SavePortraitManager : MonoBehaviour
         }
         finalSprite = await ppMerger.CombinePortraitPieces(size);
         if(finalSprite != null)
-        SavePortraitToFile();
+        {
+            SavePortraitToFile();
+            UpdateScores();
+        }
         else
-            UIManager.ForceCloseMenu();
+        {
+            spriteMissingErrorText.text = sizeDropdown.options[sizeDropdown.value].text + " version of sprite \"" + ppGrabber.LastFailedToGetSpriteName + "\" is missing, can't create portrait";
+            spriteMissingError.SetActive(true);
+            SavingPortrait = false;
+        }
     }
 
     async void SavePortraitToFile()

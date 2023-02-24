@@ -18,6 +18,10 @@ public class PortraitPieceGrabber : MonoBehaviour
     [SerializeField] ImageSize thirtyTwoXThirtyTwoImageSize;
     [SerializeField] ImageSize fortyEightXFortyEightImageSize;
 
+    [field: Space]
+
+    [field: SerializeField] public string LastFailedToGetSpriteName { get; private set; }
+
     //CancellationTokenSource _tokenSource = null;
 
     public bool finishedSetup { get; private set; } = false;
@@ -146,6 +150,13 @@ public class PortraitPieceGrabber : MonoBehaviour
 
     public async Task<Texture2D> GetImageAsTexture2D(string filepath, string fileName, PortraitSize size)
     {
+        if (!File.Exists(filepath))
+        {
+            Debug.LogWarning("Failed to get sprite: " + fileName);
+            LastFailedToGetSpriteName = fileName;
+            return null;
+        }
+
         using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(filepath))
         {
             await uwr.SendWebRequest();
