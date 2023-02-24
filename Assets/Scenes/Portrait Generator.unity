@@ -11188,8 +11188,6 @@ MonoBehaviour:
   - {fileID: 1261877121}
   - {fileID: 824710178}
   - {fileID: 906553413}
-  nextButton: {fileID: 227900314}
-  prevButton: {fileID: 730497501}
 --- !u!1 &2047020410
 GameObject:
   m_ObjectHideFlags: 0

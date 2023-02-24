@@ -14,6 +14,8 @@ public class HelpSubmenuManager : MonoBehaviour
         pages[index].SetActive(false);
         pages[0].SetActive(true);
 
+        index = 0;
+
         UIManager.OpenSubMenu(gameObject);
     }
 
