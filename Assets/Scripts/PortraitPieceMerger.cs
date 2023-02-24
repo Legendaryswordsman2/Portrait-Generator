@@ -79,7 +79,7 @@ public class PortraitPieceMerger : MonoBehaviour
                         break;
                 }
                 Texture2D texture2D = await ppg.GetImageAsTexture2D(_filepath + pgm.portraitPieces[i].activeSprite.name + ".png", pgm.portraitPieces[i].activeSprite.name, size);
-                //Debug.Log(texture2D + " | " + _filepath + pgm.portraitPieces[i].activeSprite.name + ".png");
+
                 if (texture2D == null) return null;
                 portraitPiecesToBeCombined.Add(texture2D);
             }
