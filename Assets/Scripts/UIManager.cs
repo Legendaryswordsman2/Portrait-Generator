@@ -35,19 +35,6 @@ public static class UIManager
 
     public static bool CloseMenu()
     {
-        //if(menuToClose == null)
-        //{
-        //    Debug.LogError("Can't close an overlay that is null");
-
-        //    return false;
-        //}
-
-        //if(menuToClose != ActiveMenu)
-        //{
-        //    Debug.LogWarning($"The overlay '{menuToClose}' you're trying to close is already closed or has not been opened using the game manager");
-        //    return false;
-        //}
-
         if(ActiveMenu == null) return false;
 
         if (ActiveSubMenus.Count == 0)
