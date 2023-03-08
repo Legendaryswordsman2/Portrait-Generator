@@ -50,7 +50,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""2649dd62-0759-4181-a688-c34898fd4d5c"",
-                    ""path"": ""<Keyboard>/f1"",
+                    ""path"": ""<Keyboard>/f2"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",

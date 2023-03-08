@@ -20,7 +20,7 @@ public class PortraitPieceGrabber : MonoBehaviour
 
     [field: Space]
 
-    [field: SerializeField] public string LastFailedToGetSpriteName { get; private set; }
+    public string LastFailedToGetSpriteName { get; private set; }
 
     //CancellationTokenSource _tokenSource = null;
 

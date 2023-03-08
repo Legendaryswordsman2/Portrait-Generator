@@ -1,7 +1,3 @@
-using Cysharp.Threading.Tasks;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,10 +5,10 @@ using UnityEngine.UI;
 
 public class Log : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField, ReadOnlyInspector] string logMessage;
-    [SerializeField, ReadOnlyInspector] string logDetails;
+    string logMessage;
+    string logDetails;
 
-    [SerializeField, ReadOnlyInspector] string LogData;
+    string LogData;
 
     [Space]
 

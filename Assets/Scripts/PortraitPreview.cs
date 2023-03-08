@@ -27,7 +27,7 @@ public class PortraitPreview : MonoBehaviour
     {
         await UniTask.WaitForEndOfFrame(this);
 
-        Debug.Log("Combining sprites for preview");
+        //Debug.Log("Combining sprites for preview");
         Sprite CombinedSprite = await ppm.CombinePortraitPieces(PortraitSize.Sixteen);
 
         if(CombinedSprite != null)

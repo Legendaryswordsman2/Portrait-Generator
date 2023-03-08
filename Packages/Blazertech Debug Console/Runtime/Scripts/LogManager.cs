@@ -4,21 +4,21 @@ using System.IO;
 using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using Cysharp.Threading.Tasks;
 using UnityEngine.SceneManagement;
-using UnityEngine.InputSystem;
+using System.Collections;
+using CodiceApp;
 
+[DefaultExecutionOrder(-100000)]
 public class LogManager : MonoBehaviour
 {
     public static LogManager Instance;
 
-    [field: SerializeField] public BetterLoggingSettingsSO Settings { get; private set; }
+    [field: SerializeField] public BTSettingsSO Settings { get; private set; }
 
     [Space]
-
-    List<LogData> totalLogs = new();
-    [SerializeField, ReadOnlyInspector] List<LogData> queuedLogs;
-    [SerializeField, ReadOnlyInspector] List<Log> logs = new();
+    readonly List<LogData> totalLogs = new();
+    readonly List<LogData> queuedLogs = new();
+    readonly List<Log> logs = new();
 
     [Space]
 
@@ -27,23 +27,27 @@ public class LogManager : MonoBehaviour
     LogConsole logConsoleComponent;
     [SerializeField] GameObject logConsoleContents;
     [SerializeField] ScrollRect logConsoleScrollRect;
+    [SerializeField] GameObject background;
     [SerializeField] Transform SliderBottomPOS;
     [SerializeField] GameObject logPrefab;
     [SerializeField] GameObject bottomOfListprefab;
 
-    [Space]
-
-    [SerializeField] GameObject errorMessageMenu;
-    [SerializeField] TMP_Text errorText;
-
     int logIndex;
+    int baseLogsCount;
 
     Transform bottomListTransform;
+
+    public event EventHandler OnDebugConsoleEnabled;
+    public event EventHandler OnDebugConsoleDisabled;
+
+    public event EventHandler OnDebugConsoleLogsCleared;
 
     void Awake()
     {
         Instance = this;
 
+        Image backgroundImage = background.GetComponent<Image>();
+        backgroundImage.color = Settings.backgroundColor;
         logConsoleComponent = logConsole.GetComponent<LogConsole>();
 
         logConsoleComponent.OnEnabled += OnLogConsoleEnabled;
@@ -56,7 +60,7 @@ public class LogManager : MonoBehaviour
 
         LogBaseInfo("CPU: " + SystemInfo.processorType + " (" + SystemInfo.processorCount + " X " + SystemInfo.processorFrequency + " Mhz)");
 
-        LogBaseInfo("RAM: " + SystemInfo.systemMemorySize + " MB");
+        LogBaseInfo("RAM: " + SystemInfo.systemMemorySize + " MB | " + (float)SystemInfo.systemMemorySize / 1024 + " GB");
 
         LogBaseInfo("Current Directory: " + Directory.GetCurrentDirectory());
 
@@ -86,17 +90,8 @@ public class LogManager : MonoBehaviour
 
     void Update()
     {
-        switch (Settings.activeInputSystem)
-        {
-            case ActiveInputSystem.OldInputSystem:
-                if(Input.GetKeyDown(KeyCode.F1))
-                    ToggleLogMenu();
-                break;
-            case ActiveInputSystem.NewInputSystem:
-                if(Keyboard.current.f1Key.wasPressedThisFrame)
-                    ToggleLogMenu();
-                break;
-        }
+        if (Settings.activeInputSystem == ActiveInputSystem.OldInputSystem && Input.GetKeyDown(KeyCode.F1))
+            ToggleConsole();
     }
 
     void OnLogMessageReceived(string _condition, string stackTrace, LogType type)
@@ -144,6 +139,8 @@ public class LogManager : MonoBehaviour
         log.SetupBaseInfoLog(message);
 
         totalLogs.Add(new LogData(message, "", LogType.Log));
+
+        baseLogsCount++;
     }
     void Log(string logMessage, string logDetails = "")
     {
@@ -164,7 +161,7 @@ public class LogManager : MonoBehaviour
             logIndex++;
 
             if (isAtBottom)
-                GoToBottom();
+                StartCoroutine(GoToBottom());
         }
     }
     void LogWarning(string warningMessage, string warningDetails = "")
@@ -186,7 +183,7 @@ public class LogManager : MonoBehaviour
             logIndex++;
 
             if (isAtBottom)
-                GoToBottom();
+                StartCoroutine(GoToBottom());
         }
     }
     void LogError(string errorMessage, string errorDetails = "")
@@ -208,7 +205,7 @@ public class LogManager : MonoBehaviour
             logIndex++;
 
             if (isAtBottom)
-                GoToBottom();
+                StartCoroutine(GoToBottom());
         }
     }
     void LogException(string exception, string exceptionDetails = "")
@@ -230,15 +227,15 @@ public class LogManager : MonoBehaviour
             logIndex++;
 
             if (isAtBottom)
-                GoToBottom();
+                StartCoroutine(GoToBottom());
         }
     }
 
-    async void GoToBottom()
+    IEnumerator GoToBottom()
     {
         LayoutRebuilder.ForceRebuildLayoutImmediate(logConsole.GetComponent<RectTransform>());
-        await UniTask.WaitForEndOfFrame(this);
-        logConsoleScrollRect.ScrollToBottom();
+        yield return new WaitForEndOfFrame();
+        logConsoleScrollRect.normalizedPosition = new Vector2(0, 0);
     }
     bool CheckLogCap()
     {
@@ -257,7 +254,6 @@ public class LogManager : MonoBehaviour
             return false;
 
     }
-
 
     void OnLogConsoleEnabled(object sender, EventArgs e)
     {
@@ -282,7 +278,7 @@ public class LogManager : MonoBehaviour
 
         queuedLogs.Clear();
 
-        logConsoleScrollRect.ScrollToBottom();
+        logConsoleScrollRect.normalizedPosition = new Vector2(0, 0);
     }
 
     void OnNewSceneLoaded(Scene arg0, LoadSceneMode arg1)
@@ -291,9 +287,26 @@ public class LogManager : MonoBehaviour
             ClearConsole();
     }
 
-    public void ToggleLogMenu()
+    public void ToggleConsole()
     {
         logConsole.SetActive(!logConsole.activeSelf);
+        background.SetActive(logConsole.activeSelf);
+
+        if (logConsole.activeSelf)
+            OnDebugConsoleEnabled?.Invoke(this, null);
+        else
+            OnDebugConsoleDisabled?.Invoke(this, null);
+    }
+
+    public void SetConsoleActive(bool value)
+    {
+        logConsole.SetActive(value);
+        background.SetActive(value);
+
+        if (value)
+            OnDebugConsoleEnabled?.Invoke(this, EventArgs.Empty);
+        else
+            OnDebugConsoleDisabled?.Invoke(this, EventArgs.Empty);
     }
 
     public void ClearConsole()
@@ -304,6 +317,8 @@ public class LogManager : MonoBehaviour
         {
             log.gameObject.SetActive(false);
         }
+
+        OnDebugConsoleLogsCleared?.Invoke(this, EventArgs.Empty);
     }
 
     void OnApplicationQuit()
@@ -315,7 +330,7 @@ public class LogManager : MonoBehaviour
         if(!Directory.Exists(logsFolder))
             Directory.CreateDirectory(logsFolder);
 
-        DirectoryInfo d = new DirectoryInfo(logsFolder);
+        DirectoryInfo d = new(logsFolder);
 
         List<FileInfo> logFiles = new();
         foreach (var logFile in d.GetFiles("*.txt"))
@@ -334,9 +349,12 @@ public class LogManager : MonoBehaviour
 
         tw.WriteLine(DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + " / " + DateTime.Now);
 
-        foreach (LogData log in totalLogs)
+        for (int i = 0; i < totalLogs.Count; i++)
         {
-            tw.WriteLine(log.condition + "\n" + log.stackTrace);
+            if (i > baseLogsCount - 2)
+                tw.WriteLine(totalLogs[i].condition + "\n" + totalLogs[i].stackTrace);
+            else
+                tw.WriteLine(totalLogs[i].condition);
         }
 
         tw.Close();

@@ -6342,8 +6342,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 643.7829, y: -55.29501}
-  m_SizeDelta: {x: 1247.6, y: 76.24}
+  m_AnchoredPosition: {x: 635.85, y: -55.29501}
+  m_SizeDelta: {x: 1231.73, y: 76.24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1072508418
 MonoBehaviour:
@@ -6392,15 +6392,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 78.8
+  m_fontSize: 76.2
   m_fontSizeBase: 78.8
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 78.8
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -11493,8 +11493,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 643.7829, y: -55.29501}
-  m_SizeDelta: {x: 1247.6, y: 76.24}
+  m_AnchoredPosition: {x: 635.86, y: -55.29501}
+  m_SizeDelta: {x: 1231.76, y: 76.24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1933200643
 MonoBehaviour:
@@ -11516,7 +11516,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '(Global) Portraits Generated: '
+  m_text: '(Personal) Portraits Generated: '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9158d4254bac2f247a98bd2a926e046e, type: 2}
   m_sharedMaterial: {fileID: -573558151868498788, guid: 9158d4254bac2f247a98bd2a926e046e, type: 2}
@@ -11546,12 +11546,12 @@ MonoBehaviour:
   m_fontSize: 78.8
   m_fontSizeBase: 78.8
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 78.8
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -11579,7 +11579,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: -4.122448, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

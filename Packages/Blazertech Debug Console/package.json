@@ -1,0 +1,15 @@
+{
+  "name": "com.graymatterstudios.blazertechdebugconsole",
+  "version": "1.0.0",
+  "displayName": "BlazerTech Debug Console",
+  "description": "Adds an in game debug console to make debugging easier",
+  "unity": "2021.3",
+  "unityRelease": "8f1",
+  "licensesUrl": "",
+  "author": {
+    "name": "Gray Matter Studios"
+  },
+  "dependencies": {
+    "com.unity.textmeshpro": "3.0.6"
+  }
+}
