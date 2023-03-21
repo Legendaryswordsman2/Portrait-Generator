@@ -44,7 +44,7 @@ public class PreviewManager : MonoBehaviour
         animationPreviews[previewIndex].transform.SetAsLastSibling();
 
         LeanTween.move(animationPreviews[previewIndex], center.transform.position, 0.1f);
-        LeanTween.scale(animationPreviews[previewIndex], new Vector3(1.5f, 1.5f, 0), 0.1f);
+        LeanTween.scale(animationPreviews[previewIndex], new Vector3(1.7f, 1.7f, 0), 0.1f);
         backgroundCG.alpha = 0;
         background.SetActive(true);
         LeanTween.alphaCanvas(backgroundCG, 1, 0.1f);
