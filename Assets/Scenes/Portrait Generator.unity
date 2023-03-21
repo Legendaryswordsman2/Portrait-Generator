@@ -3207,7 +3207,7 @@ Camera:
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.52156866, g: 0.3882353, b: 0.3372549, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -6572,7 +6572,6 @@ MonoBehaviour:
   fortyEightXFortyEightImageSize:
     width: 960
     height: 288
-  <LastFailedToGetSpriteName>k__BackingField: 
 --- !u!4 &1204724243
 Transform:
   m_ObjectHideFlags: 0
