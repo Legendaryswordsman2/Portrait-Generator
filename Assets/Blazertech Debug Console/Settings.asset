@@ -18,3 +18,4 @@ MonoBehaviour:
   backgroundColor: {r: 0, g: 0, b: 0, a: 0.55}
   clearConsoleOnSceneChange: 1
   activeInputSystem: 0
+  toggleConsoleKey: 283

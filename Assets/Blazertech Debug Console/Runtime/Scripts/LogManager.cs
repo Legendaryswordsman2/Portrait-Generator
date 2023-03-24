@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
-using CodiceApp;
 
 [DefaultExecutionOrder(-100000)]
 public class LogManager : MonoBehaviour
@@ -16,9 +15,9 @@ public class LogManager : MonoBehaviour
     [field: SerializeField] public BTSettingsSO Settings { get; private set; }
 
     [Space]
-    readonly List<LogData> totalLogs = new();
-    readonly List<LogData> queuedLogs = new();
-    readonly List<Log> logs = new();
+    readonly List<LogData> totalLogs = new List<LogData>();
+    readonly List<LogData> queuedLogs = new List<LogData>();
+    readonly List<Log> logs = new List<Log>();
 
     [Space]
 
@@ -90,7 +89,7 @@ public class LogManager : MonoBehaviour
 
     void Update()
     {
-        if (Settings.activeInputSystem == ActiveInputSystem.OldInputSystem && Input.GetKeyDown(KeyCode.F2))
+        if (Settings.activeInputSystem == ActiveInputSystem.OldInputSystem && Input.GetKeyDown(Settings.toggleConsoleKey))
             ToggleConsole();
     }
 
@@ -154,7 +153,7 @@ public class LogManager : MonoBehaviour
         bool logsfull = CheckLogCap();
 
         if (logsfull)
-            logs[^1].SetupLog(logMessage, logDetails, LogType.Log);
+            logs[logs.Count].SetupLog(logMessage, logDetails, LogType.Log);
         else
         {
             logs[logIndex].SetupLog(logMessage, logDetails, LogType.Log);
@@ -176,7 +175,7 @@ public class LogManager : MonoBehaviour
         bool logsfull = CheckLogCap();
 
         if (logsfull)
-            logs[^1].SetupLog(warningMessage, warningDetails, LogType.Warning);
+            logs[logs.Count].SetupLog(warningMessage, warningDetails, LogType.Warning);
         else
         {
             logs[logIndex].SetupLog(warningMessage, warningDetails, LogType.Warning);
@@ -198,7 +197,7 @@ public class LogManager : MonoBehaviour
         bool logsfull = CheckLogCap();
 
         if (logsfull)
-            logs[^1].SetupLog(errorMessage, errorDetails, LogType.Error);
+            logs[logs.Count].SetupLog(errorMessage, errorDetails, LogType.Error);
         else
         {
             logs[logIndex].SetupLog(errorMessage, errorDetails, LogType.Error);
@@ -220,7 +219,7 @@ public class LogManager : MonoBehaviour
         bool logsfull = CheckLogCap();
 
         if (logsfull)
-            logs[^1].SetupLog(exception, exceptionDetails, LogType.Exception);
+            logs[logs.Count].SetupLog(exception, exceptionDetails, LogType.Exception);
         else
         {
             logs[logIndex].SetupLog(exception, exceptionDetails, LogType.Exception);
@@ -330,9 +329,9 @@ public class LogManager : MonoBehaviour
         if(!Directory.Exists(logsFolder))
             Directory.CreateDirectory(logsFolder);
 
-        DirectoryInfo d = new(logsFolder);
+        DirectoryInfo d = new DirectoryInfo(logsFolder);
 
-        List<FileInfo> logFiles = new();
+        List<FileInfo> logFiles = new List<FileInfo>();
         foreach (var logFile in d.GetFiles("*.txt"))
         {
                 logFiles.Add(logFile);

@@ -13,11 +13,12 @@ public class BTSettingsSO : ScriptableObject
     [Tooltip("The max amount of log files that can be generated, once this limit has been reached older logs will start being overwritten"), Min(0)]
     public int logFileCap = 5;
     [Tooltip("The color of the debug consoles background")]
-    public Color backgroundColor = new(0, 0, 0, 0.55f);
+    public Color backgroundColor = new Color(0, 0, 0, 0.55f);
     [Tooltip("Clears all logs when the current scene changes")]
     public bool clearConsoleOnSceneChange = true;
 
     [Space]
 
     public ActiveInputSystem activeInputSystem = ActiveInputSystem.OldInputSystem;
+    public KeyCode toggleConsoleKey = KeyCode.F2;
 }
