@@ -579,9 +579,9 @@ MonoBehaviour:
   m_fontSize: 14
   m_fontSizeBase: 14
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 0
+  m_fontSizeMax: 14
   m_fontStyle: 0
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
@@ -813,7 +813,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -8.0699, y: -2.08}
+  m_AnchoredPosition: {x: -8.0699005, y: -2.079998}
   m_SizeDelta: {x: -41.46, y: -23.35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7199625011197569800
@@ -1148,7 +1148,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9fc072aa02293b143801cf45105ef119, type: 3}
+  m_Sprite: {fileID: 161656987, guid: 9fc072aa02293b143801cf45105ef119, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1177,7 +1177,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
@@ -1187,10 +1187,10 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: ef484c3f95b2de444bb6c8fd9fdbcf66, type: 3}
-    m_PressedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 1532617754, guid: 9fc072aa02293b143801cf45105ef119, type: 3}
+    m_PressedSprite: {fileID: 1532617754, guid: 9fc072aa02293b143801cf45105ef119, type: 3}
     m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 636717493, guid: 9fc072aa02293b143801cf45105ef119, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
@@ -1238,4 +1238,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 760130b9e26d9e143b309368024febe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deselectOnPressed: 1
   text: {fileID: 7199625011197569799}
+  <selected>k__BackingField: 0
