@@ -12087,7 +12087,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '(Personal) Portraits Generated: '
+  m_text: '(Global) Portraits Generated: '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9158d4254bac2f247a98bd2a926e046e, type: 2}
   m_sharedMaterial: {fileID: -573558151868498788, guid: 9158d4254bac2f247a98bd2a926e046e, type: 2}
