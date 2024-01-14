@@ -28,6 +28,7 @@ public class PortraitPieceMerger : MonoBehaviour
     {
         portraitPiecesToBeCombined.Clear();
 
+        #region Filepath
         string filepath;
 
         switch (size)
@@ -45,10 +46,10 @@ public class PortraitPieceMerger : MonoBehaviour
                 Debug.LogError("File size provided is not a known size");
                 return null;
         }
+        #endregion
 
-        //Debug.Log(filepath + pgm.skin.activeSprite.name + ".png");
-
-        if(size == PortraitSize.Sixteen)
+        #region Get Portrait Pieces to be Combined
+        if (size == PortraitSize.Sixteen)
         {
             for (int i = 0; i < pgm.portraitPieces.Length; i++)
             {
@@ -58,7 +59,6 @@ public class PortraitPieceMerger : MonoBehaviour
         }
         else
         {
-            //Debug.Log("Getting sprites needed: "  + pgm.portraitPieces.Length);
             for (int i = 0; i < pgm.portraitPieces.Length; i++)
             {
                 if (pgm.portraitPieces[i].activeSprite == null) continue;
@@ -84,6 +84,7 @@ public class PortraitPieceMerger : MonoBehaviour
                 portraitPiecesToBeCombined.Add(texture2D);
             }
         }
+        #endregion
 
         if (portraitPiecesToBeCombined.Count == 0)
         {

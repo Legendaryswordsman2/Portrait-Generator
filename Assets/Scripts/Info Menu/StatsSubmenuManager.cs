@@ -38,7 +38,7 @@ public class StatsSubmenuManager : MonoBehaviour
         personalStats.text = personalStatsText;
         globalStats.text = globalStatsText;
 
-        LootLockerSDKManager.GetMemberRank("11561", PlayerPrefs.GetString("PlayerID"), (response) =>
+        LootLockerSDKManager.GetMemberRank("portraits-generated", PlayerPrefs.GetString("PlayerID"), (response) =>
         {
             if (response.success)
                 personalStats.text = personalStatsText + response.score.ToString("N0");
@@ -49,7 +49,7 @@ public class StatsSubmenuManager : MonoBehaviour
             }
         });
 
-        LootLockerSDKManager.GetScoreList("11560", 1, 0, (response) =>
+        LootLockerSDKManager.GetScoreList("total-portraits-generated", 1, 0, (response) =>
         {
             if (response.success)
             {

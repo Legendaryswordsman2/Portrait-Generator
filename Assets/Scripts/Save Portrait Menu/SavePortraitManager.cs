@@ -60,7 +60,7 @@ public class SavePortraitManager : MonoBehaviour
     {
         if (Directory.Exists(Directory.GetCurrentDirectory() + "/Saved Portraits"))
         {
-            Debug.Log("Opened file explorer to 'saved portraits' folder");
+            //Debug.Log("Opened file explorer to 'saved portraits' folder");
             Application.OpenURL(Directory.GetCurrentDirectory() + "/Saved Portraits");
         }
         else
@@ -161,7 +161,7 @@ public class SavePortraitManager : MonoBehaviour
         bool finished = false;
 
         bool succesful = true;
-        LootLockerSDKManager.GetScoreList("11560", 1, 0, (response) =>
+        LootLockerSDKManager.GetScoreList("total-portraits-generated", 1, 0, (response) =>
         {
             if (response.success)
             {
@@ -183,7 +183,7 @@ public class SavePortraitManager : MonoBehaviour
         bool done = false;
 
         // Add to global score
-        LootLockerSDKManager.SubmitScore("155", score + 1, "11560", (response) =>
+        LootLockerSDKManager.SubmitScore("155", score + 1, "total-portraits-generated", (response) =>
         {
             if (response.success)
             {
@@ -208,7 +208,7 @@ public class SavePortraitManager : MonoBehaviour
         bool finished = false;
 
         bool succesful = true;
-        LootLockerSDKManager.GetMemberRank("11561", PlayerPrefs.GetString("PlayerID"), (response) =>
+        LootLockerSDKManager.GetMemberRank("portraits-generated", PlayerPrefs.GetString("PlayerID"), (response) =>
         {
             if (response.success)
                 score = response.score;
@@ -227,7 +227,7 @@ public class SavePortraitManager : MonoBehaviour
 
         bool done = false;
 
-        LootLockerSDKManager.SubmitScore(PlayerPrefs.GetString("PlayerID"), score + 1, "11561", (response) =>
+        LootLockerSDKManager.SubmitScore(PlayerPrefs.GetString("PlayerID"), score + 1, "portraits-generated", (response) =>
         {
             if (response.success)
             {
