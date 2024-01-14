@@ -33,7 +33,7 @@ public class PGManager : MonoBehaviour
             if (PlayerPrefs.GetInt("Randomize " + portraitPieces[i].name, 1) == 0) portraitPieces[i].canRandomizeToggle.isOn = false;
         }
 
-        await UniTask.WaitUntil(() => ppg.finishedSetup == true);
+        await UniTask.WaitUntil(() => ppg.FinishedSetup == true);
 
         foreach (PortraitPiece portraitPiece in portraitPieces)
         {

@@ -22,9 +22,23 @@ public class PortraitPieceGrabber : MonoBehaviour
 
     public string LastFailedToGetSpriteName { get; private set; }
 
-    //CancellationTokenSource _tokenSource = null;
+    public static int totalSpritesInBatch;
+    public static int loadedSpritesFromBatch;
 
-    public bool finishedSetup { get; private set; } = false;
+    public static event EventHandler<OnNewSpriteLoadedEventArgs> OnNewSpriteLoaded;
+    public class OnNewSpriteLoadedEventArgs
+    {
+        public Sprite Sprite;
+        public string Extention;
+
+        public OnNewSpriteLoadedEventArgs(Sprite sprite, string extention)
+        {
+            Sprite = sprite;
+            Extention = extention;
+        }
+    }
+
+    public bool FinishedSetup { get; private set; } = false;
 
     List<Task> tasks;
     private async void Awake()
@@ -33,20 +47,25 @@ public class PortraitPieceGrabber : MonoBehaviour
 
         pgManager.SetFirstTimeSetupMessage(true);
 
-        tasks = new List<Task>
-        {
-            GetPortraitPiecesForDisplay(PortraitPieceType.Skin),
-            GetPortraitPiecesForDisplay(PortraitPieceType.Hairstyle),
-            GetPortraitPiecesForDisplay(PortraitPieceType.Eyes),
-            GetPortraitPiecesForDisplay(PortraitPieceType.Accessory)
-        };
+        //tasks = new List<Task>
+        //{
+        //    GetPortraitPiecesForDisplay(PortraitPieceType.Skin),
+        //    GetPortraitPiecesForDisplay(PortraitPieceType.Hairstyle),
+        //    GetPortraitPiecesForDisplay(PortraitPieceType.Eyes),
+        //    GetPortraitPiecesForDisplay(PortraitPieceType.Accessory)
+        //};
+
+        await GetPortraitPiecesForDisplay(PortraitPieceType.Skin);
+        await GetPortraitPiecesForDisplay(PortraitPieceType.Hairstyle);
+        await GetPortraitPiecesForDisplay(PortraitPieceType.Eyes);
+        await GetPortraitPiecesForDisplay(PortraitPieceType.Accessory);
 
         // Wait for all portrait pieces to be added
-        await Task.WhenAll(tasks);
+        //await Task.WhenAll(tasks);
 
         pgManager.SetFirstTimeSetupMessage(false);
 
-        finishedSetup = true;
+        FinishedSetup = true;
 
         //LogManager.Instance.Log("Finished loading portrait pieces");
         Debug.Log("Finished loading portrait pieces");
@@ -86,17 +105,22 @@ public class PortraitPieceGrabber : MonoBehaviour
 
         DirectoryInfo d = new DirectoryInfo(filepath);
 
-        foreach (var file in d.GetFiles("*.png"))
+        var files = d.GetFiles("*.png");
+
+        totalSpritesInBatch = files.Length;
+        loadedSpritesFromBatch = 0;
+
+        foreach (var file in files)
         {
             // file.FullName is the full path to the file
 
-            Sprite sprite = await GetImage(file.FullName, Path.GetFileNameWithoutExtension(file.Name), PortraitSize.Sixteen);
+            Sprite sprite = await GetImage(file.FullName, Path.GetFileNameWithoutExtension(file.Name), file.Extension, PortraitSize.Sixteen);
             if (sprite == null) continue;
             pgManager.AddPortraitPiece(sprite, type);
         }
     }
 
-    public async Task<Sprite> GetImage(string filepath, string fileName, PortraitSize size)
+    public async Task<Sprite> GetImage(string filepath, string fileName, string extenion, PortraitSize size)
     {
         using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(filepath))
         {
@@ -142,6 +166,10 @@ public class PortraitPieceGrabber : MonoBehaviour
                 sprite.name = fileName;
                 sprite.texture.name = fileName;
                 sprite.texture.filterMode = FilterMode.Point;
+
+                loadedSpritesFromBatch++;
+
+                OnNewSpriteLoaded?.Invoke(this, new OnNewSpriteLoadedEventArgs(sprite, extenion));
 
                 return sprite;
             }

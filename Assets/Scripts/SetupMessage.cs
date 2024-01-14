@@ -3,10 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SetupMessage : MonoBehaviour
 {
     [SerializeField] TMP_Text text;
+    [SerializeField] TMP_Text detailsText;
+
+    [Space]
+
+    [SerializeField] Slider progressBar;
 
     string[] textFrames = new string[4];
 
@@ -27,7 +33,18 @@ public class SetupMessage : MonoBehaviour
         textFrames[3] = text.text + "...";
 
         anim = GetComponent<Animator>();
+
+        PortraitPieceGrabber.OnNewSpriteLoaded += PortraitPieceGrabber_OnNewSpriteLoaded;
     }
+
+    private void PortraitPieceGrabber_OnNewSpriteLoaded(object sender, PortraitPieceGrabber.OnNewSpriteLoadedEventArgs e)
+    {
+        detailsText.text = e.Sprite.name + e.Extention;
+
+        progressBar.maxValue = PortraitPieceGrabber.totalSpritesInBatch;
+        progressBar.value = PortraitPieceGrabber.loadedSpritesFromBatch;
+    }
+
     public void SetSetupMessage(bool setActive)
     {
         if(setActive)
@@ -40,6 +57,8 @@ public class SetupMessage : MonoBehaviour
         {
             isActive = false;
             text.text = "";
+            detailsText.text = "";
+            progressBar.gameObject.SetActive(false);
             anim.SetTrigger("Trigger");
             //gameObject.SetActive(false);
         }
@@ -64,5 +83,10 @@ public class SetupMessage : MonoBehaviour
     public void OnSetupBackgroundAnimationFinished()
     {
         gameObject.SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+        PortraitPieceGrabber.OnNewSpriteLoaded -= PortraitPieceGrabber_OnNewSpriteLoaded;
     }
 }
