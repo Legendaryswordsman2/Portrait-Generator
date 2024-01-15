@@ -70,7 +70,12 @@ public class DiscordController : MonoBehaviour
     }
     private void UserManager_OnCurrentUserUpdate()
     {
-        Username = userManager.GetCurrentUser().Username + "#" + userManager.GetCurrentUser().Discriminator;
+        string discriminator = userManager.GetCurrentUser().Discriminator;
+
+        if (discriminator == "0")
+            Username = userManager.GetCurrentUser().Username;
+        else
+            Username = userManager.GetCurrentUser().Username + "#" + userManager.GetCurrentUser().Discriminator;
 
         RetreivedUsername = true;
     }
@@ -78,6 +83,16 @@ public class DiscordController : MonoBehaviour
     private void Update()
     {
         discord.RunCallbacks();
+    }
+
+    private void OnDestroy()
+    {
+        if (userManager != null)
+            userManager.OnCurrentUserUpdate -= UserManager_OnCurrentUserUpdate;
+
+#if UNITY_EDITOR
+        discord?.Dispose();
+#endif
     }
 }
 

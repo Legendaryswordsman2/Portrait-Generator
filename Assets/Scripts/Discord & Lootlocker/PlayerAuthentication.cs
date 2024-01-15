@@ -25,7 +25,7 @@ public class PlayerAuthentication : MonoBehaviour
             }
             else
             {
-                Debug.Log("Login Failed: " + response.Error);
+                Debug.Log("Login Failed: " + response.errorData.message);
                 gotResponse = true;
             }
         });
@@ -44,7 +44,7 @@ public class PlayerAuthentication : MonoBehaviour
                     StartCoroutine(SetPlayerName(DiscordController.Username));
             }
             else
-                Debug.LogError("Unable to get player name: " + response.Error);
+                Debug.LogError("Unable to get player name: " + response.errorData.message);
         });
     }
 
@@ -58,7 +58,7 @@ public class PlayerAuthentication : MonoBehaviour
                 Debug.Log("Successfuly set player name: " + newName);
             }
             else
-                Debug.Log("Failed to set player name: " + response.Error);
+                Debug.Log("Failed to set player name: " + response.errorData.message);
 
             done = true;
         });

@@ -44,7 +44,7 @@ public class StatsSubmenuManager : MonoBehaviour
                 personalStats.text = personalStatsText + response.score.ToString("N0");
             else
             {
-                Debug.LogWarning("Failed to fetch leaderbaord data: " + response.Error);
+                Debug.LogWarning("Failed to fetch leaderbaord data: " + response.errorData.message);
                 personalStats.text = personalStatsText + "Unavailable";
             }
         });
@@ -57,7 +57,7 @@ public class StatsSubmenuManager : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("Failed to fetch leaderbaord data: " + response.Error);
+                Debug.LogWarning("Failed to fetch leaderbaord data: " + response.errorData.message);
                 globalStats.text = globalStatsText + "Unavailable";
             }
         });

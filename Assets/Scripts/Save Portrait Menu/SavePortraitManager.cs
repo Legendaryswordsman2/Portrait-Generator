@@ -169,7 +169,7 @@ public class SavePortraitManager : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("Failed to fetch leaderbaord data: " + response.Error);
+                Debug.LogWarning("Failed to fetch leaderbaord data: " + response.errorData.message);
                 succesful = false;
             }
 
@@ -192,7 +192,7 @@ public class SavePortraitManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("Failed" + response.Error);
+                Debug.Log("Failed" + response.errorData.message);
             }
 
             done = true;
@@ -214,7 +214,7 @@ public class SavePortraitManager : MonoBehaviour
                 score = response.score;
             else
             {
-                Debug.LogWarning("Failed to fetch leaderbaord data: " + response.Error);
+                Debug.LogWarning("Failed to fetch leaderbaord data: " + response.errorData.message);
                 succesful = false;
             }
 
@@ -235,7 +235,7 @@ public class SavePortraitManager : MonoBehaviour
                 //Debug.Log(score + " Pesonal");
             }
             else
-                Debug.LogWarning("Unable to upload personal score: " + response.Error);
+                Debug.LogWarning("Unable to upload personal score: " + response.errorData.message);
 
             done = true;
         });
