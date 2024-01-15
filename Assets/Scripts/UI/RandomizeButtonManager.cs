@@ -14,6 +14,5 @@ public class RandomizeButtonManager : MonoBehaviour
         LeanTween.cancel(gameObject);
         transform.rotation = Quaternion.identity;
         LeanTween.rotateAround(gameObject, new Vector3(0, 0, 360), 360, 0.4f).setEaseInOutBack();
-
     }
 }
