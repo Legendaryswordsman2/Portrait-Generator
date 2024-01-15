@@ -1578,7 +1578,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 93f44137837dcc5428e7e23813234981, type: 3}
+  m_Sprite: {fileID: -978661270, guid: 93f44137837dcc5428e7e23813234981, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1628,7 +1628,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
@@ -1638,8 +1638,8 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.05
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
+    m_HighlightedSprite: {fileID: 1768710169, guid: 93f44137837dcc5428e7e23813234981, type: 3}
+    m_PressedSprite: {fileID: 1768710169, guid: 93f44137837dcc5428e7e23813234981, type: 3}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
@@ -3276,7 +3276,7 @@ GameObject:
   - component: {fileID: 479043606}
   - component: {fileID: 479043605}
   m_Layer: 5
-  m_Name: Border (1)
+  m_Name: Middle Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4067,7 +4067,7 @@ GameObject:
   - component: {fileID: 696247570}
   - component: {fileID: 696247569}
   m_Layer: 5
-  m_Name: Border
+  m_Name: Top Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

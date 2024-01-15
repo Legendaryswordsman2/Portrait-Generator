@@ -82,7 +82,15 @@ public class DiscordController : MonoBehaviour
 
     private void Update()
     {
-        discord.RunCallbacks();
+        try
+        {
+            discord.RunCallbacks();
+        }
+        catch (System.Exception exception)
+        {
+            Debug.LogWarning(exception);
+            Destroy(this);
+        }
     }
 
     private void OnDestroy()
