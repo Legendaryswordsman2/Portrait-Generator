@@ -16,13 +16,8 @@ public class InfoMenuManager : MonoBehaviour
         Application.OpenURL("https://github.com/Legendaryswordsman2/Portrait-Generator");
     }
 
-    public void OpenItchIOPage()
+    public void OpenMyOtherWorkPage()
     {
-        Application.OpenURL("https://legendaryswordsman2.itch.io/");
+        Application.OpenURL("https://linktr.ee/legendaryswordsman2");
     }
-
-    //private void Update()
-    //{
-    //    Debug.Log(UIManager.ActiveSubMenus.Count);
-    //}
 }

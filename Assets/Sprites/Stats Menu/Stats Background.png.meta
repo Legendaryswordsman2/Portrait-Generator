@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 81c5a0cf1f94b2f40bc93691625c2fb7
+guid: bcc64b182f0bb3749a3b251fa11043c0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,13 +43,13 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 1, y: 1, z: 1, w: 1}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -136,43 +136,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Toggle Background
+      name: Button
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 16
+        width: 28
+        height: 29
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 3, y: 3, z: 3, w: 4}
+      border: {x: 6, y: 7, z: 6, w: 7}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 682b777db339d1b41bde88ac45773728
-      internalID: -832338924
+      spriteID: 7bf79293070d9304d89f13a583ff10e3
+      internalID: -957462030
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Toggle Background Highlighted
+      name: Button Highlighted
       rect:
         serializedVersion: 2
-        x: 18
+        x: 32
         y: 0
-        width: 16
-        height: 16
+        width: 28
+        height: 29
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 3, y: 3, z: 3, w: 4}
+      border: {x: 6, y: 7, z: 6, w: 7}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 544a6e79e0e36b244b9fd36f4ac6d560
-      internalID: -1735502673
+      spriteID: 123f96443259fe944b477a712b689f89
+      internalID: 527477160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Button Disabled
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 28
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 6, y: 7, z: 6, w: 7}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3af2fdabefebc7e4893fbced02d750f2
+      internalID: -848610439
       vertices: []
       indices: 
       edges: []
@@ -181,15 +202,16 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Toggle Background: -832338924
-      Toggle Background Highlighted: -1735502673
+      Button: -957462030
+      Button Disabled: -848610439
+      Button Highlighted: 527477160
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
