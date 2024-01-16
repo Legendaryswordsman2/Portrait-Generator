@@ -88,7 +88,7 @@ public class DiscordController : MonoBehaviour
         }
         catch (System.Exception exception)
         {
-            Debug.LogWarning(exception);
+            Debug.Log(exception);
             Destroy(this);
         }
     }
