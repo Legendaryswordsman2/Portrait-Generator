@@ -22,6 +22,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Randomize Portrait",
+                    "type": "Button",
+                    "id": "df12bdee-a9b8-496f-9253-ee179fe9a31a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Info Popup",
+                    "type": "Button",
+                    "id": "e77195a9-66b5-478e-9dac-077a06163802",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Save Popup",
+                    "type": "Button",
+                    "id": "c3354696-73e3-4cf5-9754-8f822f440de5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -44,6 +71,39 @@
                     "processors": "",
                     "groups": "Keyboard & Mouse",
                     "action": "Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5d7b38c0-071d-49df-b095-6fecf265d462",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Randomize Portrait",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e2d9de14-3bb8-4f89-be63-bf9e55d27ecb",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Info Popup",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f1924289-4086-4782-8aff-714be417d215",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Save Popup",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -44,6 +44,33 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Randomize Portrait"",
+                    ""type"": ""Button"",
+                    ""id"": ""df12bdee-a9b8-496f-9253-ee179fe9a31a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Info Popup"",
+                    ""type"": ""Button"",
+                    ""id"": ""e77195a9-66b5-478e-9dac-077a06163802"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Save Popup"",
+                    ""type"": ""Button"",
+                    ""id"": ""c3354696-73e3-4cf5-9754-8f822f440de5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -66,6 +93,39 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
                     ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5d7b38c0-071d-49df-b095-6fecf265d462"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Randomize Portrait"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e2d9de14-3bb8-4f89-be63-bf9e55d27ecb"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Info Popup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f1924289-4086-4782-8aff-714be417d215"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Save Popup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -165,6 +225,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_General = asset.FindActionMap("General", throwIfNotFound: true);
         m_General_OpenLogMenu = m_General.FindAction("Open Log Menu", throwIfNotFound: true);
         m_General_Back = m_General.FindAction("Back", throwIfNotFound: true);
+        m_General_RandomizePortrait = m_General.FindAction("Randomize Portrait", throwIfNotFound: true);
+        m_General_InfoPopup = m_General.FindAction("Info Popup", throwIfNotFound: true);
+        m_General_SavePopup = m_General.FindAction("Save Popup", throwIfNotFound: true);
         // Help Menu
         m_HelpMenu = asset.FindActionMap("Help Menu", throwIfNotFound: true);
         m_HelpMenu_NextPage = m_HelpMenu.FindAction("Next Page", throwIfNotFound: true);
@@ -232,12 +295,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private List<IGeneralActions> m_GeneralActionsCallbackInterfaces = new List<IGeneralActions>();
     private readonly InputAction m_General_OpenLogMenu;
     private readonly InputAction m_General_Back;
+    private readonly InputAction m_General_RandomizePortrait;
+    private readonly InputAction m_General_InfoPopup;
+    private readonly InputAction m_General_SavePopup;
     public struct GeneralActions
     {
         private @PlayerInputActions m_Wrapper;
         public GeneralActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @OpenLogMenu => m_Wrapper.m_General_OpenLogMenu;
         public InputAction @Back => m_Wrapper.m_General_Back;
+        public InputAction @RandomizePortrait => m_Wrapper.m_General_RandomizePortrait;
+        public InputAction @InfoPopup => m_Wrapper.m_General_InfoPopup;
+        public InputAction @SavePopup => m_Wrapper.m_General_SavePopup;
         public InputActionMap Get() { return m_Wrapper.m_General; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -253,6 +322,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Back.started += instance.OnBack;
             @Back.performed += instance.OnBack;
             @Back.canceled += instance.OnBack;
+            @RandomizePortrait.started += instance.OnRandomizePortrait;
+            @RandomizePortrait.performed += instance.OnRandomizePortrait;
+            @RandomizePortrait.canceled += instance.OnRandomizePortrait;
+            @InfoPopup.started += instance.OnInfoPopup;
+            @InfoPopup.performed += instance.OnInfoPopup;
+            @InfoPopup.canceled += instance.OnInfoPopup;
+            @SavePopup.started += instance.OnSavePopup;
+            @SavePopup.performed += instance.OnSavePopup;
+            @SavePopup.canceled += instance.OnSavePopup;
         }
 
         private void UnregisterCallbacks(IGeneralActions instance)
@@ -263,6 +341,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Back.started -= instance.OnBack;
             @Back.performed -= instance.OnBack;
             @Back.canceled -= instance.OnBack;
+            @RandomizePortrait.started -= instance.OnRandomizePortrait;
+            @RandomizePortrait.performed -= instance.OnRandomizePortrait;
+            @RandomizePortrait.canceled -= instance.OnRandomizePortrait;
+            @InfoPopup.started -= instance.OnInfoPopup;
+            @InfoPopup.performed -= instance.OnInfoPopup;
+            @InfoPopup.canceled -= instance.OnInfoPopup;
+            @SavePopup.started -= instance.OnSavePopup;
+            @SavePopup.performed -= instance.OnSavePopup;
+            @SavePopup.canceled -= instance.OnSavePopup;
         }
 
         public void RemoveCallbacks(IGeneralActions instance)
@@ -347,6 +434,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     {
         void OnOpenLogMenu(InputAction.CallbackContext context);
         void OnBack(InputAction.CallbackContext context);
+        void OnRandomizePortrait(InputAction.CallbackContext context);
+        void OnInfoPopup(InputAction.CallbackContext context);
+        void OnSavePopup(InputAction.CallbackContext context);
     }
     public interface IHelpMenuActions
     {
