@@ -140,11 +140,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
       propertyPath: m_fontSize
-      value: 56.4
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: d48c442ac2c0a92499d19fe7b5740d5f, type: 2}
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
       propertyPath: m_fontSizeBase
-      value: 56.4
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -3041312605146793814, guid: d48c442ac2c0a92499d19fe7b5740d5f, type: 2}
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5207319364226432580, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
       propertyPath: m_text
@@ -556,20 +568,32 @@ PrefabInstance:
         part of the portrait (Skin, Eyes, Hairstyle and an optional Accessory), click
         on any of them to reveal a dropdown, within this dropdown are all the different
         types you can choose from, the hairstyle dropdown has different hairstyles
-        to choose from, the eyes dropdown has different eye colors, etc.\r\n\r\nIn
-        the center of the screen you\u2019ll see the spritesheet of your portrait
-        with everything you chose from the dropdowns above, at the bottom of the
-        screen you\u2019ll see three animations previewing what your portrait could
-        look like in your game to allow you to more easily tell if you like the portrait
-        you\u2019re making.\r\n"
+        to choose from, the eyes dropdown has different eye colors, etc.\n\nIn the
+        center of the screen you\u2019ll see the spritesheet of your portrait with
+        everything you chose from the dropdowns above. At the bottom of the screen
+        you\u2019ll see three animations showing what your portrait could look like
+        in your game to allow you to more easily tell if you like the portrait you\u2019re
+        making."
       objectReference: {fileID: 0}
     - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
       propertyPath: m_fontSize
-      value: 40
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: d48c442ac2c0a92499d19fe7b5740d5f, type: 2}
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
       propertyPath: m_fontSizeBase
-      value: 40
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -3041312605146793814, guid: d48c442ac2c0a92499d19fe7b5740d5f, type: 2}
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5207319364226432580, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
       propertyPath: m_text
@@ -2072,33 +2096,42 @@ PrefabInstance:
       propertyPath: m_text
       value: "To the left of the dropdowns is a button labeled \u201CInfo\u201D,
         clicking that button will open a new menu containing 6 buttons each pertaining
-        to something different;\r\n-The first button is the help button which takes
-        you to this help page you\u2019re currently reading. \r\n-The settings button
-        takes you to a new menu where you can edit the settings of the \u201CRandomize\u201D
-        button so it only randomizes what you want it to.\r\n-The Stats button takes
-        you to another menu showing the total amount of portraits you\u2019ve created
-        as well as the total amount of portraits everyone has created total.\r\n-The
-        Source Code button takes you to the github page where the source code of
-        this software is stored\r\n-The \u201CMy Other Work\u201D button takes you
-        to my Itch.io page where you can see all my other projects.\r\n-The Saved
-        Portraits button takes you to the folder where your portraits are saved after
-        creating them.\r\n"
+        to something different.\n\nMost are obvious and don't need explaining. The
+        most import being the Settings button which when clicked brings you to a
+        new menu where you can change which parts of the portrait are randomized
+        when the randomize button is pressed."
       objectReference: {fileID: 0}
     - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
       propertyPath: m_fontSize
-      value: 34.7
+      value: 44
       objectReference: {fileID: 0}
     - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: d48c442ac2c0a92499d19fe7b5740d5f, type: 2}
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
       propertyPath: m_fontSizeBase
-      value: 34.7
+      value: 44
       objectReference: {fileID: 0}
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -3041312605146793814, guid: d48c442ac2c0a92499d19fe7b5740d5f, type: 2}
     - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
       propertyPath: m_HorizontalAlignment
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5207319364226432580, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
       propertyPath: m_text
       value: Page 5 - The Info Tab
+      objectReference: {fileID: 0}
+    - target: {fileID: 5358744771572259435, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -132
       objectReference: {fileID: 0}
     - target: {fileID: 6282066376310009392, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
       propertyPath: m_Pivot.x
@@ -9092,6 +9125,164 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1439925563}
   m_CullTransparentMesh: 1
+--- !u!1001 &1451002738
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1701315944}
+    m_Modifications:
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_text
+      value: 'In version 1.5.0 hotkeys were added to make navigating the Portrait
+        Generator easier.
+
+        Hotkeys include the following:
+
+
+        - Open
+        Save popup: "S"
+
+        - Open Info Popup: "I"
+
+        - Randomize Portrait:
+        "R"'
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_fontSize
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: d48c442ac2c0a92499d19fe7b5740d5f, type: 2}
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -3041312605146793814, guid: d48c442ac2c0a92499d19fe7b5740d5f, type: 2}
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5207319364226432580, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_text
+      value: Page 6 - Hotkeys
+      objectReference: {fileID: 0}
+    - target: {fileID: 5358744771572259435, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -137
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282066376310009392, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282066376310009392, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282066376310009392, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282066376310009392, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282066376310009392, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282066376310009392, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282066376310009392, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282066376310009392, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282066376310009392, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282066376310009392, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282066376310009392, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282066376310009392, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282066376310009392, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282066376310009392, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282066376310009392, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282066376310009392, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282066376310009392, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282066376310009392, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282066376310009392, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282066376310009392, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6282066376310009392, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8801620632226744806, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_Name
+      value: Page 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8801620632226744806, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+--- !u!224 &1451002739 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6282066376310009392, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+  m_PrefabInstance: {fileID: 1451002738}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1452265336
 GameObject:
   m_ObjectHideFlags: 0
@@ -9401,12 +9592,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
       propertyPath: m_fontSize
-      value: 59
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: d48c442ac2c0a92499d19fe7b5740d5f, type: 2}
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
       propertyPath: m_fontSizeBase
-      value: 59
+      value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -3041312605146793814, guid: d48c442ac2c0a92499d19fe7b5740d5f, type: 2}
     - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
       propertyPath: m_VerticalAlignment
       value: 256
@@ -9415,9 +9614,13 @@ PrefabInstance:
       propertyPath: m_HorizontalAlignment
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5207319364226432580, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
       propertyPath: m_text
-      value: Page 6 - Need More Help?
+      value: Page 7 - Need More Help?
       objectReference: {fileID: 0}
     - target: {fileID: 6282066376310009392, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
       propertyPath: m_Pivot.x
@@ -9505,7 +9708,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8801620632226744806, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
       propertyPath: m_Name
-      value: Page 6
+      value: Page 7
       objectReference: {fileID: 0}
     - target: {fileID: 8801620632226744806, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
       propertyPath: m_IsActive
@@ -10952,6 +11155,7 @@ RectTransform:
   - {fileID: 2120110472}
   - {fileID: 18061390}
   - {fileID: 401930899}
+  - {fileID: 1451002739}
   - {fileID: 1489808920}
   m_Father: {fileID: 2043337906}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13493,24 +13697,40 @@ PrefabInstance:
         save it, to the right of the dropdowns is a button labeled \u201CSave\u201D,
         clicking that button will open a new menu prompting you to give your portrait
         a name and select the size you want (Note if no name is provided a name will
-        be given automatically), once both have been set click the \u201CSave Portrait\u201D
-        button at the bottom, after a few seconds a new menu should appear confirming
-        the portrait has been saved, included in that menu is a button which will
-        take you to the exact folder your portrait was saved in, when you\u2019re
-        done in that menu press \u201CEscape\u201D to close it. Congrats, your portrait
-        is now finished and ready to be added to any game!"
+        be given automatically). \n\nOnce both have been set click the \u201CSave
+        Portrait\u201D button at the bottom, after a few seconds a new menu should
+        appear confirming the portrait has been saved, included in that menu is a
+        button which will take you to the exact folder your portrait was saved in,
+        when you\u2019re done in that menu press \u201CEscape\u201D to close it.
+        Congrats, your portrait is now finished and ready to be added to any game!"
       objectReference: {fileID: 0}
     - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
       propertyPath: m_fontSize
-      value: 40
+      value: 34.6
       objectReference: {fileID: 0}
     - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: d48c442ac2c0a92499d19fe7b5740d5f, type: 2}
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
       propertyPath: m_fontSizeBase
-      value: 40
+      value: 34.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -3041312605146793814, guid: d48c442ac2c0a92499d19fe7b5740d5f, type: 2}
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5207319364226432580, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
       propertyPath: m_text
       value: Page 3 - Saving
+      objectReference: {fileID: 0}
+    - target: {fileID: 5358744771572259435, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -127
       objectReference: {fileID: 0}
     - target: {fileID: 6282066376310009392, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
       propertyPath: m_Pivot.x
@@ -15852,6 +16072,35 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1701315944}
     m_Modifications:
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_text
+      value: "The goal of this software is to have a tool to make creating portraits
+        easier, ordinarily you\u2019d have to manually copy the different pieces
+        (Skin, Hair, Accessories, Etc) together in some sort of art software (Aseprite
+        for example) which can be very time consuming. Along with that it\u2019s
+        often hard to tell if the portrait will even look good without seeing it
+        in action"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_fontSize
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: d48c442ac2c0a92499d19fe7b5740d5f, type: 2}
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: -3041312605146793814, guid: d48c442ac2c0a92499d19fe7b5740d5f, type: 2}
+    - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5207319364226432580, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
       propertyPath: m_text
       value: Page 1 - Introduction
