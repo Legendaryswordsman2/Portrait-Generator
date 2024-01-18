@@ -35,16 +35,24 @@ public static class UIManager
 
     public static bool CloseMenu()
     {
-        if(ActiveMenu == null) return false;
+        if (ActiveMenu == null) return false;
 
         if (ActiveSubMenus.Count == 0)
         {
+            if (ActiveMenu.TryGetComponent(out IUIClosed uiClosed))
+            {
+                if (!uiClosed.OnUIClosed()) return false;
+            }
             ActiveMenu.SetActive(false);
             ActiveMenu = null;
             return true;
         }
         else
         {
+            if (ActiveSubMenus[^1].TryGetComponent(out IUIClosed uiClosed))
+            {
+                if (!uiClosed.OnUIClosed()) return false;
+            }
             ActiveSubMenus[^1].SetActive(false);
             ActiveSubMenus.RemoveAt(ActiveSubMenus.Count - 1);
 
@@ -52,6 +60,10 @@ public static class UIManager
                 ActiveSubMenus[^1].SetActive(true);
             else
             {
+                if (ActiveMenu.TryGetComponent(out IUIClosed uiClosed2))
+                {
+                    if (!uiClosed2.OnUIClosed()) return false;
+                }
                 ActiveMenu.SetActive(false);
                 ActiveMenu = null;
             }
@@ -61,15 +73,15 @@ public static class UIManager
 
     public static bool OpenSubMenu(GameObject submenuToOpen)
     {
-        if(ActiveMenu == null)
+        if (ActiveMenu == null)
         {
             Debug.LogError("Can't open a submenu when a menu isn't open");
             return false;
         }
 
         //ActiveMenu.SetActive(false);
-        if(ActiveSubMenus.Count > 0)
-        ActiveSubMenus[^1].SetActive(false);
+        if (ActiveSubMenus.Count > 0)
+            ActiveSubMenus[^1].SetActive(false);
         ActiveSubMenus.Add(submenuToOpen);
         submenuToOpen.SetActive(true);
 
@@ -78,7 +90,7 @@ public static class UIManager
 
     public static bool SwitchActiveMenu(GameObject oldMenu, GameObject newMenu)
     {
-        if(ActiveMenu != oldMenu)
+        if (ActiveMenu != oldMenu)
         {
             Debug.Log("Cannot switch active menu, supplied active menu is inccorect");
             return false;
@@ -95,14 +107,14 @@ public static class UIManager
 
     public static bool ForceCloseMenu()
     {
-        if(ActiveMenu == null)
+        if (ActiveMenu == null)
         {
             Debug.Log("Can't force close menu, no actie menu set");
             return false;
         }
 
         ActiveMenu.SetActive(false);
-        if(ActiveSubMenus.Count > 0)
+        if (ActiveSubMenus.Count > 0)
         {
             ActiveSubMenus[^1].SetActive(false);
             ActiveSubMenus.Clear();

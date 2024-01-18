@@ -33,6 +33,10 @@ public class SavePortraitManager : MonoBehaviour
     [SerializeField] GameObject spriteMissingError;
     [SerializeField] TMP_Text spriteMissingErrorText;
 
+    [Space]
+
+    [SerializeField] CanvasGroup canvasGroup;
+
     Sprite finalSprite;
 
     PortraitSize size;
@@ -42,8 +46,11 @@ public class SavePortraitManager : MonoBehaviour
     bool doneContactingServer = false;
     public static bool SavingPortrait = false;
 
+
     public void OpenSavePortraitMenu()
     {
+        canvasGroup.alpha = 1;
+
         fileNameInputField.interactable = true;
         sizeDropdown.interactable = true;
         saveButton.interactable = true;
@@ -54,6 +61,11 @@ public class SavePortraitManager : MonoBehaviour
         UIManager.OpenMenu(savePortraitMenus);
 
         gameObject.SetActive(true);
+
+        LeanTween.cancel(gameObject);
+        transform.localScale = Vector2.zero;
+
+        LeanTween.scale(gameObject, new Vector2(1.4f, 1.4f), 0.1f);
     }
 
     public void OpenSavedPortraitsFileLocation()
@@ -91,7 +103,7 @@ public class SavePortraitManager : MonoBehaviour
                 break;
         }
         finalSprite = await ppMerger.CombinePortraitPieces(size);
-        if(finalSprite != null)
+        if (finalSprite != null)
         {
             SavePortraitToFile();
             UpdateScores();
@@ -120,22 +132,36 @@ public class SavePortraitManager : MonoBehaviour
         {
             await UniTask.WaitUntil(() => doneContactingServer == true);
 
-            personalStatsText.text = "You've saved " + portraitsGeneratedPersonal.ToString("N0") + " portraits total.";
+            personalStatsText.text = "You've saved " + portraitsGeneratedPersonal.ToString("N0") + " portraits() total.";
             globalStatsText.text = portraitsGeneratedGlobal.ToString("N0") + " portraits have been saved globally.";
 
-            finishedSavingPortraitMenu.SetActive(true);
-            gameObject.SetActive(false);
+            OpenFinishedSavingPortraitMenu();
         }
         else
         {
             personalStatsText.text = "";
             globalStatsText.text = "";
 
-            finishedSavingPortraitMenu.SetActive(true);
-            gameObject.SetActive(false);
+            OpenFinishedSavingPortraitMenu();
         }
 
         SavingPortrait = false;
+    }
+
+    void OpenFinishedSavingPortraitMenu()
+    {
+        LeanTween.cancel(gameObject);
+        LeanTween.cancel(finishedSavingPortraitMenu.gameObject);
+
+        LeanTween.alphaCanvas(canvasGroup, 0, 0.1f).setOnComplete(() =>
+        {
+            gameObject.SetActive(false);
+        });
+
+
+        finishedSavingPortraitMenu.transform.localScale = Vector2.zero;
+        finishedSavingPortraitMenu.gameObject.SetActive(true);
+        LeanTween.scale(finishedSavingPortraitMenu, Vector2.one, 0.15f);
     }
 
     async void UpdateScores()

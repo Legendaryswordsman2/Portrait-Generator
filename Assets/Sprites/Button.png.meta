@@ -181,7 +181,7 @@ TextureImporter:
       name: Button Disabled
       rect:
         serializedVersion: 2
-        x: 64
+        x: 96
         y: 0
         width: 28
         height: 29
@@ -194,6 +194,27 @@ TextureImporter:
       bones: []
       spriteID: 3af2fdabefebc7e4893fbced02d750f2
       internalID: -848610439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Button Selected
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 28
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 6, y: 7, z: 6, w: 7}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e9e26bd5dba2394281376f72f5733e9
+      internalID: -671948682
       vertices: []
       indices: 
       edges: []
@@ -212,6 +233,7 @@ TextureImporter:
       Button: -957462030
       Button Disabled: -848610439
       Button Highlighted: 527477160
+      Button Selected: -671948682
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
