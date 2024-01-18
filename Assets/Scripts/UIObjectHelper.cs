@@ -12,6 +12,7 @@ public class UIObjectHelper : MonoBehaviour, ISelectHandler, IDeselectHandler
     [Space]
 
     [SerializeField] TMP_Text text;
+    [SerializeField] Image dropdownArrow;
 
     Selectable uiObject;
 
@@ -22,11 +23,11 @@ public class UIObjectHelper : MonoBehaviour, ISelectHandler, IDeselectHandler
     {
         uiObject = GetComponent<Selectable>();
 
-        if(text != null)
-        defaultTextColor = text.color;
+        if (text != null)
+            defaultTextColor = text.color;
 
-        if(uiObject.interactable)
-        WaitUntilDropdownDisabled();
+        if (uiObject.interactable)
+            WaitUntilDropdownDisabled();
         else
             WaitUntilDropdownEnabled();
     }
@@ -34,17 +35,17 @@ public class UIObjectHelper : MonoBehaviour, ISelectHandler, IDeselectHandler
     public void OnSelect(BaseEventData eventData)
     {
         selected = true;
-        if(deselectOnPressed)
+        if (deselectOnPressed)
             NavigationHelper.DeselectSelectedUIObject();
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
         //Debug.Log(dropdown.IsExpanded);
-        if(uiObject is TMP_Dropdown dropdown)
+        if (uiObject is TMP_Dropdown dropdown)
         {
-        if (dropdown == null || !dropdown.IsExpanded)
-            selected = false;
+            if (dropdown == null || !dropdown.IsExpanded)
+                selected = false;
         }
         else
             selected = false;
@@ -57,7 +58,7 @@ public class UIObjectHelper : MonoBehaviour, ISelectHandler, IDeselectHandler
         if (text == null) return;
 
         text.color = defaultTextColor;
-
+        if(dropdownArrow != null) dropdownArrow.color = Color.white;
         WaitUntilDropdownDisabled();
     }
 
@@ -67,9 +68,12 @@ public class UIObjectHelper : MonoBehaviour, ISelectHandler, IDeselectHandler
 
         if (text == null) return;
 
-        Color disabledColor = defaultTextColor;
-        disabledColor.a = uiObject.colors.disabledColor.a;
-        text.color = disabledColor;
+        Color textDisabledColor = defaultTextColor;
+        Color dropdownDisabledColor = Color.white;
+        textDisabledColor.a = uiObject.colors.disabledColor.a;
+        dropdownDisabledColor.a = uiObject.colors.disabledColor.a;
+        text.color = textDisabledColor;
+        if (dropdownArrow != null) dropdownArrow.color = dropdownDisabledColor;
 
         WaitUntilDropdownEnabled();
     }

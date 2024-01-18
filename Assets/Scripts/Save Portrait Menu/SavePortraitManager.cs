@@ -45,7 +45,7 @@ public class SavePortraitManager : MonoBehaviour
     int portraitsGeneratedGlobal;
     bool doneContactingServer = false;
     public static bool SavingPortrait = false;
-
+    bool canClose = false;
 
     public void OpenSavePortraitMenu()
     {
@@ -57,6 +57,8 @@ public class SavePortraitManager : MonoBehaviour
         creatingPortraitOverlay.SetActive(false);
         finishedSavingPortraitMenu.SetActive(false);
         spriteMissingError.SetActive(false);
+
+        canClose = false;
 
         UIManager.OpenMenu(savePortraitMenus);
 
@@ -139,8 +141,8 @@ public class SavePortraitManager : MonoBehaviour
         }
         else
         {
-            personalStatsText.text = "";
-            globalStatsText.text = "";
+            personalStatsText.text = "(Offline) Can't load personal stats.";
+            globalStatsText.text = "(Offline) Can't load global stats.";
 
             OpenFinishedSavingPortraitMenu();
         }
@@ -267,5 +269,32 @@ public class SavePortraitManager : MonoBehaviour
         });
 
         await UniTask.WaitUntil(() => done);
+    }
+
+    private void OnEnable()
+    {
+        UIManager.OnBeforeUIClosed += UIManager_OnBeforeUIClosed;
+    }
+
+    private void OnDisable()
+    {
+        UIManager.OnBeforeUIClosed -= UIManager_OnBeforeUIClosed;
+    }
+
+    private void UIManager_OnBeforeUIClosed(object sender, EventArgs e)
+    {
+        if (canClose) return;
+
+        UIManager.CanCloseUI = false;
+        canClose = false;
+
+        LeanTween.cancel(gameObject);
+
+        LeanTween.scale(gameObject, Vector2.zero, 0.1f).setOnComplete(() =>
+        {
+            UIManager.CanCloseUI = true;
+            canClose = true;
+            UIManager.CloseMenu();
+        });
     }
 }

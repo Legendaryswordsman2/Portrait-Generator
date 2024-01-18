@@ -36,13 +36,33 @@ public class InfoMenuManager : MonoBehaviour, IUIClosed
     private void OnEnable()
     {
         background.SetActive(true);
+
+        //UIManager.OnBeforeUIClosed += UIManager_OnBeforeUIClosed;
     }
+
 
     private void OnDisable()
     {
         background.SetActive(false);
+
+        //UIManager.OnBeforeUIClosed -= UIManager_OnBeforeUIClosed;
     }
 
+    //private void UIManager_OnBeforeUIClosed(object sender, System.EventArgs e)
+    //{
+    //    if(canClose) return;
+
+    //    UIManager.CanCloseUI = false;
+
+    //    LeanTween.cancel(gameObject);
+
+    //    LeanTween.scale(gameObject, Vector2.zero, 0.1f).setOnComplete(() =>
+    //    {
+    //        canClose = true;
+    //        UIManager.CanCloseUI = true;
+    //        UIManager.CloseMenu();
+    //    });
+    //}
     public bool OnUIClosed()
     {
         if (canClose) return true;

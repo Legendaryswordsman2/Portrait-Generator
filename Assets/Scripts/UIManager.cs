@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
@@ -12,14 +13,13 @@ public static class UIManager
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static void Awake() => InputManager.playerInputActions.General.Back.performed += Back_performed;
 
+    public static bool CanCloseUI { get; set; } = true;
+
+    public static event EventHandler OnBeforeUIClosed;
+
     private static void Back_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        if (SavePortraitManager.SavingPortrait == true) return;
-
-        if (ActiveMenu == null)
-            Application.Quit();
-        else
-            CloseMenu();
+        CloseMenu();
     }
 
     public static bool OpenMenu(GameObject menuToOpen)
@@ -35,7 +35,13 @@ public static class UIManager
 
     public static bool CloseMenu()
     {
+        if (SavePortraitManager.SavingPortrait == true) return false;
+
         if (ActiveMenu == null) return false;
+
+        OnBeforeUIClosed?.Invoke(null, EventArgs.Empty);
+
+        if (!CanCloseUI) return false;
 
         if (ActiveSubMenus.Count == 0)
         {

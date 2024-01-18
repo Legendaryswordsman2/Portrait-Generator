@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LootLockerConfig
   m_EditorClassIdentifier: 
   apiKey: dev_af14cd16a46748b6b6fe759624ce6dda
-  token: f26e2daed48f01438b8972abd95b1ce28546fef9
+  token: 
   adminToken: 
   refreshToken: 
   domainKey: 
