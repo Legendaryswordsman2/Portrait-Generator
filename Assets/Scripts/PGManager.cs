@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -19,12 +20,14 @@ public class PGManager : MonoBehaviour
 
     PortraitPieceGrabber ppg;
 
-    public static bool finishedSetup { get; private set; } = false;
+    public static bool FinishedSetup { get; private set; } = false;
+
+    public const string SavedPortraitsFolderName = "Saved Portraits";
+    public static string SavedPortraitsDirectory {  get; private set; }
 
     private async void Awake()
     {
-        //var display = Display.displays[Camera.main.targetDisplay];
-        //Screen.SetResolution(display.systemWidth, display.systemHeight, true);
+        SavedPortraitsDirectory = Path.Combine(Application.persistentDataPath, SavedPortraitsFolderName);
 
         ppg = GetComponent<PortraitPieceGrabber>();
 
@@ -67,7 +70,7 @@ public class PGManager : MonoBehaviour
 
         }
 
-        finishedSetup = true;
+        FinishedSetup = true;
     }
 
     public void SetFirstTimeSetupMessage(bool isActive)

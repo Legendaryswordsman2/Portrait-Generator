@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -22,7 +23,7 @@ public class PortraitPieceMerger : MonoBehaviour
 
         ppg = GetComponent<PortraitPieceGrabber>();
 
-        await UniTask.WaitUntil(() => PGManager.finishedSetup == true);
+        await UniTask.WaitUntil(() => PGManager.FinishedSetup == true);
     }
     public async Task<Sprite> CombinePortraitPieces(PortraitSize size)
     {
@@ -31,16 +32,18 @@ public class PortraitPieceMerger : MonoBehaviour
         #region Filepath
         string filepath;
 
+        Path.Combine(Directory.GetCurrentDirectory(), "Portrait Pieces", "Portrait_Generator - 16x16");
+
         switch (size)
         {
             case PortraitSize.Sixteen:
-                filepath = Directory.GetCurrentDirectory() + "/Portrait Pieces/Portrait_Generator - 16x16/";
+                filepath = Path.Combine(Directory.GetCurrentDirectory(), "Portrait Pieces", "Portrait_Generator - 16x16");
                 break;
             case PortraitSize.Thirtytwo:
-                filepath = Directory.GetCurrentDirectory() + "/Portrait Pieces/Portrait_Generator - 32x32/";
+                filepath = Path.Combine(Directory.GetCurrentDirectory(), "Portrait Pieces", "Portrait_Generator - 32x32");
                 break;
             case PortraitSize.Fortyeight:
-                filepath = Directory.GetCurrentDirectory() + "/Portrait Pieces/Portrait_Generator - 48x48/";
+                filepath = Path.Combine(Directory.GetCurrentDirectory(), "Portrait Pieces", "Portrait_Generator - 48x48");
                 break;
             default:
                 Debug.LogError("File size provided is not a known size");
@@ -66,19 +69,21 @@ public class PortraitPieceMerger : MonoBehaviour
                 switch (i)
                 {
                     case 0:
-                        _filepath += "Skins/";
+                        _filepath = Path.Combine(filepath, "Skins");
                         break;
                     case 1:
-                        _filepath += "Hairstyles/";
+                        _filepath = Path.Combine(filepath, "Hairstyles");
                         break;
                     case 2:
-                        _filepath += "Eyes/";
+                        _filepath = Path.Combine(filepath, "Eyes");
                         break;
                     case 3:
-                        _filepath += "Accessories/";
+                        _filepath = Path.Combine(filepath, "Accessories");
                         break;
                 }
-                Texture2D texture2D = await ppg.GetImageAsTexture2D(_filepath + pgm.portraitPieces[i].activeSprite.name + ".png", pgm.portraitPieces[i].activeSprite.name, size);
+
+                string fileUrl = new Uri(Path.Combine(_filepath, pgm.portraitPieces[i].activeSprite.name + ".png")).AbsoluteUri;
+                Texture2D texture2D = await ppg.GetImageAsTexture2D(fileUrl, pgm.portraitPieces[i].activeSprite.name, size);
 
                 if (texture2D == null) return null;
                 portraitPiecesToBeCombined.Add(texture2D);

@@ -342,7 +342,7 @@ GameObject:
   - component: {fileID: 58938065}
   - component: {fileID: 58938064}
   m_Layer: 5
-  m_Name: My Other Work Button
+  m_Name: Overview Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -430,7 +430,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1764728898}
         m_TargetAssemblyTypeName: InfoMenuManager, Assembly-CSharp
-        m_MethodName: OpenMyOtherWorkPage
+        m_MethodName: OverviewPage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -944,7 +944,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7199625011197569799, guid: abbe1566cc2d2f840886f13648066887, type: 3}
       propertyPath: m_text
-      value: Eyes 1
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7199625011393217995, guid: abbe1566cc2d2f840886f13648066887, type: 3}
       propertyPath: m_Name
@@ -1671,7 +1671,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 1768710169, guid: 93f44137837dcc5428e7e23813234981, type: 3}
     m_PressedSprite: {fileID: 1768710169, guid: 93f44137837dcc5428e7e23813234981, type: 3}
-    m_SelectedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 1768710169, guid: 93f44137837dcc5428e7e23813234981, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -1979,7 +1979,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: 2a7b73c54022ef94ba53cf223ccf6c4a, type: 3}
     m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 21300000, guid: 2a7b73c54022ef94ba53cf223ccf6c4a, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -2709,7 +2709,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: 2a7b73c54022ef94ba53cf223ccf6c4a, type: 3}
     m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 21300000, guid: 2a7b73c54022ef94ba53cf223ccf6c4a, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -3213,7 +3213,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7199625011197569799, guid: abbe1566cc2d2f840886f13648066887, type: 3}
       propertyPath: m_text
-      value: Hairstyle 1
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7199625011393217995, guid: abbe1566cc2d2f840886f13648066887, type: 3}
       propertyPath: m_Name
@@ -5810,8 +5810,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 46.3
-  m_fontSizeBase: 46.3
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -8405,7 +8405,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: My Other Work
+  m_text: Overview
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: adf1a6cf58292f94e8cf930a05020407, type: 2}
   m_sharedMaterial: {fileID: -573558151868498788, guid: adf1a6cf58292f94e8cf930a05020407, type: 2}
@@ -8432,8 +8432,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 44
-  m_fontSizeBase: 44
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -9421,6 +9421,11 @@ CanvasRenderer:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8801620632226744806, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
   m_PrefabInstance: {fileID: 2120110471}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1454126799 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8801620632226744806, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
+  m_PrefabInstance: {fileID: 1451002738}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1479007640
 PrefabInstance:
@@ -12612,6 +12617,7 @@ MonoBehaviour:
   - {fileID: 1452894158}
   - {fileID: 1261877121}
   - {fileID: 824710178}
+  - {fileID: 1454126799}
   - {fileID: 906553413}
 --- !u!1 &2045158196
 GameObject:
@@ -13642,7 +13648,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 21300000, guid: 2a7b73c54022ef94ba53cf223ccf6c4a, type: 3}
     m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 21300000, guid: 2a7b73c54022ef94ba53cf223ccf6c4a, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -14547,7 +14553,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7199625011197569799, guid: abbe1566cc2d2f840886f13648066887, type: 3}
       propertyPath: m_text
-      value: Skin 1
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7199625011393217995, guid: abbe1566cc2d2f840886f13648066887, type: 3}
       propertyPath: m_Name

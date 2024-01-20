@@ -72,13 +72,10 @@ public class SavePortraitManager : MonoBehaviour
 
     public void OpenSavedPortraitsFileLocation()
     {
-        if (Directory.Exists(Directory.GetCurrentDirectory() + "/Saved Portraits"))
-        {
-            //Debug.Log("Opened file explorer to 'saved portraits' folder");
-            Application.OpenURL(Directory.GetCurrentDirectory() + "/Saved Portraits");
-        }
-        else
-            Debug.LogWarning("Cannot open file explorer to 'saved portraits' folder because that folder does not exist");
+        if (!Directory.Exists(PGManager.SavedPortraitsDirectory))
+            Directory.CreateDirectory(PGManager.SavedPortraitsDirectory);
+
+        Application.OpenURL(PGManager.SavedPortraitsDirectory);
     }
 
     public async void SavePortrait()
@@ -122,13 +119,13 @@ public class SavePortraitManager : MonoBehaviour
     {
         byte[] bytes = finalSprite.texture.EncodeToPNG();
 
-        if (!Directory.Exists(Directory.GetCurrentDirectory() + "/Saved Portraits"))
-            Directory.CreateDirectory(Directory.GetCurrentDirectory() + "/Saved Portraits");
+        if (!Directory.Exists(PGManager.SavedPortraitsDirectory))
+            Directory.CreateDirectory(PGManager.SavedPortraitsDirectory);
 
         if (fileNameInputField.text == "")
             fileNameInputField.text = "Unnamed Portrait";
 
-        File.WriteAllBytes(Directory.GetCurrentDirectory() + "/Saved Portraits/" + fileNameInputField.text + ".png", bytes);
+        File.WriteAllBytes(Path.Combine(PGManager.SavedPortraitsDirectory, fileNameInputField.text + ".png"), bytes);
 
         if (PlayerAuthentication.LoggedIn)
         {

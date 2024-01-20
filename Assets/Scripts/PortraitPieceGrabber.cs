@@ -47,21 +47,10 @@ public class PortraitPieceGrabber : MonoBehaviour
 
         pgManager.SetFirstTimeSetupMessage(true);
 
-        //tasks = new List<Task>
-        //{
-        //    GetPortraitPiecesForDisplay(PortraitPieceType.Skin),
-        //    GetPortraitPiecesForDisplay(PortraitPieceType.Hairstyle),
-        //    GetPortraitPiecesForDisplay(PortraitPieceType.Eyes),
-        //    GetPortraitPiecesForDisplay(PortraitPieceType.Accessory)
-        //};
-
         await GetPortraitPiecesForDisplay(PortraitPieceType.Skin);
         await GetPortraitPiecesForDisplay(PortraitPieceType.Hairstyle);
         await GetPortraitPiecesForDisplay(PortraitPieceType.Eyes);
         await GetPortraitPiecesForDisplay(PortraitPieceType.Accessory);
-
-        // Wait for all portrait pieces to be added
-        //await Task.WhenAll(tasks);
 
         pgManager.SetFirstTimeSetupMessage(false);
 
@@ -73,7 +62,7 @@ public class PortraitPieceGrabber : MonoBehaviour
 
     bool PerformErrorChecks()
     {
-        if (!Directory.Exists(Directory.GetCurrentDirectory() + "/Portrait Pieces"))
+        if (!Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "Portrait Pieces")))
         {
             Debug.Log("Directory does not exist");
             SetupManager.Instance.DisplayError(ErrorType.MissingPortraitPiecesFolder);
@@ -88,16 +77,16 @@ public class PortraitPieceGrabber : MonoBehaviour
         switch (type)
         {
             case PortraitPieceType.Skin:
-                filepath = Directory.GetCurrentDirectory() + "/Portrait Pieces/Portrait_Generator - 16x16/Skins";
+                filepath = Path.Combine(Directory.GetCurrentDirectory(), "Portrait Pieces", "Portrait_Generator - 16x16", "Skins");
                 break;
             case PortraitPieceType.Hairstyle:
-                filepath = Directory.GetCurrentDirectory() + "/Portrait Pieces/Portrait_Generator - 16x16/Hairstyles";
+                filepath = Path.Combine(Directory.GetCurrentDirectory(), "Portrait Pieces", "Portrait_Generator - 16x16", "Hairstyles");
                 break;
             case PortraitPieceType.Eyes:
-                filepath = Directory.GetCurrentDirectory() + "/Portrait Pieces/Portrait_Generator - 16x16/Eyes";
+                filepath = Path.Combine(Directory.GetCurrentDirectory(), "Portrait Pieces", "Portrait_Generator - 16x16", "Eyes");
                 break;
             case PortraitPieceType.Accessory:
-                filepath = Directory.GetCurrentDirectory() + "/Portrait Pieces/Portrait_Generator - 16x16/Accessories";
+                filepath = Path.Combine(Directory.GetCurrentDirectory(), "Portrait Pieces", "Portrait_Generator - 16x16", "Accessories");
                 break;
         }
 
@@ -114,7 +103,8 @@ public class PortraitPieceGrabber : MonoBehaviour
         {
             // file.FullName is the full path to the file
 
-            Sprite sprite = await GetImage(file.FullName, Path.GetFileNameWithoutExtension(file.Name), file.Extension, PortraitSize.Sixteen);
+            string fileUrl = new Uri(file.FullName).AbsoluteUri;
+            Sprite sprite = await GetImage(fileUrl, Path.GetFileNameWithoutExtension(file.Name), file.Extension, PortraitSize.Sixteen);
             if (sprite == null) continue;
             pgManager.AddPortraitPiece(sprite, type);
         }
@@ -122,115 +112,113 @@ public class PortraitPieceGrabber : MonoBehaviour
 
     public async Task<Sprite> GetImage(string filepath, string fileName, string extenion, PortraitSize size)
     {
-        using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(filepath))
+        using UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(filepath);
+
+        await uwr.SendWebRequest();
+
+        if (uwr.result != UnityWebRequest.Result.Success)
         {
-            await uwr.SendWebRequest();
+            Debug.LogError(uwr.error);
+            return null;
+        }
+        else
+        {
+            // Get downloaded asset bundle
+            Texture2D texture = DownloadHandlerTexture.GetContent(uwr);
 
-            if (uwr.result != UnityWebRequest.Result.Success)
+            switch (size)
             {
-                Debug.LogError(uwr.error);
-                return null;
+                case PortraitSize.Sixteen:
+                    if (texture.width != sixteenXSixsteenImageSize.width || texture.height != sixteenXSixsteenImageSize.height)
+                    {
+                        Debug.LogWarning("IncorrectSizeException: Tried to get image of size 16x16 (Image name: " + fileName + ") but it's size is incorrect (" + texture.width + " | " + texture.height + ")");
+                        return null;
+                    }
+                    break;
+                case PortraitSize.Thirtytwo:
+                    if (texture.width != thirtyTwoXThirtyTwoImageSize.width || texture.height != thirtyTwoXThirtyTwoImageSize.height)
+                    {
+                        Debug.LogWarning("IncorrectSizeException: Tried to get image of size 32x32 (Image name: " + fileName + ") but it's size is incorrect");
+                        return null;
+                    }
+                    break;
+                case PortraitSize.Fortyeight:
+                    if (texture.width != fortyEightXFortyEightImageSize.width || texture.height != fortyEightXFortyEightImageSize.height)
+                    {
+                        Debug.LogWarning("IncorrectSizeException: Tried to get image of size 48x48 (Image name: " + fileName + ") but it's size is incorrect");
+                        return null;
+                    }
+                    break;
             }
-            else
-            {
-                // Get downloaded asset bundle
-                Texture2D texture = DownloadHandlerTexture.GetContent(uwr);
 
-                switch (size)
-                {
-                    case PortraitSize.Sixteen:
-                        if (texture.width != sixteenXSixsteenImageSize.width || texture.height != sixteenXSixsteenImageSize.height)
-                        {
-                            Debug.LogWarning("IncorrectSizeException: Tried to get image of size 16x16 (Image name: " + fileName + ") but it's size is incorrect (" + texture.width + " | " + texture.height + ")");
-                            return null;
-                        }
-                        break;
-                    case PortraitSize.Thirtytwo:
-                        if (texture.width != thirtyTwoXThirtyTwoImageSize.width || texture.height != thirtyTwoXThirtyTwoImageSize.height)
-                        {
-                            Debug.LogWarning("IncorrectSizeException: Tried to get image of size 32x32 (Image name: " + fileName + ") but it's size is incorrect");
-                            return null;
-                        }
-                        break;
-                    case PortraitSize.Fortyeight:
-                        if (texture.width != fortyEightXFortyEightImageSize.width || texture.height != fortyEightXFortyEightImageSize.height)
-                        {
-                            Debug.LogWarning("IncorrectSizeException: Tried to get image of size 48x48 (Image name: " + fileName + ") but it's size is incorrect");
-                            return null;
-                        }
-                        break;
-                }
+            Sprite sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 16f);
 
-                Sprite sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 16f);
+            sprite.name = fileName;
+            sprite.texture.name = fileName;
+            sprite.texture.filterMode = FilterMode.Point;
 
-                sprite.name = fileName;
-                sprite.texture.name = fileName;
-                sprite.texture.filterMode = FilterMode.Point;
+            loadedSpritesFromBatch++;
 
-                loadedSpritesFromBatch++;
+            OnNewSpriteLoaded?.Invoke(this, new OnNewSpriteLoadedEventArgs(sprite, extenion));
 
-                OnNewSpriteLoaded?.Invoke(this, new OnNewSpriteLoadedEventArgs(sprite, extenion));
-
-                return sprite;
-            }
+            return sprite;
         }
     }
 
     public async Task<Texture2D> GetImageAsTexture2D(string filepath, string fileName, PortraitSize size)
     {
-        if (!File.Exists(filepath))
+        if (!File.Exists(Uri.UnescapeDataString(new Uri(filepath).LocalPath)))
         {
             Debug.LogWarning("Failed to get sprite: " + fileName);
             LastFailedToGetSpriteName = fileName;
             return null;
         }
 
-        using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(filepath))
+        using UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(filepath);
+
+        await uwr.SendWebRequest();
+
+        if (uwr.result != UnityWebRequest.Result.Success)
         {
-            await uwr.SendWebRequest();
+            Debug.LogError(uwr.error);
+            return null;
+        }
+        else
+        {
+            // Get downloaded asset bundle
+            Texture2D texture = DownloadHandlerTexture.GetContent(uwr);
 
-            if (uwr.result != UnityWebRequest.Result.Success)
+            switch (size)
             {
-                Debug.LogError(uwr.error);
-                return null;
+                case PortraitSize.Sixteen:
+                    if (texture.width != sixteenXSixsteenImageSize.width || texture.height != sixteenXSixsteenImageSize.height)
+                    {
+                        Debug.LogWarning("IncorrectSizeException: Tried to get image of size 16x16 (Image name: " + fileName + ") but it's size is incorrect (" + texture.width + " | " + texture.height + ")");
+                        return null;
+                    }
+                    break;
+                case PortraitSize.Thirtytwo:
+                    if (texture.width != thirtyTwoXThirtyTwoImageSize.width || texture.height != thirtyTwoXThirtyTwoImageSize.height)
+                    {
+                        Debug.LogWarning("IncorrectSizeException: Tried to get image of size 32x32 (Image name: " + fileName + ") but it's size is incorrect");
+                        return null;
+                    }
+                    break;
+                case PortraitSize.Fortyeight:
+                    if (texture.width != fortyEightXFortyEightImageSize.width || texture.height != fortyEightXFortyEightImageSize.height)
+                    {
+                        Debug.LogWarning("IncorrectSizeException: Tried to get image of size 48x48 (Image name: " + fileName + ") but it's size is incorrect");
+                        return null;
+                    }
+                    break;
             }
-            else
-            {
-                // Get downloaded asset bundle
-                Texture2D texture = DownloadHandlerTexture.GetContent(uwr);
 
-                switch (size)
-                {
-                    case PortraitSize.Sixteen:
-                        if (texture.width != sixteenXSixsteenImageSize.width || texture.height != sixteenXSixsteenImageSize.height)
-                        {
-                            Debug.LogWarning("IncorrectSizeException: Tried to get image of size 16x16 (Image name: " + fileName + ") but it's size is incorrect (" + texture.width + " | " + texture.height + ")");
-                            return null;
-                        }
-                        break;
-                    case PortraitSize.Thirtytwo:
-                        if (texture.width != thirtyTwoXThirtyTwoImageSize.width || texture.height != thirtyTwoXThirtyTwoImageSize.height)
-                        {
-                            Debug.LogWarning("IncorrectSizeException: Tried to get image of size 32x32 (Image name: " + fileName + ") but it's size is incorrect");
-                            return null;
-                        }
-                        break;
-                    case PortraitSize.Fortyeight:
-                        if (texture.width != fortyEightXFortyEightImageSize.width || texture.height != fortyEightXFortyEightImageSize.height)
-                        {
-                            Debug.LogWarning("IncorrectSizeException: Tried to get image of size 48x48 (Image name: " + fileName + ") but it's size is incorrect");
-                            return null;
-                        }
-                        break;
-                }
+            texture.name = fileName;
+            texture.filterMode = FilterMode.Point;
 
-                texture.name = fileName;
-                texture.filterMode = FilterMode.Point;
+            //Debug.Log(texture.name);
 
-                //Debug.Log(texture.name);
-
-                return texture;
-            }
+            return texture;
         }
     }
 

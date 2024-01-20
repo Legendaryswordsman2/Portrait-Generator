@@ -27,7 +27,7 @@ public class StatsSubmenuManager : MonoBehaviour
 
     private async void OnEnable()
     {
-        await UniTask.WaitUntil(() => PGManager.finishedSetup == true);
+        await UniTask.WaitUntil(() => PGManager.FinishedSetup == true);
         if (!PlayerAuthentication.LoggedIn)
         {
             personalStats.text = personalStatsText + "Unavailable";

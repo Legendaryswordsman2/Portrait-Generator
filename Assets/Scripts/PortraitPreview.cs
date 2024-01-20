@@ -16,7 +16,7 @@ public class PortraitPreview : MonoBehaviour
 
         ppm = GetComponent<PortraitPieceMerger>();
 
-        await UniTask.WaitUntil(() => PGManager.finishedSetup == true);
+        await UniTask.WaitUntil(() => PGManager.FinishedSetup == true);
 
         Pgm_OnDropdownChanged(this, null);
 
