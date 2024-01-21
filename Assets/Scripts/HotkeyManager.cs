@@ -25,13 +25,13 @@ public class HotkeyManager : MonoBehaviour
 
     private void RandomizePortrait_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        if(UIManager.ActiveMenu == null)
-        randomizeButtonManager.RandomizePortrait();
+        if (UIManager.ActiveMenu == null)
+            randomizeButtonManager.RandomizePortrait();
     }
 
     private void SavePopup_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
-        if(UIManager.ActiveMenu == null)
+        if (UIManager.ActiveMenu == null)
             savePortraitManager.OpenSavePortraitMenu();
     }
 
@@ -39,7 +39,7 @@ public class HotkeyManager : MonoBehaviour
     {
         if (UIManager.ActiveMenu == null)
             infoMenuManager.OpenInfoMenu();
-        else
+        else if (UIManager.ActiveMenu == infoMenuManager.gameObject)
             UIManager.CloseMenu();
     }
 

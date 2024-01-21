@@ -2119,7 +2119,7 @@ PrefabInstance:
       objectReference: {fileID: -3041312605146793814, guid: d48c442ac2c0a92499d19fe7b5740d5f, type: 2}
     - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
       propertyPath: m_HorizontalAlignment
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3573180890907914701, guid: 9d09db3a0b270c040916ee3493747fff, type: 3}
       propertyPath: m_hasFontAssetChanged
@@ -6107,8 +6107,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: File name...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e8c9e41e987e8a849ac0e28a5dd4b55c, type: 2}
-  m_sharedMaterial: {fileID: -573558151868498788, guid: e8c9e41e987e8a849ac0e28a5dd4b55c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d48c442ac2c0a92499d19fe7b5740d5f, type: 2}
+  m_sharedMaterial: {fileID: -3041312605146793814, guid: d48c442ac2c0a92499d19fe7b5740d5f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -12174,7 +12174,7 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_RichText: 1
-  m_GlobalFontAsset: {fileID: 11400000, guid: e8c9e41e987e8a849ac0e28a5dd4b55c, type: 2}
+  m_GlobalFontAsset: {fileID: 11400000, guid: d48c442ac2c0a92499d19fe7b5740d5f, type: 2}
   m_OnFocusSelectAll: 1
   m_ResetOnDeActivation: 1
   m_RestoreOriginalTextOnEscape: 1
@@ -12916,8 +12916,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e8c9e41e987e8a849ac0e28a5dd4b55c, type: 2}
-  m_sharedMaterial: {fileID: -573558151868498788, guid: e8c9e41e987e8a849ac0e28a5dd4b55c, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d48c442ac2c0a92499d19fe7b5740d5f, type: 2}
+  m_sharedMaterial: {fileID: -3041312605146793814, guid: d48c442ac2c0a92499d19fe7b5740d5f, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
