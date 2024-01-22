@@ -27,5 +27,13 @@
 #### -The “My Other Work” button takes you to my Itch.io page where you can see all my other projects.
 #### -The Saved Portraits button takes you to the folder where your portraits are saved after creating them.
 
+### –Hotkeys–
+#### In version 1.5.0 hotkeys were added to make navigating the Portrait Generator easier.
+#### Hotkeys include the following:
+
+#### - Open Save popup: "S"
+#### - Open Info Popup: "I"
+#### - Randomize Portrait: "R"
+
 ### –Need More Help?--
 #### If you’re still confused about something or need clarification feel free to join the official LimeZu Community Server and ask me (@LegendarySwordsman2#7777) any questions you may have. https://discord.com/invite/2wB3RuAESb
